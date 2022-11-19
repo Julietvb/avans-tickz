@@ -1,1 +1,22 @@
-<p>detail works!</p>
+<table class="table">
+  <thead>
+    <tr>
+      <th>First</th>
+      <th>Last</th>
+      <th>Email</th>
+      <th>Date of birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ currentUser?.firstName }}</td>
+      <td>{{ currentUser?.lastName }}</td>
+      <td>{{ currentUser?.emailAdres }}</td>
+      <td>
+        {{
+          (currentUser?.birthDate ?? 'null').toLocaleString().substring(0, 9)
+        }}
+      </td>
+    </tr>
+  </tbody>
+</table>

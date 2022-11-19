@@ -9,6 +9,7 @@ import { UserComponent } from './pages/entity/user/user.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { DetailComponent } from './pages/entity/user/detail/detail.component';
 import { ConcertComponent } from './pages/entity/concert/concert.component';
+import { EditComponent } from './pages/entity/user/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ConcertComponent } from './pages/entity/concert/concert.component';
     NavComponent,
     DetailComponent,
     ConcertComponent,
+    EditComponent,
   ],
   imports: [BrowserModule, RoutingModule, NgbModule],
   providers: [],

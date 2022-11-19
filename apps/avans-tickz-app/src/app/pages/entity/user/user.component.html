@@ -1,5 +1,5 @@
 <div>
-  <p>user works!</p>
+  <h3>All users</h3>
   <table class="table">
     <thead>
       <tr>
@@ -8,6 +8,7 @@
         <th>Last</th>
         <th>Email</th>
         <th>Date of birth</th>
+        <th>Manage </th>
       </tr>
     </thead>
     <tbody>
@@ -18,8 +19,12 @@
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.emailAdres }}</td>
-        <td>{{ user.birthDate.toDateString() }}</td>
+        <td>{{ user.birthDate.toLocaleDateString() }}</td>
+        <td>  <button type="submit" class="btn btn-primary" routerLink="{{user.userId}}/edit"> 
+          Edit user
+        </button></td>
       </tr>
     </tbody>
   </table>
+
 </div>

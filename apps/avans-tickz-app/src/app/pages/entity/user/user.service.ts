@@ -37,30 +37,6 @@ export class UserService {
       emailAdres: 'janjansen@gmail.com',
       password: 'password',
     },
-    {
-      userId: 4,
-      firstName: 'Robin',
-      lastName: 'Schellius',
-      birthDate: new Date(1-2-2003),
-      emailAdres: 'r.schellius@gmail.com',
-      password: 'password',
-    },
-    {
-      userId: 5,
-      firstName: 'Davide',
-      lastName: 'Ambesi',
-      birthDate: new Date(2-3-2004),
-      emailAdres: 'd.ambesi@gmail.com',
-      password: 'password',
-    },
-    {
-      userId: 6,
-      firstName: 'Marcel',
-      lastName: 'de Groot',
-      birthDate: new Date(9-10-2011),
-      emailAdres: 'mg.degroot@gmail.com',
-      password: 'password',
-    },
   ];
 
   userId: number = this.userList.length;
@@ -73,10 +49,10 @@ export class UserService {
     return of(this.userList);
   }
 
-  getUserById(id: number): Observable<User> {
+  getUserById(id: number): User {
     console.log('User getById aangeroepen');
     console.log(`User met ID ${id} gezocht`);
-    return of(this.userList.filter((item) => item.userId === id)[0]);
+    return (this.userList.filter((item) => item.userId === id)[0]);
   }
 
   createUser(user: User): Observable<any> {
