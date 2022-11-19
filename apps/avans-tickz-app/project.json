@@ -21,6 +21,7 @@
           "apps/avans-tickz-app/src/assets"
         ],
         "styles": [
+          "node_modules/bootstrap/dist/css/bootstrap.min.css",
           "apps/avans-tickz-app/src/styles.css"
         ],
         "scripts": []

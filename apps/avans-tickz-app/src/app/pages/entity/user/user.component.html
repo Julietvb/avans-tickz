@@ -1,0 +1,25 @@
+<div>
+  <p>user works!</p>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users | async">
+        <th>
+          <a routerLink="{{ user.userId }}">{{ user.userId }}</a>
+        </th>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.emailAdres }}</td>
+        <td>{{ user.birthDate.toDateString() }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
