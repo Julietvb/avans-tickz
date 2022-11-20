@@ -1,12 +1,37 @@
 <div *ngIf="user">
-  <p>edit works!</p>
   <div>
-      <input
-        id="user firstName"
-        type="text"
-        placeholder="firstName"
-        [(ngModel)]="user.firstName"
-      />
-      <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete user</button>
+    <input
+      id="user firstName"
+      type="text"
+      placeholder="firstName"
+      [(ngModel)]="user.firstName"
+    />
+    <input
+      id="user lastName"
+      type="text"
+      placeholder="lastName"
+      [(ngModel)]="user.lastName"
+    />
+    <input
+      id="user email"
+      type="text"
+      placeholder="email"
+      [(ngModel)]="user.emailAdres"
+    />
+    <input
+      id="user birthDate"
+      type="date"
+      placeholder="birthDate"
+      [(ngModel)]="user.birthDate"
+    />
+    <input
+      id="user password"
+      type="text"
+      placeholder="password"
+      [(ngModel)]="user.password"
+    />
+    <button type="button" class="btn btn-danger" (click)="deleteUser()">
+      Delete user
+    </button>
   </div>
 </div>
