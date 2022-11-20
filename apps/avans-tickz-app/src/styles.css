@@ -12,7 +12,3 @@
 .table > tbody> tr > th > a{
     color: rgba(245, 87, 108, 1);
 }
-
-body{
-    overflow-x: hidden;
-}

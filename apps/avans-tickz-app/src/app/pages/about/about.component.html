@@ -1,283 +1,285 @@
-<div class="row">
-  <div class="col-sm-6 col-md-8 col-lg-9">
-    <h3 id="aboutTitle">Over deze applicatie</h3>
-    <p>
-      Deze applicatie is gemaakt in het kader van het vak 'Clientside web
-      frameworks' van Avans Hogeschool Breda.
-    </p>
-    <h1>Naam van jouw project</h1>
-    <p>
-      Hier beschrijft je wat je project inhoudt. Beschrijf ook de
-      entiteiten/domeinobjecten die je gebruikt, en benoem per entiteit de
-      attributen met hun datatype.
-    </p>
-  </div>
-  <div class="col-sm-6 col-md-4 col-lg-3">
-    <div class="card">
-      <div class="d-flex justify-content-center align-items-center px-3 py-3">
-        <!-- Je mag een foto van jezelf toevoegen, maar dat is niet verplicht. -->
-        <img
-          src="assets/images/person.png"
-          class="card-img-top rounded-circle border profile-pic px-4 py-4"
-          alt="..."
-        />
-      </div>
-      <div class="card-body">
-        <h5 class="card-title">Jouw naam hier</h5>
-        <p class="card-text">Studentnummer: 12345678</p>
+<div class="container mt-2">
+  <div class="row">
+    <div class="col-sm-6 col-md-8 col-lg-9">
+      <h3 id="aboutTitle">Over deze applicatie</h3>
+      <p>
+        Deze applicatie is gemaakt in het kader van het vak 'Clientside web
+        frameworks' van Avans Hogeschool Breda.
+      </p>
+      <h1>AvansTickz</h1>
+      <p>
+        Iedereen houdt van muziek. Of je nou mee rockt op keiharde heavy metal
+        of meezwijmelt op de klassieke ballads, muziek is voor iedereen. Deze
+        artiesten houden ook vaak concerten. Deze applicatie is gemaakt om
+        tickets te kopen voor een concert van jou favoriete artiesten.
+      </p>
+      <p>
+        Deze applicatie geeft ook de mogelijkheid om jouw favoriete artiesten
+        een like te geven en vergelijkbare artiesten te vinden. Ook kan je er
+        achter komen welke vrienden dezelfde muzieksmaak hebben door ze te
+        volgen en te bekijken welke artiesten zij geliket hebben.
+      </p>
+    </div>
+    <div class="col-sm-6 col-md-4 col-lg-3">
+      <div class="card">
+        <div class="d-flex justify-content-center align-items-center px-3 py-3">
+          <img
+            src="assets/images/usericon.webp"
+            class="card-img-top profile-pic px-4 py-4 w-100"
+            alt="..."
+          />
+        </div>
+        <div class="card-body">
+          <h5 class="card-title">Juliet van Bezooijen</h5>
+          <p class="card-text">Studentnummer: 2183903</p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<h3>Entiteiten</h3>
-<p>
-  Hier geef je een toelichting op je entiteiten. Voeg ook een afbeelding van je
-  model toe zoals dat bij NoSql gevraagd wordt.
-</p>
+  <h3>Entiteiten</h3>
 
-<img src="assets/images/erd.png" class="px-5 py-5" alt="..." />
+  <img src="assets/images/erd.png" class="px-5 py-5" alt="..." />
 
-<div class="row">
-  <div class="col-sm-12 col-md-4">
-    <p>Entiteit 1</p>
-    <ul>
-      <li>naam: string</li>
-      <li>id: number</li>
-      <li>birthdate: date</li>
-      <li>isSelected: boolean</li>
-    </ul>
+  <div class="row g-4 about-entity-card-group">
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">User</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Id: number</li>
+          <li class="list-group-item">FirstName: string</li>
+          <li class="list-group-item">LastNames: string</li>
+          <li class="list-group-item">BirthDate: date</li>
+          <li class="list-group-item">Email: string</li>
+          <li class="list-group-item">Password: string</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Concert</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Id: number</li>
+          <li class="list-group-item">Date: Date</li>
+          <li class="list-group-item">Time: string</li>
+          <li class="list-group-item">Adres: string</li>
+          <li class="list-group-item">City: string</li>
+          <li class="list-group-item">Capacity: number</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Artist</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Id: number</li>
+          <li class="list-group-item">Name: string</li>
+          <li class="list-group-item">Genre: string</li>
+          <li class="list-group-item">Description: string</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Ticket</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Id: number</li>
+          <li class="list-group-item">Price: number</li>
+          <li class="list-group-item">Type: string</li>
+          <li class="list-group-item">Concert: Concert</li>
+        </ul>
+      </div>
+    </div>
   </div>
-  <div class="col-sm-12 col-md-4">
-    <p>Entiteit 2</p>
-    <ul>
-      <li>naam: string</li>
-      <li>id: number</li>
-      <li>birthdate: date</li>
-      <li>isSelected: boolean</li>
-    </ul>
-  </div>
-  <div class="col-sm-12 col-md-4">
-    <p>Entiteit 3</p>
-    <ul>
-      <li>naam: string</li>
-      <li>id: number</li>
-      <li>birthdate: date</li>
-      <li>isSelected: boolean</li>
-    </ul>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <h3>Userstories</h3>
-    <p>
-      Hier verwoord je in de vorm van userstories de functionaliteit van jouw
-      applicatie.
-    </p>
-
-    <table class="table table-bordered">
-      <thead>
-        <th>Nr</th>
-        <th class="col-6">Userstory</th>
-        <th>Evt toelichting</th>
-      </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>
-            Als gebruiker wil ik kunnen inloggen zodat ik toegang krijg tot mijn
-            account.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>
-            Als gebruiker wil ik kunnen registreren zodat ik een account kan
-            aanmaken.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>
-            Als gebruiker wil ik kunnen uitloggen zodat ik mijn account kan
-            verlaten.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>5</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>6</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>7</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>8</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>9</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>10</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-
-        <tr>
-          <td>11</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-          <td>12</td>
-          <td>
-            Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-            overzicht heb van mijn informatie.
-          </td>
-          <td></td>
-        </tr>
-        <tr>
-            <td>13</td>
+  <div class="row">
+    <div class="col mt-3">
+      <h3>Userstories</h3>
+      <table class="table table-bordered">
+        <thead>
+          <th>Nr</th>
+          <th class="col-6">Userstory</th>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>
+              Als gebruiker wil ik kunnen inloggen zodat ik toegang krijg tot
+              mijn account.
+            </td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>
+              Als gebruiker wil ik kunnen registreren zodat ik een account kan
+              aanmaken.
+            </td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>
+              Als gebruiker wil ik kunnen uitloggen zodat ik mijn account kan
+              verlaten.
+            </td>
+          </tr>
+          <tr>
+            <td>4</td>
             <td>
               Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
               overzicht heb van mijn informatie.
             </td>
-            <td></td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>
+              Als gebruiker wil ik mijn informatie kunnen bewerken zodat ik mijn
+              informatie kan updaten als er iets veranderd.
+            </td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>
+              Als gebruiker wil ik andere gebruikers kunnen volgen zodat ik hun
+              favoriete artiesten kan bekijken.
+            </td>
+          </tr>
+          <tr>
+            <td>7</td>
+            <td>
+              Als gebruiker wil ik aanbevelingen zien van artiesten die ik
+              misschien leuk vind.
+            </td>
+          </tr>
+          <tr>
+            <td>8</td>
+            <td>
+              Als gebruiker wil ik mijn account willen verwijderen zodat er geen
+              informatie meer over mij opgeslagen is.
+            </td>
+          </tr>
+          <tr>
+            <td>9</td>
+            <td>
+              Als gebruiker wil ik andere gebruikers kunnen volgen zodat ik hun
+              gelikete artiesten kan bekijken
+            </td>
+          </tr>
+          <tr>
+            <td>10</td>
+            <td>
+              Als gebruiker wil ik andere gebruikers op kunnen zoeken zodat ik
+              deze gebruiker kan volgen.
+            </td>
+          </tr>
+
+          <tr>
+            <td>11</td>
+            <td>Als gebruiker wil ik artiesten een like kunnen geven.</td>
+          </tr>
+          <tr>
+            <td>12</td>
+            <td>
+              Als gebruiker wil ik een artiest op kunnen zoeken zodat ik
+              informatie over deze artiest kan bekijken.
+            </td>
+          </tr>
+          <tr>
+            <td>13</td>
+            <td>
+              Als gebruiker wil ik vergelijkbare artiesten kunnen zien op een
+              detail pagina van een artiest zodat ik mijn interesses kan
+              uitbreiden
+            </td>
           </tr>
           <tr>
             <td>14</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik een overzicht zien van alle artiesten zodat
+              ik artiesten kan verkennen.
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>15</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik concerten kunnen bekijken en alle
+              bijbehorende details.
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>16</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik op een artiest kunnen klikken zodat ik de
+              details kan bekijken.
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>17</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik een concert aan kunnen maken zodat mensen
+              daar tickets voor kunnen kopen.
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>18</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik een concert bewerken zodat de informatie
+              geüpdatet word wanneer er dingen veranderen.
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>19</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik een concert kunnen verwijderen zodat het
+              geannuleerd word en verwijderd wordt uit de database
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>20</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik een overzicht zien van alle aankomende
+              concerten zodat ik kan kijken naar welke concerten ik heen wil.
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>21</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik kunnen zien hoeveel tickets er nog
+              beschikbaar zijn voor het concert zodat ik kan zien of ik nog
+              tickets kan kopen.
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>22</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik een ticket voor een bepaald concert kunnen
+              kopen zodat ik toegang kan krijgen tot het concert
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>23</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik een overzicht kunnen zien van mijn gekochte
+              tickets zodat ik een duidelijk overzicht heb van al mijn gekochte
+              tickets.
             </td>
-            <td></td>
           </tr>
           <tr>
             <td>24</td>
             <td>
-              Als gebruiker wil ik mijn profiel kunnen bekijken zodat ik een
-              overzicht heb van mijn informatie.
+              Als gebruiker wil ik statistieken kunnen inzien over mijn gekochte
+              tickets zodat ik mijn tickets makkelijk kan beheren.
             </td>
-            <td></td>
           </tr>
-
-      </tbody>
-    </table>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>
