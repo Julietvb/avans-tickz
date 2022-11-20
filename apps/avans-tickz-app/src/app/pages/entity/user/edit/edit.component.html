@@ -1,36 +1,49 @@
-<div *ngIf="user">
-  <div>
+<div *ngIf="user" class="userInformation" align="center">
+  <div class="mt-2">
     <input
       id="user firstName"
       type="text"
       placeholder="firstName"
       [(ngModel)]="user.firstName"
     />
+  </div>
+  <div class="mt-2">
     <input
       id="user lastName"
       type="text"
       placeholder="lastName"
       [(ngModel)]="user.lastName"
     />
+  </div>
+  <div class="mt-2">
     <input
       id="user email"
       type="text"
       placeholder="email"
       [(ngModel)]="user.emailAdres"
     />
+  </div>
+  <div class="mt-2">
     <input
       id="user birthDate"
       type="date"
       placeholder="birthDate"
       [(ngModel)]="user.birthDate"
     />
+  </div>
+  <div class="mt-2">
     <input
       id="user password"
       type="text"
       placeholder="password"
       [(ngModel)]="user.password"
     />
-    <button type="button" class="btn btn-danger" (click)="deleteUser()">
+  </div>
+  <div class="row w-25">
+    <button type="button" class="btn mt-2 col" routerLink="/users">
+      Edit user
+    </button>
+    <button type="button" class="btn mt-2 deleteButton col" (click)="deleteUser()">
       Delete user
     </button>
   </div>
