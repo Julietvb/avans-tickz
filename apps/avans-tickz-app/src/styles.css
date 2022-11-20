@@ -1,5 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+.btn{
+    background-color: rgba(245, 87, 108, 1);
+    color: white;
+    font-weight: bold;
+}
+
+.table{
+    background-color: white;
+    border-radius: 5px;
+}
+
+.table > tbody> tr > th > a{
+    color: rgba(245, 87, 108, 1);
+}
+
 body{
-    margin: 15px;
-    margin-top:auto;
+    overflow-x: hidden;
 }

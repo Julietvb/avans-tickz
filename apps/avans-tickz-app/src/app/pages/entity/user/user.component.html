@@ -11,14 +11,14 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users" >
+      <tr *ngFor="let user of users" routerLink="{{ user.userId }}">
         <th>
           <a routerLink="{{ user.userId }}">{{ user.userId }}</a>
         </th>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.emailAdres }}</td>
-        <td>  <button type="submit" class="btn btn-primary" routerLink="{{user.userId}}/edit"> 
+        <td>  <button type="submit" class="btn" routerLink="{{user.userId}}/edit"> 
           Edit user
         </button></td>
       </tr>

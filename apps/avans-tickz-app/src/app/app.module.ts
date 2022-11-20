@@ -14,6 +14,7 @@ import { EditComponent } from './pages/entity/user/edit/edit.component';
 import { HomeComponent } from './pages/home/home.component';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './pages/register/register.component';
+import { AboutComponent } from './pages/about/about.component';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { RegisterComponent } from './pages/register/register.component';
     EditComponent,
     HomeComponent,
     RegisterComponent,
+    AboutComponent,
   ],
   imports: [BrowserModule, RoutingModule, NgbModule, FormsModule],
   providers: [DatePipe],
