@@ -7,19 +7,17 @@
         <th>First</th>
         <th>Last</th>
         <th>Email</th>
-        <th>Date of birth</th>
         <th>Manage </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users | async">
+      <tr *ngFor="let user of users" >
         <th>
           <a routerLink="{{ user.userId }}">{{ user.userId }}</a>
         </th>
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.emailAdres }}</td>
-        <td>{{ user.birthDate.toLocaleDateString() }}</td>
         <td>  <button type="submit" class="btn btn-primary" routerLink="{{user.userId}}/edit"> 
           Edit user
         </button></td>

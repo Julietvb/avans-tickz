@@ -7,14 +7,19 @@ import { UserService } from './user.service';
 @Component({
   selector: 'avans-tickz-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
 })
-export class UserComponent implements OnInit{
-  users: Observable<User[]> | undefined;
+export class UserComponent implements OnInit {
+  users: User[] | undefined;
+  dateFormat: string | null | undefined;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) {}
 
   ngOnInit(): void {
-    this.users = this.userService.getAllUsers();
+    this.users = this.userService.userList;
   }
 }

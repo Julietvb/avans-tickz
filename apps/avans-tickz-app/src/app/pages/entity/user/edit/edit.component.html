@@ -1,6 +1,12 @@
-<p>edit works!</p>
-<div>
-    <form #userEditForm = 'ngForm'>
-        
-    </form>
+<div *ngIf="user">
+  <p>edit works!</p>
+  <div>
+      <input
+        id="user firstName"
+        type="text"
+        placeholder="firstName"
+        [(ngModel)]="user.firstName"
+      />
+      <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete user</button>
+  </div>
 </div>

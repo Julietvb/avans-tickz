@@ -13,9 +13,7 @@
       <td>{{ currentUser?.lastName }}</td>
       <td>{{ currentUser?.emailAdres }}</td>
       <td>
-        {{
-          (currentUser?.birthDate ?? 'null').toLocaleString().substring(0, 9)
-        }}
+          {{dateFormat}}
       </td>
     </tr>
   </tbody>
