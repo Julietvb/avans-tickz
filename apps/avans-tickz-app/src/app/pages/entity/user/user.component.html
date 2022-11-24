@@ -1,15 +1,13 @@
 <div>
   <h3 align="center">All users</h3>
   <table class="table" >
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>First</th>
-        <th>Last</th>
-        <th>Email</th>
-        <th>Manage </th>
-      </tr>
-    </thead>
+<thead>
+  <th>Id</th>
+  <th>First name</th>
+  <th>Last name</th>
+  <th>Email</th>
+  <th>Manage</th>
+</thead>
     <tbody>
       <tr *ngFor="let user of users" routerLink="{{ user.userId }}">
         <th>

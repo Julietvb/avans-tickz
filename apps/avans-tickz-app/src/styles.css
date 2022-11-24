@@ -12,3 +12,15 @@
 .table > tbody> tr > th > a{
     color: rgba(245, 87, 108, 1);
 }
+
+th {
+    background-color: rgba(245, 87, 108, 1);
+    color: white;
+    padding: 5px;
+}
+
+
+.card-body{
+    background-color: rgba(245, 87, 108, 1);
+    color: white;
+}
