@@ -11,7 +11,6 @@ import { UserService } from './user.service';
 })
 export class UserComponent implements OnInit {
   users: User[] | undefined;
-  dateFormat: string | null | undefined;
 
   constructor(
     private userService: UserService,

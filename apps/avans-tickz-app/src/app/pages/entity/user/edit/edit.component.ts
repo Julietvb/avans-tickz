@@ -30,10 +30,7 @@ export class EditComponent implements OnInit {
     this.userService.getUserById(this.userId).subscribe((user) => (this.user = user));  }
 
   deleteUser(): void{
-    this.userService.userList.forEach((element,index) => {
-      if(element.userId == this.userId) 
-      this.userService.userList.splice(index, 1);
-    });
+    this.userService.deleteUser(this.userId)
     this.location.back();
   }
 }

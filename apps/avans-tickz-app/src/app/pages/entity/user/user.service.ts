@@ -56,8 +56,6 @@ export class UserService {
     },
   ];
 
-  userId: number = this.userList.length;
-
   constructor() {}
 
   getAllUsers(): Observable<User[]> {
@@ -71,6 +69,13 @@ export class UserService {
     console.log(`User met ID ${id} gezocht`);
     const user = this.userList.find(user => user.userId === id)!;
     return of(user);
+  }
+
+  deleteUser(userId: number){
+    this.userList.forEach((element,index) => {
+      if(element.userId == userId) 
+      this.userList.splice(index, 1);
+    });
   }
 
   // createUser(user: User): Observable<any> {
