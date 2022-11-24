@@ -19,7 +19,7 @@ export class ConcertService {
       venueName: 'Ziggo Dome',
       venueImage:
         'https://upload.wikimedia.org/wikipedia/commons/7/74/Ziggo_Dome.JPG',
-      date: new Date(31 - 12 - 2022),
+      date: new Date('12-31-2022'),
       time: '20:00',
       adres: 'De Passage 100',
       city: 'Amsterdam',
@@ -31,7 +31,7 @@ export class ConcertService {
       venueName: 'Sportpaleis',
       venueImage:
         'https://images0.persgroep.net/rcs/Oh_zlM0wQaJSi5Uv0QOKx6rMhX4/diocontent/116624311/_fitwidth/763?appId=93a17a8fd81db0de025c8abd1cca1279&quality=0.8',
-      date: new Date(30 - 1 - 2023),
+      date: new Date('1-30-2023'),
       time: '21:00',
       adres: 'Schijnpoortweg 119',
       city: 'Antwerpen',
@@ -43,7 +43,7 @@ export class ConcertService {
       venueName: 'Poppodium 013',
       venueImage:
         'https://www.omroeptilburg.nl/wp-content/uploads/2022/02/Poppodium-013.jpg',
-      date: new Date(22 - 5 - 2023),
+      date: new Date('5-23-2023'),
       time: '19:00',
       adres: 'Veemarktstraat 44',
       city: 'Tilburg',
@@ -55,7 +55,7 @@ export class ConcertService {
       venueName: 'Brabanthallen',
       venueImage:
         'https://bureaufranken.com/wp-content/uploads/2022/02/Bureau-Franken-BRABANTHALLEN-S-HERTOGENBOSCH1.jpg',
-      date: new Date(6 - 8 - 2023),
+      date: new Date('6-10-2023'),
       time: '20:00',
       adres: 'Diezekade 2',
       city: 's-Hertogenbosch',
@@ -67,7 +67,7 @@ export class ConcertService {
       venueName: 'Melkweg',
       venueImage:
         'https://media.nu.nl/m/fmnx9weacs1e_wd1280/vijftig-jaar-melkweg-wij-zijn-er-voor-mensen-die-nergens-terechtkunnen-nuweekend-nunl.jpg',
-      date: new Date(29 - 8 - 2023),
+      date: new Date('8-29-2023'),
       time: '18:00',
       adres: 'Lijnbaansgracht 234A',
       city: 'Amsterdam',

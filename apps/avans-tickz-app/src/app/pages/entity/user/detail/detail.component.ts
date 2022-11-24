@@ -22,15 +22,11 @@ export class DetailComponent implements OnInit {
     console.log('Detail page aangeroepen')
 
     // this.currentUser = this.userService.getUserById(Number(this.userId));
-    this.getUser();
+    this.userService.getUserById(this.userId).subscribe((user) => (this.currentUser = user));
 
     if(this.currentUser){
       let birthDateFormat = this.dataPipe.transform(this.currentUser.birthDate, 'dd-MM-yyyy')
       this.dateFormat = birthDateFormat;  
     }
   }
-
-  getUser(): void {
-    this.userService.getUserById(this.userId).subscribe((user) => (this.currentUser = user));  }
-
 }

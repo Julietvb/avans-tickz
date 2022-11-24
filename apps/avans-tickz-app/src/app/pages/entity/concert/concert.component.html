@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row">
-    <div class="card col-6 concert-card" *ngFor="let concert of concerts">
+    <div class="card col-6 concert-card" *ngFor="let concert of concerts" routerLink="{{concert.concertId}}">
       <div class="card card-custom bg-white border-white border-0">
         <div
           class="card-custom-img"
@@ -18,7 +18,7 @@
         <div class="card-body card-concert" style="overflow-y: auto">
           <h4 class="card-title">{{ concert.title }}</h4>
           <ul class="card-text">
-            <li>{{ concert.date.toLocaleDateString() }}</li>
+            <li>{{ concert.date | date:('dd-MM-yyyy') }}</li>
             <li>{{ concert.time }}</li>
             <li>{{ concert.adres }} - {{ concert.city }}</li>
             <li *ngIf="concert.amountOfTickets > 0">
