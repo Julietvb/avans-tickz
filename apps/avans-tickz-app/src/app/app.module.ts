@@ -15,6 +15,8 @@ import { HomeComponent } from './pages/home/home.component';
 import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './pages/register/register.component';
 import { AboutComponent } from './pages/about/about.component';
+import { EditConcertComponent } from './pages/entity/concert/edit-concert/edit-concert.component';
+import { DetailConcertComponent } from './pages/entity/concert/detail-concert/detail-concert.component';
 
 
 @NgModule({
@@ -28,6 +30,8 @@ import { AboutComponent } from './pages/about/about.component';
     HomeComponent,
     RegisterComponent,
     AboutComponent,
+    EditConcertComponent,
+    DetailConcertComponent,
   ],
   imports: [BrowserModule, RoutingModule, NgbModule, FormsModule],
   providers: [DatePipe],

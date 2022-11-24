@@ -5,15 +5,15 @@
 }
 
 .table{
-    background-color: white;
+    background-color: white !important;
     border-radius: 5px;
 }
 
-.table > tbody> tr > th > a{
+tbody> tr > th > a{
     color: rgba(245, 87, 108, 1);
 }
 
-th {
+thead {
     background-color: rgba(245, 87, 108, 1);
     color: white;
     padding: 5px;
@@ -23,4 +23,9 @@ th {
 .card-body{
     background-color: rgba(245, 87, 108, 1);
     color: white;
+}
+
+.card-concert{
+    background-color: white;
+    color: black;
 }
