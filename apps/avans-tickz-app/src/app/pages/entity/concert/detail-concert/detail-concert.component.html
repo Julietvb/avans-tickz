@@ -1,13 +1,66 @@
 <!-- Jumbotron -->
-<div class="p-5 text-center bg-image concert-banner">
+<div class="p-5 d-flex justify-content-center bg-image concert-banner">
   <div class="mask">
-    <div class="d-flex justify-content-center align-items-center concert-banner-mask">
+    <div
+      class="d-flex justify-content-center text-center align-items-center concert-banner-mask"
+    >
       <div class="text-white">
-        <h1 class="mb-3">{{currentConcert?.title}}</h1>
-        <h4 class="mb-3">{{dateFormat}}</h4>
+        <h1 class="mb-3">{{ currentConcert?.title }}</h1>
+        <h3>Artist name</h3>
       </div>
     </div>
   </div>
 </div>
 <!-- Jumbotron -->
-<p>detail-concert works!</p>
+<div class="container" *ngIf="currentConcert">
+  <div class="row mt-3">
+    <div class="col-6">
+      <h2><a routerLink="/">Artist name</a></h2>
+      <p>
+        {{ currentConcert.venueName }} is welcoming
+        <a routerLink="/">artist name</a> with open arms!
+      </p>
+      <p>
+        📅
+        {{ currentConcert.date | date: 'fullDate' }}
+      </p>
+
+      <div>
+        <h2>Venue information</h2>
+        <p>🏟️ {{ currentConcert.venueName }}</p>
+        <p>
+          <i class="fa fa-map-location-dot"></i> {{ currentConcert.adres }} -
+          {{ currentConcert.city }}
+        </p>
+      </div>
+
+      <div>
+        <h2>Line-up</h2>
+        <div class="card-custom-avatar">
+          <img
+            class="img-fluid"
+            src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
+            alt="Avatar"
+          />
+        </div>
+      </div>
+    </div>
+    <div class="col-6">
+      <button class="btn pull-right">Buy tickets</button>
+      <p *ngIf="currentConcert.amountOfTickets > 0" class="pull-right">
+        Hurry up! There are only
+        <i>{{ currentConcert.amountOfTickets }}</i> tickets left! Buy tickets by
+        clicking the button above.
+      </p>
+
+      <p
+        *ngIf="currentConcert.amountOfTickets <= 0"
+        class="soldOut-text pull-right"
+      >
+        Sadly this concert is sold out. Check
+        <a routerLink="/concerts">here</a> to see all the other concerts you can
+        visit!
+      </p>
+    </div>
+  </div>
+</div>

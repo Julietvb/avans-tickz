@@ -24,7 +24,7 @@
           <ul class="card-text">
             <li>{{ concert.date | date:('dd-MM-yyyy') }}</li>
             <li>{{ concert.time }}</li>
-            <li>{{ concert.adres }} - {{ concert.city }}</li>
+            <li><a routerLink="">{{concert.venueName}}</a></li>
             <li *ngIf="concert.amountOfTickets > 0">
               {{ concert.amountOfTickets }} ticket(s) left
             </li>
