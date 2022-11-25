@@ -1,13 +1,13 @@
-<div>
+<div class="container">
   <h3 align="center">All users</h3>
-  <table class="table" >
-<thead>
-  <th>Id</th>
-  <th>First name</th>
-  <th>Last name</th>
-  <th>Email</th>
-  <th>Manage</th>
-</thead>
+  <table class="table">
+    <thead>
+      <th>Id</th>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Manage</th>
+    </thead>
     <tbody>
       <tr *ngFor="let user of users" routerLink="{{ user.userId }}">
         <th>
@@ -16,11 +16,12 @@
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.emailAdres }}</td>
-        <td>  <button type="submit" class="btn" routerLink="{{user.userId}}/edit"> 
-          Edit user
-        </button></td>
+        <td>
+          <button type="submit" class="btn" routerLink="{{ user.userId }}/edit">
+            Edit user
+          </button>
+        </td>
       </tr>
     </tbody>
   </table>
-
 </div>

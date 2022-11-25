@@ -1,4 +1,8 @@
 <div class="container">
+  <div class="row mt-2">
+    <h1 class="col-md-10">All concerts</h1>
+    <button class="btn col-md-2 pull-right" routerLink="/concerts/create"> Add concert <i class="fa fa-plus"></i> </button>
+  </div>
   <div class="row">
     <div class="card col-6 concert-card" *ngFor="let concert of concerts" routerLink="{{concert.concertId}}">
       <div class="card card-custom bg-white border-white border-0">
@@ -11,7 +15,7 @@
         <div class="card-custom-avatar">
           <img
             class="img-fluid"
-            src="http://res.cloudinary.com/d3/image/upload/c_pad,g_center,h_200,q_auto:eco,w_200/bootstrap-logo_u3c8dx.jpg"
+            src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
             alt="Avatar"
           />
         </div>
@@ -24,15 +28,14 @@
             <li *ngIf="concert.amountOfTickets > 0">
               {{ concert.amountOfTickets }} ticket(s) left
             </li>
-            <li *ngIf="concert.amountOfTickets <= 0">Uitverkocht</li>
+            <li *ngIf="concert.amountOfTickets <= 0" class="soldOut-text">Uitverkocht</li>
           </ul>
         </div>
         <div
           class="card-footer"
           style="background: inherit; border-color: inherit"
         >
-          <a href="#" class="btn">Option</a>
-          <a href="#" class="btn">Other option</a>
+          <a class="btn" routerLink="{{concert.concertId}}/edit">Edit concert</a>
         </div>
       </div>
     </div>

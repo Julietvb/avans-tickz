@@ -1,6 +1,8 @@
 .btn{
     background-color: rgba(245, 87, 108, 1);
     color: white;
+    border-color: white;
+    border: 2px solid;
     font-weight: bold;
 }
 

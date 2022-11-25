@@ -1,0 +1,74 @@
+<section>
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div class="card shadow-2-strong card-registration" style="border-radius: 15px;">
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+              <form #userRegister="ngForm" (ngSubmit)="createConcert(userRegister.value)">
+  
+                <div class="row">
+                    <div class="form-outline">
+                      <input type="number" name="userId" ngModel class="form-control"/>
+                      <label class="form-label" for="Id">Id</label>
+                    </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <input type="text" id="firstName" name="firstName" ngModel class="form-control" />
+                      <label class="form-label" for="firstName">First Name</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4">
+  
+                    <div class="form-outline">
+                      <input type="text" id="lastName" name="lastName" ngModel class="form-control" />
+                      <label class="form-label" for="lastName">Last Name</label>
+                    </div>
+  
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+  
+                    <div class="form-outline datepicker w-100">
+                      <input type="date" id="birthdayDate" name="birthDate" ngModel class="form-control"/>
+                      <label for="birthdayDate" class="form-label">Birthday</label>
+                    </div>
+  
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                      <input type="email" id="emailAddress" name="emailAdres" ngModel class="form-control" />
+                      <label class="form-label" for="emailAddress">Email</label>
+                    </div>
+  
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+  
+                    <div class="form-outline">
+                      <input type="tel" id="password" name="password" ngModel class="form-control" />
+                      <label class="form-label" for="password">Password</label>
+                    </div>
+  
+                  </div>
+                </div>
+  
+                <button type="submit" class="btn">Register</button>
+  
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>

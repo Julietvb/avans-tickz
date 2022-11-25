@@ -23,7 +23,7 @@ export class ConcertService {
       time: '20:00',
       adres: 'De Passage 100',
       city: 'Amsterdam',
-      amountOfTickets: 1,
+      amountOfTickets: 0,
     },
     {
       concertId: 2,

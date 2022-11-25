@@ -23,11 +23,8 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     console.log('Edit user aangeroepen');
 
-    this.getUser();
+    this.userService.getUserById(this.userId).subscribe((user) => (this.user = user)); 
   }
-
-  getUser(): void {
-    this.userService.getUserById(this.userId).subscribe((user) => (this.user = user));  }
 
   deleteUser(): void{
     this.userService.deleteUser(this.userId)

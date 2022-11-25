@@ -17,6 +17,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { AboutComponent } from './pages/about/about.component';
 import { EditConcertComponent } from './pages/entity/concert/edit-concert/edit-concert.component';
 import { DetailConcertComponent } from './pages/entity/concert/detail-concert/detail-concert.component';
+import { CreateConcertComponent } from './pages/entity/concert/create-concert/create-concert.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { DetailConcertComponent } from './pages/entity/concert/detail-concert/de
     AboutComponent,
     EditConcertComponent,
     DetailConcertComponent,
+    CreateConcertComponent,
   ],
   imports: [BrowserModule, RoutingModule, NgbModule, FormsModule],
   providers: [DatePipe],

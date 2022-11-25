@@ -1,1 +1,139 @@
-<p>edit-concert works!</p>
+<section>
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div class="card shadow-2-strong card-form" style="border-radius: 15px">
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit concert</h3>
+            <form
+              *ngIf="concert"
+              #concertEdit="ngForm"
+              (ngSubmit)="editConcert()"
+            >
+              <div class="row">
+                <div class="mb-4">
+                  <div class="form-outline">
+                    <input
+                      type="text"
+                      id="title"
+                      name="title"
+                      [(ngModel)]="concert.title"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="title">Title</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input
+                      type="text"
+                      id="venueName"
+                      name="venueName"
+                      [(ngModel)]="concert.venueName"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="venueName">Venue name</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline w-100">
+                    <input
+                      type="text"
+                      id="venueImage"
+                      name="venueImage"
+                      [(ngModel)]="concert.venueImage"
+                      class="form-control"
+                    />
+                    <label for="venueImage" class="form-label"
+                      >Venue image URL</label
+                    >
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <input
+                      type="date"
+                      id="date"
+                      name="date"
+                      [(ngModel)]="concert.date"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="date">Date</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <input
+                      type="time"
+                      id="time"
+                      name="time"
+                      [(ngModel)]="concert.time"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="time">Time</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline w-100">
+                    <input
+                      type="text"
+                      id="adres"
+                      name="adres"
+                      [(ngModel)]="concert.adres"
+                      class="form-control"
+                    />
+                    <label for="adres" class="form-label">Adres</label>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline w-100">
+                    <input
+                      type="text"
+                      id="city"
+                      name="city"
+                      [(ngModel)]="concert.city"
+                      class="form-control"
+                    />
+                    <label for="city" class="form-label">City</label>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline w-100">
+                    <input
+                      type="number"
+                      id="amountOfTickets"
+                      name="amountOfTickets"
+                      [(ngModel)]="concert.amountOfTickets"
+                      class="form-control"
+                    />
+                    <label for="amountOfTickets" class="form-label"
+                      >Amount of Tickets</label
+                    >
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn form-button me-2" routerLink="../../">
+                <i class="fa fa-angle-left"> </i> Back
+              </button>
+              <button type="submit" class="btn form-button">
+                Save changes
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
