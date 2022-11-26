@@ -1,50 +1,102 @@
-<div *ngIf="user" class="userInformation" align="center">
-  <div class="mt-2">
-    <input
-      id="user firstName"
-      type="text"
-      placeholder="firstName"
-      [(ngModel)]="user.firstName"
-    />
+<section>
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div
+          class="card shadow-2-strong card-registration"
+          style="border-radius: 15px"
+        >
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit user</h3>
+            <form
+              #userEdit="ngForm"
+              *ngIf="user"
+              class="userInformation"
+              (ngSubmit)="editUser()"
+            >
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input
+                      id="firstName"
+                      type="text"
+                      name="firstName"
+                      [(ngModel)]="user.firstName"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="firstName">First Name</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <input
+                      id="user lastName"
+                      type="text"
+                      name="lastName"
+                      [(ngModel)]="user.lastName"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="lastName">Last Name</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline datepicker w-100">
+                    <input
+                      id="birthDate"
+                      type="date"
+                      name="birthDate"
+                      [(ngModel)]="user.birthDate"
+                      class="form-control"
+                    />
+                    <label for="birthDate" class="form-label">Birthday</label>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <input
+                      id="emailAdres"
+                      type="text"
+                      name="emailAdres"
+                      [(ngModel)]="user.emailAdres"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="emailAdres">Email</label>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <input
+                      id="password"
+                      type="text"
+                      name="password"
+                      [(ngModel)]="user.password"
+                      class="form-control"
+                    />
+                    <label class="form-label" for="password">Password</label>
+                  </div>
+                </div>
+              </div>
+
+                <button type="button" class="btn mt-2 me-2 " routerLink="/users">
+                  Edit user
+                </button>
+                <button
+                  type="button"
+                  class="btn mt-2 deleteButton "
+                  (click)="deleteUser()"
+                >
+                  Delete user
+                </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="mt-2">
-    <input
-      id="user lastName"
-      type="text"
-      placeholder="lastName"
-      [(ngModel)]="user.lastName"
-    />
-  </div>
-  <div class="mt-2">
-    <input
-      id="user email"
-      type="text"
-      placeholder="email"
-      [(ngModel)]="user.emailAdres"
-    />
-  </div>
-  <div class="mt-2">
-    <input
-      id="user birthDate"
-      type="date"
-      placeholder="birthDate"
-      [(ngModel)]="user.birthDate"
-    />
-  </div>
-  <div class="mt-2">
-    <input
-      id="user password"
-      type="text"
-      placeholder="password"
-      [(ngModel)]="user.password"
-    />
-  </div>
-  <div class="row w-25">
-    <button type="button" class="btn mt-2 col" routerLink="/users">
-      Edit user
-    </button>
-    <button type="button" class="btn mt-2 deleteButton col" (click)="deleteUser()">
-      Delete user
-    </button>
-  </div>
-</div>
+</section>

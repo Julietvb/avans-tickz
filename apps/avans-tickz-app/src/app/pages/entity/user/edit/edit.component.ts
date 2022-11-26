@@ -36,4 +36,8 @@ export class EditComponent implements OnInit {
     });
     this.location.back();
   }
+
+  editUser(): void{
+    // this.router.navigate('/users');
+  }
 }
