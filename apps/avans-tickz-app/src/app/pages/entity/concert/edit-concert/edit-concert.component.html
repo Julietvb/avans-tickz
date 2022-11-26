@@ -51,6 +51,7 @@
                       [(ngModel)]="concert.venueName"
                       class="form-control"
                       #venueName="ngModel"
+                      pattern="^[A-Z]{1}[a-z]+(?:(\.\s|'s\s|\s?-\s?|\s)?(?=[A-Za-z]+))*(?:[A-Za-z]+)?$"
                       [ngClass]="{
                         'is-invalid': venueName.invalid && venueName.touched
                       }"
@@ -63,6 +64,10 @@
                     >
                       <div *ngIf="venueName.errors?.['required']">
                         Venue name is required
+                      </div>
+
+                      <div *ngIf="venueName.errors?.['pattern']">
+                        <span>Please give a valid venue name </span>
                       </div>
                     </div>
                   </div>
@@ -149,6 +154,7 @@
                       [(ngModel)]="concert.adres"
                       class="form-control"
                       #adres="ngModel"
+                      pattern="[A-Z]{1}[a-z]*\s?([A-Z]?[a-z]*)*\s[0-9]+\s?[A-Z a-z]?"
                       [ngClass]="{
                         'is-invalid': adres.invalid && adres.touched
                       }"
@@ -160,6 +166,10 @@
                   >
                     <div *ngIf="adres.errors?.['required']">
                       Address is required
+                    </div>
+                    <div *ngIf="adres.errors?.['pattern']">
+                      <span>Please give a valid street + housenumber. </span>
+                      <span>Example: 'Janstraat 1'</span>
                     </div>
                   </div>
                   </div>
@@ -175,6 +185,7 @@
                       [(ngModel)]="concert.city"
                       class="form-control"
                       #city="ngModel"
+                      pattern="^(?:[A-Z]{1}[a-z]+(?:(\.\s|'s\s|\s?-\s?|\s)?(?=[A-Z]{1}[a-z]+)))*(?:[A-Z]{1}[a-z]+)?$"
                       [ngClass]="{
                         'is-invalid': city.invalid && city.touched
                       }"
@@ -186,6 +197,9 @@
                   >
                     <div *ngIf="city.errors?.['required']">
                       City is required
+                    </div>
+                    <div *ngIf="city.errors?.['pattern']">
+                      <span>Please give a valid city name. </span>
                     </div>
                   </div>
                   </div>
