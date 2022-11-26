@@ -30,4 +30,8 @@ export class EditComponent implements OnInit {
     this.userService.deleteUser(this.userId)
     this.location.back();
   }
+
+  editUser(): void{
+    // this.router.navigate('/users');
+  }
 }

@@ -1,3 +1,15 @@
 .deleteButton {
-  background-color: red;
+  background-color: red !important;
+  color: white !important;
+}
+
+.card-registration {
+  background-color: rgba(245, 87, 108, 1);
+  color: white;
+}
+
+.btn {
+  background-color: white;
+  color: black;
+  font-weight: 500;
 }
