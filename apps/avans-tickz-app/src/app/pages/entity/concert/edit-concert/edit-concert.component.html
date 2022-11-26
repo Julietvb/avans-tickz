@@ -17,10 +17,25 @@
                       type="text"
                       id="title"
                       name="title"
+                      #title = 'ngModel'
                       [(ngModel)]="concert.title"
                       class="form-control"
+                      [ngClass]="{
+                        'is-invalid':
+                          (title.invalid && title.touched)
+                      }"
+                      required
                     />
                     <label class="form-label" for="title">Title</label>
+
+                    <div
+                    *ngIf="title.invalid && title.touched"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="title.errors?.['required']">
+                      Concert name is required!
+                    </div>
+                  </div>
                   </div>
                 </div>
               </div>

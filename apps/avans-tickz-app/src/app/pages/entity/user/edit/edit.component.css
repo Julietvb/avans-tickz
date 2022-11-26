@@ -1,6 +1,6 @@
 .deleteButton {
   background-color: red !important;
-  color: white !important;
+  border-color: transparent;
 }
 
 .card-registration {
@@ -9,7 +9,6 @@
 }
 
 .btn {
-  background-color: white;
-  color: black;
+  color: white;
   font-weight: 500;
 }
