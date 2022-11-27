@@ -19,8 +19,8 @@ export class EditConcertComponent implements OnInit {
     this.concertService.getConcertById(this.concertId).subscribe((concert) => (this.concert = concert)); 
   }
 
-  editConcert(){
-    
+  deleteConcert(){
+    this.concertService.deleteConcert(this.concertId)
+    this.router.navigate(['../concerts']);
   }
-
 }

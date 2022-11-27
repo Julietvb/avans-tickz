@@ -8,7 +8,6 @@
             <form
               *ngIf="concert"
               #concertEdit="ngForm"
-              (ngSubmit)="editConcert()"
             >
               <div class="row">
                 <div class="mb-4">
@@ -127,8 +126,11 @@
               <button type="submit" class="btn form-button me-2" routerLink="/concerts">
                 <i class="fa fa-angle-left"> </i> Back
               </button>
-              <button type="submit" class="btn form-button" routerLink="/concerts">
+              <button type="submit" class="btn form-button me-2" routerLink="/concerts">
                 Save changes
+              </button>
+              <button type="submit" class="btn form-button me-2 deleteButton" (click)="deleteConcert()">
+                Delete
               </button>
             </form>
           </div>

@@ -1,49 +1,53 @@
-.btn{
-    background-color: rgba(245, 87, 108, 1);
-    color: white;
-    border-color: white;
-    border: 2px solid;
-    font-weight: bold;
+.btn {
+  background-color: rgba(245, 87, 108, 1);
+  color: white;
+  border-color: white;
+  border: 2px solid;
+  font-weight: bold;
 }
 
-.table{
-    background-color: white !important;
-    border-radius: 5px;
+.table {
+  background-color: white !important;
+  border-radius: 5px;
 }
 
-tbody> tr > th > a{
-    color: rgba(245, 87, 108, 1);
+tbody > tr > th > a {
+  color: rgba(245, 87, 108, 1);
 }
 
 thead {
-    background-color: rgba(245, 87, 108, 1);
-    color: white;
-    padding: 5px;
+  background-color: rgba(245, 87, 108, 1);
+  color: white;
+  padding: 5px;
 }
 
-
-.card-body{
-    background-color: rgba(245, 87, 108, 1);
-    color: white;
+.card-body {
+  background-color: rgba(245, 87, 108, 1);
+  color: white;
 }
 
-.card-concert{
-    background-color: white;
-    color: black;
+.card-concert {
+  background-color: white;
+  color: black;
 }
 
-.card-custom-avatar img{
-    width: 100px;
-    height: 100px;
+.card-custom-avatar img {
+  width: 100px;
+  height: 100px;
 }
 
-a{
-    color: rgba(245, 87, 108, 1);
-    text-decoration: none;
-    font-weight: bold;
+a {
+  color: rgba(245, 87, 108, 1);
+  text-decoration: none;
+  font-weight: bold;
 }
 
 .soldOut-text {
-    font-style: italic;
-    text-decoration: underline;
-  }
+  font-style: italic;
+  text-decoration: underline;
+}
+
+.deleteButton {
+  background-color: red;
+  border-color: transparent;
+}
