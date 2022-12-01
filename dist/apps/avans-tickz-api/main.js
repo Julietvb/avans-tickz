@@ -120,6 +120,7 @@ const common_1 = __webpack_require__("@nestjs/common");
 const create_user_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/dto/create-user.dto.ts");
 const update_user_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/dto/update-user.dto.ts");
 const user_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.service.ts");
+const mongoose_1 = __webpack_require__("mongoose");
 let UserController = class UserController {
     constructor(userService) {
         this.userService = userService;
@@ -149,7 +150,7 @@ tslib_1.__decorate([
     (0, common_1.Get)(':userId'),
     tslib_1.__param(0, (0, common_1.Param)('userId')),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof Number !== "undefined" && Number) === "function" ? _b : Object]),
+    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _b : Object]),
     tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], UserController.prototype, "getUser", null);
 tslib_1.__decorate([
@@ -170,7 +171,7 @@ tslib_1.__decorate([
     tslib_1.__param(0, (0, common_1.Param)('userId')),
     tslib_1.__param(1, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_g = typeof Number !== "undefined" && Number) === "function" ? _g : Object, typeof (_h = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _h : Object]),
+    tslib_1.__metadata("design:paramtypes", [typeof (_g = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _g : Object, typeof (_h = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _h : Object]),
     tslib_1.__metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], UserController.prototype, "updateUser", null);
 UserController = tslib_1.__decorate([
@@ -243,7 +244,7 @@ let UserRepository = class UserRepository {
     }
     findOneAndUpdate(userFilterQuery, user) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userModel.findOneAndUpdate(userFilterQuery, user);
+            return this.userModel.findOneAndUpdate(userFilterQuery, user, { new: true });
         });
     }
 };
@@ -268,10 +269,6 @@ const tslib_1 = __webpack_require__("tslib");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 let User = class User {
 };
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", Number)
-], User.prototype, "userId", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", String)
@@ -315,13 +312,14 @@ exports.UserService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const user_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.repository.ts");
+const mongoose_1 = __webpack_require__("mongoose");
 let UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
     getUserById(userId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userRepository.findById({ userId });
+            return this.userRepository.findById({ _id: new mongoose_1.Types.ObjectId(userId) });
         });
     }
     getAllUsers() {
@@ -332,7 +330,6 @@ let UserService = class UserService {
     createUser(firstName, lastName, birthDate, emailAdres, password) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             return this.userRepository.create({
-                userId: 1,
                 firstName,
                 lastName,
                 birthDate,
@@ -344,7 +341,7 @@ let UserService = class UserService {
     }
     updateUser(userId, userUpdates) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userRepository.findOneAndUpdate({ userId }, userUpdates);
+            return this.userRepository.findOneAndUpdate({ _id: new mongoose_1.Types.ObjectId(userId) }, userUpdates);
         });
     }
 };
