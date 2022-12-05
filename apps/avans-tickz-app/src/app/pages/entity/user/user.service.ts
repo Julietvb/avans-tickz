@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { from, Observable, of } from 'rxjs';
 import { User } from './user.model';
+import { Types } from 'mongoose';
 
 const httpOptions = {
   observe: 'body',
@@ -12,7 +14,7 @@ const httpOptions = {
 })
 
 export class UserService {
-  private user?: User;
+  // private user?: User;
   public userList: User[] = [
     {
       userId: 1,
@@ -21,6 +23,7 @@ export class UserService {
       birthDate: new Date('12-20-2000'),
       emailAdres: 'johndoe@gmail.com',
       password: 'password',
+      favoriteArtists: []
     },
     {
       userId: 2,
@@ -29,6 +32,7 @@ export class UserService {
       birthDate: new Date('3-6-2012'),
       emailAdres: 'janedoe@gmail.com',
       password: 'password',
+      favoriteArtists: []
     },
     {
       userId: 3,
@@ -37,6 +41,7 @@ export class UserService {
       birthDate: new Date('11-12-2013'),
       emailAdres: 'janjansen@gmail.com',
       password: 'password',
+      favoriteArtists: []
     },
     {
       userId: 4,
@@ -45,6 +50,7 @@ export class UserService {
       birthDate: new Date('6-10-2004'),
       emailAdres: 'dca.vanzuijdam@student.avans.nl',
       password: 'password',
+      favoriteArtists: []
     },
     {
       userId: 5,
@@ -53,22 +59,19 @@ export class UserService {
       birthDate: new Date('8-29-2003'),
       emailAdres: 'jay.vanbezooijen@student.avans.nl',
       password: 'password',
+      favoriteArtists: []
     },
   ];
 
-  constructor() {}
+  constructor(private httpClient: HttpClient) {}
 
   getAllUsers(): Observable<User[]> {
-    console.log('User getList aangeroepen');
-    console.log(this.userList);
-    return of(this.userList);
+    return this.httpClient.get('http://localhost:3333/api/users') as Observable<User[]>;
   }
 
-  getUserById(id: number): Observable<User> {
-    console.log('User getById aangeroepen');
-    console.log(`User met ID ${id} gezocht`);
-    const user = this.userList.find(user => user.userId === id)!;
-    return of(user);
+  getUserById(_id: Types.ObjectId): Observable<User> {
+    console.log(this.httpClient.get(`http://localhost:3333/api/users/${_id}`) as Observable<User>);
+    return this.httpClient.get(`http://localhost:3333/api/users/${_id}`) as Observable<User>;
   }
 
   deleteUser(userId: number){

@@ -5,6 +5,7 @@ import { RoutingModule } from './app.routes';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http'
 
 import { UserComponent } from './pages/entity/user/user.component';
 import { NavComponent } from './shared/nav/nav.component';
@@ -35,7 +36,7 @@ import { CreateConcertComponent } from './pages/entity/concert/create-concert/cr
     DetailConcertComponent,
     CreateConcertComponent,
   ],
-  imports: [BrowserModule, RoutingModule, NgbModule, FormsModule],
+  imports: [BrowserModule, RoutingModule, NgbModule, FormsModule, HttpClientModule],
   providers: [DatePipe],
   bootstrap: [AppComponent],
 })

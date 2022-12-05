@@ -5,4 +5,5 @@ export interface User {
     birthDate: Date;
     emailAdres: string;
     password: string; 
+    favoriteArtists: string[];
 }

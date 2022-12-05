@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
 import { Location } from '@angular/common';
+import { Types } from 'mongoose';
 
 @Component({
   selector: 'avans-tickz-edit',
@@ -23,7 +24,7 @@ export class EditComponent implements OnInit {
   ngOnInit(): void {
     console.log('Edit user aangeroepen');
 
-    this.userService.getUserById(this.userId).subscribe((user) => (this.user = user)); 
+    this.userService.getUserById(new Types.ObjectId(this.userId || undefined));
   }
 
   deleteUser(): void{

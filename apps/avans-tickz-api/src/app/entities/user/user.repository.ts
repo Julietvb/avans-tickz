@@ -2,25 +2,27 @@ import { Injectable } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { FilterQuery, Model } from "mongoose";
 import { User, UserDocument } from "./user.schema";
+import {Types} from "mongoose";
 
 @Injectable()
 export class UserRepository{
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
-    async findById(userFilterQuery: FilterQuery<User>): Promise<User> {
-        return this.userModel.findById(userFilterQuery)
+    async findById(userId: string): Promise<User> {
+        console.log('repository findById aangeroepen')
+        return await this.userModel.findOne({_id: new Types.ObjectId(userId)})
     }
 
     async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {
-        return this.userModel.find(usersFilterQuery)
+        return await this.userModel.find(usersFilterQuery)
     }
 
     async create(user: User): Promise<User> {
         const newUser = new this.userModel(user);
-        return newUser.save()
+        return await newUser.save()
     }
 
     async findOneAndUpdate(userFilterQuery: FilterQuery<User>, user: Partial<User>): Promise<User> {
-        return this.userModel.findOneAndUpdate(userFilterQuery, user, {new: true});
+        return await this.userModel.findOneAndUpdate(userFilterQuery, user, {new: true});
     }
 }

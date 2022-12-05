@@ -112,7 +112,7 @@ exports.UpdateUserDto = UpdateUserDto;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -127,7 +127,9 @@ let UserController = class UserController {
     }
     getUser(userId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userService.getUserById(userId);
+            console.log('getUser aangeroepen');
+            console.log(userId);
+            return yield this.userService.getUserById(userId);
         });
     }
     getUsers() {
@@ -137,7 +139,7 @@ let UserController = class UserController {
     }
     createUser(createUserDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userService.createUser(createUserDto.firstName, createUserDto.lastName, createUserDto.birthDate, createUserDto.emailAdres, createUserDto.password);
+            return this.userService.createUser(createUserDto._id, createUserDto.firstName, createUserDto.lastName, createUserDto.birthDate, createUserDto.emailAdres, createUserDto.password);
         });
     }
     updateUser(userId, updateUserDto) {
@@ -150,29 +152,29 @@ tslib_1.__decorate([
     (0, common_1.Get)(':userId'),
     tslib_1.__param(0, (0, common_1.Param)('userId')),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_b = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _b : Object]),
-    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
 ], UserController.prototype, "getUser", null);
 tslib_1.__decorate([
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
+    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], UserController.prototype, "getUsers", null);
 tslib_1.__decorate([
     (0, common_1.Post)(),
     tslib_1.__param(0, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_e = typeof create_user_dto_1.CreateUserDto !== "undefined" && create_user_dto_1.CreateUserDto) === "function" ? _e : Object]),
-    tslib_1.__metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
+    tslib_1.__metadata("design:paramtypes", [typeof (_d = typeof create_user_dto_1.CreateUserDto !== "undefined" && create_user_dto_1.CreateUserDto) === "function" ? _d : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
 ], UserController.prototype, "createUser", null);
 tslib_1.__decorate([
     (0, common_1.Patch)(':userId'),
     tslib_1.__param(0, (0, common_1.Param)('userId')),
     tslib_1.__param(1, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_g = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _g : Object, typeof (_h = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _h : Object]),
-    tslib_1.__metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
+    tslib_1.__metadata("design:paramtypes", [typeof (_f = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _f : Object, typeof (_g = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _g : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
 ], UserController.prototype, "updateUser", null);
 UserController = tslib_1.__decorate([
     (0, common_1.Controller)('users'),
@@ -222,29 +224,31 @@ const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
 const user_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.schema.ts");
+const mongoose_3 = __webpack_require__("mongoose");
 let UserRepository = class UserRepository {
     constructor(userModel) {
         this.userModel = userModel;
     }
-    findById(userFilterQuery) {
+    findById(userId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userModel.findById(userFilterQuery);
+            console.log('repository findById aangeroepen');
+            return yield this.userModel.findOne({ _id: new mongoose_3.Types.ObjectId(userId) });
         });
     }
     find(usersFilterQuery) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userModel.find(usersFilterQuery);
+            return yield this.userModel.find(usersFilterQuery);
         });
     }
     create(user) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const newUser = new this.userModel(user);
-            return newUser.save();
+            return yield newUser.save();
         });
     }
     findOneAndUpdate(userFilterQuery, user) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userModel.findOneAndUpdate(userFilterQuery, user, { new: true });
+            return yield this.userModel.findOneAndUpdate(userFilterQuery, user, { new: true });
         });
     }
 };
@@ -262,13 +266,18 @@ exports.UserRepository = UserRepository;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserSchema = exports.User = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const mongoose_2 = __webpack_require__("mongoose");
 let User = class User {
 };
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
+], User.prototype, "_id", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", String)
@@ -279,7 +288,7 @@ tslib_1.__decorate([
 ], User.prototype, "lastName", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
+    tslib_1.__metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
 ], User.prototype, "birthDate", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
@@ -312,37 +321,30 @@ exports.UserService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const user_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.repository.ts");
-const mongoose_1 = __webpack_require__("mongoose");
 let UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
     getUserById(userId) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userRepository.findById({ _id: new mongoose_1.Types.ObjectId(userId) });
-        });
+        console.log('service getById aangeroepen');
+        return this.userRepository.findById(userId);
     }
     getAllUsers() {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userRepository.find({});
-        });
+        return this.userRepository.find({});
     }
-    createUser(firstName, lastName, birthDate, emailAdres, password) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userRepository.create({
-                firstName,
-                lastName,
-                birthDate,
-                emailAdres,
-                password,
-                favoriteArtists: []
-            });
+    createUser(_id, firstName, lastName, birthDate, emailAdres, password) {
+        return this.userRepository.create({
+            _id,
+            firstName,
+            lastName,
+            birthDate,
+            emailAdres,
+            password,
+            favoriteArtists: []
         });
     }
     updateUser(userId, userUpdates) {
-        return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userRepository.findOneAndUpdate({ _id: new mongoose_1.Types.ObjectId(userId) }, userUpdates);
-        });
+        return this.userRepository.findOneAndUpdate({ _id: userId }, userUpdates);
     }
 };
 UserService = tslib_1.__decorate([
@@ -436,6 +438,7 @@ function bootstrap() {
         const globalPrefix = 'api';
         app.setGlobalPrefix(globalPrefix);
         const port = process.env.PORT || 3333;
+        app.enableCors();
         yield app.listen(port);
         common_1.Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
     });

@@ -10,7 +10,7 @@ import { UserService } from './user.service';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  users: User[] | undefined;
+  users$: Observable<any> | undefined;
 
   constructor(
     private userService: UserService,
@@ -19,6 +19,6 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.users = this.userService.userList;
+    this.users$ = this.userService.getAllUsers();
   }
 }
