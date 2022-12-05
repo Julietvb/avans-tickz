@@ -20,8 +20,6 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     console.log('Detail page aangeroepen')
-    console.log(this.userId.toString())
-
     this.userService.getUserById(this.userId).subscribe(user => this.currentUser = user);
 
 

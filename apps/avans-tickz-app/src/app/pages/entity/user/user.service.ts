@@ -70,7 +70,6 @@ export class UserService {
   }
 
   getUserById(_id: Types.ObjectId): Observable<User> {
-    console.log(this.httpClient.get(`http://localhost:3333/api/users/${_id}`) as Observable<User>);
     return this.httpClient.get(`http://localhost:3333/api/users/${_id}`) as Observable<User>;
   }
 
