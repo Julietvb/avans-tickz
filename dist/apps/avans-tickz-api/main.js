@@ -82,6 +82,138 @@ exports.AppService = AppService;
 
 /***/ }),
 
+/***/ "./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Artist = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const mongoose_2 = __webpack_require__("mongoose");
+let Artist = class Artist {
+};
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
+], Artist.prototype, "_id", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Artist.prototype, "name", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], Artist.prototype, "birthDate", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Artist.prototype, "genre", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Artist.prototype, "description", void 0);
+Artist = tslib_1.__decorate([
+    (0, mongoose_1.Schema)()
+], Artist);
+exports.Artist = Artist;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.schema.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c, _d, _e;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Concert = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const venue_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const mongoose_2 = __webpack_require__("mongoose");
+const artist_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts");
+const ticket_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts");
+let Concert = class Concert {
+};
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
+], Concert.prototype, "_id", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Concert.prototype, "title", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+], Concert.prototype, "date", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Concert.prototype, "time", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_c = typeof Number !== "undefined" && Number) === "function" ? _c : Object)
+], Concert.prototype, "amountOfTickets", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_d = typeof artist_schema_1.Artist !== "undefined" && artist_schema_1.Artist) === "function" ? _d : Object)
+], Concert.prototype, "artists", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)([ticket_schema_1.Ticket]),
+    tslib_1.__metadata("design:type", Array)
+], Concert.prototype, "tickets", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_e = typeof venue_schema_1.Venue !== "undefined" && venue_schema_1.Venue) === "function" ? _e : Object)
+], Concert.prototype, "venue", void 0);
+Concert = tslib_1.__decorate([
+    (0, mongoose_1.Schema)()
+], Concert);
+exports.Concert = Concert;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Ticket = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const mongoose_2 = __webpack_require__("mongoose");
+const concert_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.schema.ts");
+let Ticket = class Ticket {
+};
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
+], Ticket.prototype, "_id", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", Number)
+], Ticket.prototype, "price", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Ticket.prototype, "type", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_b = typeof concert_schema_1.Concert !== "undefined" && concert_schema_1.Concert) === "function" ? _b : Object)
+], Ticket.prototype, "concert", void 0);
+Ticket = tslib_1.__decorate([
+    (0, mongoose_1.Schema)()
+], Ticket);
+exports.Ticket = Ticket;
+
+
+/***/ }),
+
 /***/ "./apps/avans-tickz-api/src/app/entities/user/dto/create-user.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
@@ -272,6 +404,7 @@ exports.UserSchema = exports.User = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
+const ticket_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts");
 let User = class User {
 };
 tslib_1.__decorate([
@@ -302,6 +435,10 @@ tslib_1.__decorate([
     (0, mongoose_1.Prop)([String]),
     tslib_1.__metadata("design:type", Array)
 ], User.prototype, "favoriteArtists", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)([ticket_schema_1.Ticket]),
+    tslib_1.__metadata("design:type", Array)
+], User.prototype, "myTickets", void 0);
 User = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], User);
@@ -352,6 +489,50 @@ UserService = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof user_repository_1.UserRepository !== "undefined" && user_repository_1.UserRepository) === "function" ? _a : Object])
 ], UserService);
 exports.UserService = UserService;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Venue = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const mongoose_2 = __webpack_require__("mongoose");
+let Venue = class Venue {
+};
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
+], Venue.prototype, "_id", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Venue.prototype, "venueName", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Venue.prototype, "venueImage", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Venue.prototype, "adres", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Venue.prototype, "city", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_b = typeof Number !== "undefined" && Number) === "function" ? _b : Object)
+], Venue.prototype, "capacity", void 0);
+Venue = tslib_1.__decorate([
+    (0, mongoose_1.Schema)()
+], Venue);
+exports.Venue = Venue;
 
 
 /***/ }),

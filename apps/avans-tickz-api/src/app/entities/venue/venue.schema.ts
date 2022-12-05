@@ -13,4 +13,6 @@ export class Venue {
   adres: string;
   @Prop()
   city: string;
+  @Prop()
+  capacity: Number;
 }

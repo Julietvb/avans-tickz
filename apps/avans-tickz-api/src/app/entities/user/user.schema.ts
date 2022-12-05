@@ -1,6 +1,8 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import {Types} from 'mongoose';
 import { Document } from 'mongoose';
+import { Artist } from '../artist/artist.schema';
+import { Ticket } from '../ticket/ticket.schema';
 
 export type UserDocument = User & Document;
 
@@ -25,7 +27,10 @@ export class User {
   password: string;
 
   @Prop([String])
-  favoriteArtists: string[];
+  favoriteArtists: Artist[];
+
+  @Prop([Ticket])
+  myTickets: Ticket[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

@@ -1,5 +1,8 @@
+import { Venue } from "../venue/venue.schema";
 import { Prop, Schema } from "@nestjs/mongoose";
 import {Types} from "mongoose";
+import { Artist } from "../artist/artist.schema";
+import { Ticket } from "../ticket/ticket.schema";
 
 @Schema()
 export class Concert{
@@ -13,4 +16,10 @@ export class Concert{
     time: string;
     @Prop()
     amountOfTickets: Number;
+    @Prop()
+    artists: Artist;
+    @Prop([Ticket])
+    tickets: Ticket[];
+    @Prop()
+    venue: Venue;
 }
