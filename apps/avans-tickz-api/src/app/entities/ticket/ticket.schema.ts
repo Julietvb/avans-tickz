@@ -7,9 +7,9 @@ export class Ticket{
     @Prop()
     _id: Types.ObjectId;
     @Prop()
-    price: number;
+    price: Number;
     @Prop()
     type: string;
     @Prop()
-    concert: Concert;
+    concertName: string;
 }

@@ -9,9 +9,6 @@ export type UserDocument = User & Document;
 @Schema()
 export class User {
   @Prop()
-  _id: Types.ObjectId;
-  
-  @Prop()
   firstName: string;
 
   @Prop()

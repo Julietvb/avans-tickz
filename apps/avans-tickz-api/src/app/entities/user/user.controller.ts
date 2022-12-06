@@ -24,7 +24,7 @@ export class UserController{
 
     @Post()
     async createUser(@Body() createUserDto: CreateUserDto): Promise<User> {
-        return this.userService.createUser(createUserDto._id, createUserDto.firstName, createUserDto.lastName, createUserDto.birthDate, createUserDto.emailAdres, createUserDto.password);
+        return this.userService.createUser(createUserDto.firstName, createUserDto.lastName, createUserDto.birthDate, createUserDto.emailAdres, createUserDto.password);
     }
 
     @Patch(':userId')

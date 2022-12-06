@@ -16,15 +16,15 @@ export class UserService{
         return this.userRepository.find({})
     }
 
-    createUser(_id: Types.ObjectId, firstName: string, lastName: string, birthDate: Date, emailAdres: string, password: string): Promise<User>{
+    createUser(firstName: string, lastName: string, birthDate: Date, emailAdres: string, password: string): Promise<User>{
         return this.userRepository.create({
-            _id,
             firstName,
             lastName,
             birthDate,
             emailAdres,
             password,
-            favoriteArtists: []
+            favoriteArtists: [],
+            myTickets: []
         })
     }
 

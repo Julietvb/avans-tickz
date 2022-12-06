@@ -47,11 +47,12 @@ const app_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app
 const app_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app.service.ts");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const user_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.module.ts");
+const concert_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.module.ts");
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/avansTickz'), user_module_1.UserModule],
+        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/avansTickz'), user_module_1.UserModule, concert_module_1.ConcertModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
@@ -82,42 +83,156 @@ exports.AppService = AppService;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts":
+/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.controller.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b;
+var _a, _b, _c, _d, _e, _f, _g, _h;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Artist = void 0;
+exports.ConcertController = void 0;
 const tslib_1 = __webpack_require__("tslib");
-const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const mongoose_2 = __webpack_require__("mongoose");
-let Artist = class Artist {
+const common_1 = __webpack_require__("@nestjs/common");
+const create_concert_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/dto/create-concert.dto.ts");
+const update_concert_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/dto/update-concert.dto.ts");
+const concert_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.service.ts");
+const mongoose_1 = __webpack_require__("mongoose");
+let ConcertController = class ConcertController {
+    constructor(concertService) {
+        this.concertService = concertService;
+    }
+    getConcert(concertId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log('getConcert aangeroepen');
+            console.log(concertId);
+            return yield this.concertService.getConcertById(concertId);
+        });
+    }
+    getConcerts() {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.concertService.getAllConcerts();
+        });
+    }
+    createConcert(createConcertDto) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.concertService.createConcert(createConcertDto.title, createConcertDto.date, createConcertDto.time, createConcertDto.amountOfTickets, createConcertDto.performances, createConcertDto.artists, createConcertDto.performTimes, createConcertDto.tickets, createConcertDto.ticketPrice, createConcertDto.ticketType, createConcertDto.venueId);
+        });
+    }
+    updateConcert(concertId, updateConcertDto) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.concertService.updateConcert(concertId, updateConcertDto);
+        });
+    }
 };
 tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
-], Artist.prototype, "_id", void 0);
+    (0, common_1.Get)(':concertId'),
+    tslib_1.__param(0, (0, common_1.Param)('concertId')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], ConcertController.prototype, "getConcert", null);
 tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Artist.prototype, "name", void 0);
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], ConcertController.prototype, "getConcerts", null);
 tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
-], Artist.prototype, "birthDate", void 0);
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_d = typeof create_concert_dto_1.CreateConcertDto !== "undefined" && create_concert_dto_1.CreateConcertDto) === "function" ? _d : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], ConcertController.prototype, "createConcert", null);
 tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Artist.prototype, "genre", void 0);
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Artist.prototype, "description", void 0);
-Artist = tslib_1.__decorate([
-    (0, mongoose_1.Schema)()
-], Artist);
-exports.Artist = Artist;
+    (0, common_1.Patch)(':concertId'),
+    tslib_1.__param(0, (0, common_1.Param)('concertId')),
+    tslib_1.__param(1, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_f = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _f : Object, typeof (_g = typeof update_concert_dto_1.UpdateConcertDto !== "undefined" && update_concert_dto_1.UpdateConcertDto) === "function" ? _g : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+], ConcertController.prototype, "updateConcert", null);
+ConcertController = tslib_1.__decorate([
+    (0, common_1.Controller)('concerts'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof concert_service_1.ConcertService !== "undefined" && concert_service_1.ConcertService) === "function" ? _a : Object])
+], ConcertController);
+exports.ConcertController = ConcertController;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.module.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ConcertModule = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const concert_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.controller.ts");
+const concert_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.repository.ts");
+const concert_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.schema.ts");
+const concert_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.service.ts");
+let ConcertModule = class ConcertModule {
+};
+ConcertModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: concert_schema_1.Concert.name, schema: concert_schema_1.ConcertSchema }])],
+        controllers: [concert_controller_1.ConcertController],
+        providers: [concert_service_1.ConcertService, concert_repository_1.ConcertRepository]
+    })
+], ConcertModule);
+exports.ConcertModule = ConcertModule;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.repository.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ConcertRepository = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const mongoose_2 = __webpack_require__("mongoose");
+const concert_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.schema.ts");
+const mongoose_3 = __webpack_require__("mongoose");
+let ConcertRepository = class ConcertRepository {
+    constructor(concertModel) {
+        this.concertModel = concertModel;
+    }
+    findById(concertId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log('repository findById aangeroepen');
+            return yield this.concertModel.findOne({ _id: new mongoose_3.Types.ObjectId(concertId) });
+        });
+    }
+    find(concertFilterQuery) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.concertModel.find(concertFilterQuery);
+        });
+    }
+    create(concert) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const newConcert = new this.concertModel(concert);
+            return yield newConcert.save();
+        });
+    }
+    findOneAndUpdate(concertFilterQuery, concert) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.concertModel.findOneAndUpdate(concertFilterQuery, concert, { new: true });
+        });
+    }
+};
+ConcertRepository = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__param(0, (0, mongoose_1.InjectModel)(concert_schema_1.Concert.name)),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object])
+], ConcertRepository);
+exports.ConcertRepository = ConcertRepository;
 
 
 /***/ }),
@@ -126,28 +241,21 @@ exports.Artist = Artist;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e;
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Concert = void 0;
+exports.ConcertSchema = exports.Concert = void 0;
 const tslib_1 = __webpack_require__("tslib");
-const venue_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const mongoose_2 = __webpack_require__("mongoose");
-const artist_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts");
 const ticket_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts");
 let Concert = class Concert {
 };
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
-], Concert.prototype, "_id", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", String)
 ], Concert.prototype, "title", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+    tslib_1.__metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
 ], Concert.prototype, "date", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
@@ -155,24 +263,110 @@ tslib_1.__decorate([
 ], Concert.prototype, "time", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_c = typeof Number !== "undefined" && Number) === "function" ? _c : Object)
+    tslib_1.__metadata("design:type", typeof (_b = typeof Number !== "undefined" && Number) === "function" ? _b : Object)
 ], Concert.prototype, "amountOfTickets", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_d = typeof artist_schema_1.Artist !== "undefined" && artist_schema_1.Artist) === "function" ? _d : Object)
-], Concert.prototype, "artists", void 0);
+    tslib_1.__metadata("design:type", typeof (_c = typeof Map !== "undefined" && Map) === "function" ? _c : Object)
+], Concert.prototype, "performances", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)([ticket_schema_1.Ticket]),
     tslib_1.__metadata("design:type", Array)
 ], Concert.prototype, "tickets", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_e = typeof venue_schema_1.Venue !== "undefined" && venue_schema_1.Venue) === "function" ? _e : Object)
-], Concert.prototype, "venue", void 0);
+    tslib_1.__metadata("design:type", String)
+], Concert.prototype, "venueId", void 0);
 Concert = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], Concert);
 exports.Concert = Concert;
+exports.ConcertSchema = mongoose_1.SchemaFactory.createForClass(Concert);
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.service.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.ConcertService = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const concert_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.repository.ts");
+const mongoose_1 = __webpack_require__("mongoose");
+let ConcertService = class ConcertService {
+    constructor(concertRepository) {
+        this.concertRepository = concertRepository;
+    }
+    getConcertById(concertId) {
+        console.log('service getById aangeroepen');
+        return this.concertRepository.findById(concertId);
+    }
+    getAllConcerts() {
+        return this.concertRepository.find({});
+    }
+    createConcert(title, date, time, amountOfTickets, performances, artists, performTimes, tickets, ticketPrice, ticketType, venueId) {
+        for (let i = 0; i < amountOfTickets; i++) {
+            tickets.push({
+                _id: new mongoose_1.Types.ObjectId(i),
+                price: ticketPrice,
+                type: ticketType,
+                concertName: title
+            });
+        }
+        console.log(artists);
+        performances = new Map();
+        for (let j = 0; j < artists.length; j++) {
+            performances.set(artists.at(j), performTimes.at(j));
+        }
+        return this.concertRepository.create({
+            title,
+            date,
+            time,
+            amountOfTickets,
+            performances: performances,
+            tickets: tickets,
+            venueId,
+        });
+    }
+    updateConcert(concertId, concertUpdates) {
+        return this.concertRepository.findOneAndUpdate({ _id: concertId }, concertUpdates);
+    }
+};
+ConcertService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof concert_repository_1.ConcertRepository !== "undefined" && concert_repository_1.ConcertRepository) === "function" ? _a : Object])
+], ConcertService);
+exports.ConcertService = ConcertService;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/concert/dto/create-concert.dto.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateConcertDto = void 0;
+class CreateConcertDto {
+}
+exports.CreateConcertDto = CreateConcertDto;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/concert/dto/update-concert.dto.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateConcertDto = void 0;
+class UpdateConcertDto {
+}
+exports.UpdateConcertDto = UpdateConcertDto;
 
 
 /***/ }),
@@ -187,7 +381,6 @@ exports.Ticket = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
-const concert_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.schema.ts");
 let Ticket = class Ticket {
 };
 tslib_1.__decorate([
@@ -196,7 +389,7 @@ tslib_1.__decorate([
 ], Ticket.prototype, "_id", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", Number)
+    tslib_1.__metadata("design:type", typeof (_b = typeof Number !== "undefined" && Number) === "function" ? _b : Object)
 ], Ticket.prototype, "price", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
@@ -204,8 +397,8 @@ tslib_1.__decorate([
 ], Ticket.prototype, "type", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_b = typeof concert_schema_1.Concert !== "undefined" && concert_schema_1.Concert) === "function" ? _b : Object)
-], Ticket.prototype, "concert", void 0);
+    tslib_1.__metadata("design:type", String)
+], Ticket.prototype, "concertName", void 0);
 Ticket = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], Ticket);
@@ -271,7 +464,7 @@ let UserController = class UserController {
     }
     createUser(createUserDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.userService.createUser(createUserDto._id, createUserDto.firstName, createUserDto.lastName, createUserDto.birthDate, createUserDto.emailAdres, createUserDto.password);
+            return this.userService.createUser(createUserDto.firstName, createUserDto.lastName, createUserDto.birthDate, createUserDto.emailAdres, createUserDto.password);
         });
     }
     updateUser(userId, updateUserDto) {
@@ -398,19 +591,14 @@ exports.UserRepository = UserRepository;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b;
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserSchema = exports.User = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const mongoose_2 = __webpack_require__("mongoose");
 const ticket_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts");
 let User = class User {
 };
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
-], User.prototype, "_id", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", String)
@@ -421,7 +609,7 @@ tslib_1.__decorate([
 ], User.prototype, "lastName", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_b = typeof Date !== "undefined" && Date) === "function" ? _b : Object)
+    tslib_1.__metadata("design:type", typeof (_a = typeof Date !== "undefined" && Date) === "function" ? _a : Object)
 ], User.prototype, "birthDate", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
@@ -469,15 +657,15 @@ let UserService = class UserService {
     getAllUsers() {
         return this.userRepository.find({});
     }
-    createUser(_id, firstName, lastName, birthDate, emailAdres, password) {
+    createUser(firstName, lastName, birthDate, emailAdres, password) {
         return this.userRepository.create({
-            _id,
             firstName,
             lastName,
             birthDate,
             emailAdres,
             password,
-            favoriteArtists: []
+            favoriteArtists: [],
+            myTickets: []
         });
     }
     updateUser(userId, userUpdates) {
@@ -489,50 +677,6 @@ UserService = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof user_repository_1.UserRepository !== "undefined" && user_repository_1.UserRepository) === "function" ? _a : Object])
 ], UserService);
 exports.UserService = UserService;
-
-
-/***/ }),
-
-/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts":
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-
-var _a, _b;
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.Venue = void 0;
-const tslib_1 = __webpack_require__("tslib");
-const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const mongoose_2 = __webpack_require__("mongoose");
-let Venue = class Venue {
-};
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_a = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _a : Object)
-], Venue.prototype, "_id", void 0);
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Venue.prototype, "venueName", void 0);
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Venue.prototype, "venueImage", void 0);
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Venue.prototype, "adres", void 0);
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Venue.prototype, "city", void 0);
-tslib_1.__decorate([
-    (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_b = typeof Number !== "undefined" && Number) === "function" ? _b : Object)
-], Venue.prototype, "capacity", void 0);
-Venue = tslib_1.__decorate([
-    (0, mongoose_1.Schema)()
-], Venue);
-exports.Venue = Venue;
 
 
 /***/ }),

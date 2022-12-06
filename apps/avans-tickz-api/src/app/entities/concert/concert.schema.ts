@@ -1,13 +1,13 @@
 import { Venue } from "../venue/venue.schema";
-import { Prop, Schema } from "@nestjs/mongoose";
+import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import {Types} from "mongoose";
 import { Artist } from "../artist/artist.schema";
 import { Ticket } from "../ticket/ticket.schema";
 
+export type ConcertDocument = Concert & Document;
+
 @Schema()
 export class Concert{
-    @Prop()
-    _id: Types.ObjectId;
     @Prop()
     title: string;
     @Prop()
@@ -17,9 +17,11 @@ export class Concert{
     @Prop()
     amountOfTickets: Number;
     @Prop()
-    artists: Artist;
+    performances: Map<string, string>;
     @Prop([Ticket])
     tickets: Ticket[];
     @Prop()
-    venue: Venue;
+    venueId: string;
 }
+
+export const ConcertSchema = SchemaFactory.createForClass(Concert)
