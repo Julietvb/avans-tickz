@@ -123,6 +123,12 @@ let ConcertController = class ConcertController {
             return this.concertService.updateConcert(concertId, updateConcertDto);
         });
     }
+    deleteConcert(concertId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log('deleteConcert aangeroepen');
+            return yield this.concertService.deleteConcertById(concertId);
+        });
+    }
 };
 tslib_1.__decorate([
     (0, common_1.Get)(':concertId'),
@@ -152,6 +158,13 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [typeof (_f = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _f : Object, typeof (_g = typeof update_concert_dto_1.UpdateConcertDto !== "undefined" && update_concert_dto_1.UpdateConcertDto) === "function" ? _g : Object]),
     tslib_1.__metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
 ], ConcertController.prototype, "updateConcert", null);
+tslib_1.__decorate([
+    (0, common_1.Delete)(':concertId'),
+    tslib_1.__param(0, (0, common_1.Param)('concertId')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", Promise)
+], ConcertController.prototype, "deleteConcert", null);
 ConcertController = tslib_1.__decorate([
     (0, common_1.Controller)('concerts'),
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof concert_service_1.ConcertService !== "undefined" && concert_service_1.ConcertService) === "function" ? _a : Object])
@@ -225,6 +238,11 @@ let ConcertRepository = class ConcertRepository {
     findOneAndUpdate(concertFilterQuery, concert) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             return yield this.concertModel.findOneAndUpdate(concertFilterQuery, concert, { new: true });
+        });
+    }
+    deleteById(concertId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.concertModel.deleteOne({ _id: new mongoose_3.Types.ObjectId(concertId) });
         });
     }
 };
@@ -340,6 +358,9 @@ let ConcertService = class ConcertService {
     }
     updateConcert(concertId, concertUpdates) {
         return this.concertRepository.findOneAndUpdate({ _id: concertId }, concertUpdates);
+    }
+    deleteConcertById(concertId) {
+        return this.concertRepository.deleteById(concertId);
     }
 };
 ConcertService = tslib_1.__decorate([
@@ -478,6 +499,12 @@ let UserController = class UserController {
             return this.userService.updateUser(userId, updateUserDto);
         });
     }
+    deleteUser(userId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log('deleteUser aangeroepen');
+            return yield this.userService.deleteUserById(userId);
+        });
+    }
 };
 tslib_1.__decorate([
     (0, common_1.Get)(':userId'),
@@ -507,6 +534,13 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [typeof (_f = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _f : Object, typeof (_g = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _g : Object]),
     tslib_1.__metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
 ], UserController.prototype, "updateUser", null);
+tslib_1.__decorate([
+    (0, common_1.Delete)(':userId'),
+    tslib_1.__param(0, (0, common_1.Param)('userId')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", Promise)
+], UserController.prototype, "deleteUser", null);
 UserController = tslib_1.__decorate([
     (0, common_1.Controller)('users'),
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" ? _a : Object])
@@ -580,6 +614,11 @@ let UserRepository = class UserRepository {
     findOneAndUpdate(userFilterQuery, user) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             return yield this.userModel.findOneAndUpdate(userFilterQuery, user, { new: true });
+        });
+    }
+    deleteById(userId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.userModel.deleteOne({ _id: new mongoose_3.Types.ObjectId(userId) });
         });
     }
 };
@@ -676,6 +715,9 @@ let UserService = class UserService {
     }
     updateUser(userId, userUpdates) {
         return this.userRepository.findOneAndUpdate({ _id: userId }, userUpdates);
+    }
+    deleteUserById(userId) {
+        return this.userRepository.deleteById(userId);
     }
 };
 UserService = tslib_1.__decorate([

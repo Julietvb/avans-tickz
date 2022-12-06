@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Patch,
@@ -53,5 +54,11 @@ export class ConcertController {
     @Body() updateConcertDto: UpdateConcertDto
   ): Promise<Concert> {
     return this.concertService.updateConcert(concertId, updateConcertDto);
+  }
+
+  @Delete(':concertId')
+  async deleteConcert(@Param('concertId') concertId: string){
+      console.log('deleteConcert aangeroepen')
+      return await this.concertService.deleteConcertById(concertId);
   }
 }

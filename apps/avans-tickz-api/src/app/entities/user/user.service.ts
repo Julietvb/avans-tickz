@@ -31,4 +31,8 @@ export class UserService{
     updateUser(userId: Types.ObjectId, userUpdates: UpdateUserDto): Promise<User> {
         return this.userRepository.findOneAndUpdate({ _id: userId }, userUpdates)
     }
+    
+    deleteUserById(userId: string){
+        return this.userRepository.deleteById(userId);
+    }
 }

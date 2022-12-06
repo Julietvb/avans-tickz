@@ -18,22 +18,7 @@ export class ConcertService {
   ];
 
   constructor(private httpClient: HttpClient) {}
-
-  // getAllConcerts(): Observable<Concert[]> {
-  //   console.log('User getList aangeroepen');
-  //   console.log(this.concertList);
-  //   return of(this.concertList);
-  // }
-
-  // getConcertById(id: number): Observable<Concert> {
-  //   console.log('User getById aangeroepen');
-  //   console.log(`User met ID ${id} gezocht`);
-  //   const concert = this.concertList.find(
-  //     (concert) => concert.concertId === id
-  //   )!;
-  //   return of(concert);
-  // }
-
+  
   getAllConcerts(): Observable<Concert[]> {
     return this.httpClient.get('http://localhost:3333/api/concerts') as Observable<Concert[]>;
   }

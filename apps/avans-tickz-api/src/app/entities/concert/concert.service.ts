@@ -74,4 +74,8 @@ export class ConcertService {
       concertUpdates
     );
   }
+
+  deleteConcertById(concertId: string){
+    return this.concertRepository.deleteById(concertId);
+}
 }

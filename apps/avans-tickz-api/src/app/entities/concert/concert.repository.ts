@@ -25,4 +25,8 @@ export class ConcertRepository{
     async findOneAndUpdate(concertFilterQuery: FilterQuery<Concert>, concert: Partial<Concert>): Promise<Concert> {
         return await this.concertModel.findOneAndUpdate(concertFilterQuery, concert, {new: true});
     }
+
+    async deleteById(concertId: string){
+        return await this.concertModel.deleteOne({_id: new Types.ObjectId(concertId)})
+    }
 }

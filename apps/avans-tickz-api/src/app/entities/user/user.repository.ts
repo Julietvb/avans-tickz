@@ -25,4 +25,8 @@ export class UserRepository{
     async findOneAndUpdate(userFilterQuery: FilterQuery<User>, user: Partial<User>): Promise<User> {
         return await this.userModel.findOneAndUpdate(userFilterQuery, user, {new: true});
     }
+
+    async deleteById(userId: string){
+        return await this.userModel.deleteOne({_id: new Types.ObjectId(userId)})
+    }
 }
