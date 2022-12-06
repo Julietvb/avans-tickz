@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Concert } from './concert.model';
 import { ConcertService } from './concert.service';
 
@@ -9,7 +10,7 @@ import { ConcertService } from './concert.service';
   styleUrls: ['./concert.component.css'],
 })
 export class ConcertComponent implements OnInit {
-  concerts: Concert[] | undefined;
+  concerts: Observable<any> | undefined;
 
   constructor(
     private concertService: ConcertService,
@@ -18,6 +19,6 @@ export class ConcertComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.concerts = this.concertService.concertList;
+    this.concerts = this.concertService.getAllConcerts();
   }
 }

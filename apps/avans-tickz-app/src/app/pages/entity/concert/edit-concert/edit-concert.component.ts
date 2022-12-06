@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Concert } from '../concert.model';
 import { ConcertService } from '../concert.service';
+import { Types } from 'mongoose';
 
 @Component({
   selector: 'avans-tickz-edit-concert',
@@ -10,7 +11,7 @@ import { ConcertService } from '../concert.service';
 })
 export class EditConcertComponent implements OnInit {
   concert: Concert | undefined;
-  concertId = Number(this.route.snapshot.paramMap.get('concertId'));
+  concertId = new Types.ObjectId(this.route.snapshot.paramMap.get('concertId')!);
   
   constructor(private concertService: ConcertService, private route: ActivatedRoute, private router: Router) { }
 

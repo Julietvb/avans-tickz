@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Concert } from '../concert.model';
 import { ConcertService } from '../concert.service';
+import { Types } from 'mongoose';
 
 @Component({
   selector: 'avans-tickz-detail-concert',
@@ -10,15 +11,13 @@ import { ConcertService } from '../concert.service';
   styleUrls: ['./detail-concert.component.css'],
 })
 export class DetailConcertComponent implements OnInit {
-  concertId = Number(this.route.snapshot.paramMap.get('concertId'));
+  concertId = new Types.ObjectId(this.route.snapshot.paramMap.get('concertId')!);
   currentConcert: Concert | undefined;
-  dateFormat: string | null | undefined;
 
   constructor(
     private concertService: ConcertService,
     private route: ActivatedRoute,
     private router: Router,
-    private dataPipe: DatePipe
   ) {}
 
   ngOnInit(): void {
@@ -28,12 +27,5 @@ export class DetailConcertComponent implements OnInit {
       .getConcertById(this.concertId)
       .subscribe((concert) => (this.currentConcert = concert));
 
-    if (this.currentConcert) {
-      let birthDateFormat = this.dataPipe.transform(
-        this.currentConcert.date,
-        'dd-MM-yyyy'
-      );
-      this.dateFormat = birthDateFormat;
-    }
   }
 }

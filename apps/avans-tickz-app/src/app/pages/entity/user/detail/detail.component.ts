@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./detail.component.css']
 })
 export class DetailComponent implements OnInit {
-  userId = new Types.ObjectId(this.route.snapshot.paramMap.get('_id')!);
+  userId = new Types.ObjectId(this.route.snapshot.paramMap.get('userId')!);
   currentUser: User | undefined;
   dateFormat: string | null | undefined;
 

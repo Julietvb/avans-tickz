@@ -4,7 +4,7 @@
     <button class="btn col-md-2 pull-right" routerLink="/concerts/create"> Add concert <i class="fa fa-plus"></i> </button>
   </div>
   <div class="row">
-    <div class="card col-6 concert-card" *ngFor="let concert of concerts" routerLink="{{concert.concertId}}">
+    <div class="card col-6 concert-card" *ngFor="let concert of concerts | async" routerLink="{{ concert._id }}">
       <div class="card card-custom bg-white border-white border-0">
         <div
           class="card-custom-img"
@@ -35,7 +35,7 @@
           class="card-footer"
           style="background: inherit; border-color: inherit"
         >
-          <a class="btn" routerLink="{{concert.concertId}}/edit">Edit concert</a>
+          <a class="btn" routerLink="{{concert._id}}/edit">Edit concert</a>
         </div>
       </div>
     </div>
