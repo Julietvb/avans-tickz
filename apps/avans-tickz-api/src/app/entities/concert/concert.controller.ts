@@ -5,7 +5,6 @@ import {
   Param,
   Patch,
   Post,
-  Type,
 } from '@nestjs/common';
 import { CreateConcertDto } from './dto/create-concert.dto';
 import { UpdateConcertDto } from './dto/update-concert.dto';

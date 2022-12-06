@@ -1,10 +1,10 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
+
+export type VenueDocument = Venue & Document;
 
 @Schema()
 export class Venue {
-  @Prop()
-  _id: Types.ObjectId;
   @Prop()
   venueName: string;
   @Prop()
@@ -16,3 +16,5 @@ export class Venue {
   @Prop()
   capacity: Number;
 }
+
+export const VenueSchema = SchemaFactory.createForClass(Venue)

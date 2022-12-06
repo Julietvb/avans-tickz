@@ -48,11 +48,12 @@ const app_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app.se
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const user_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.module.ts");
 const concert_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.module.ts");
+const venue_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.module.ts");
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/avansTickz'), user_module_1.UserModule, concert_module_1.ConcertModule],
+        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/avansTickz'), user_module_1.UserModule, concert_module_1.ConcertModule, venue_module_1.VenueModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
@@ -677,6 +678,269 @@ UserService = tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof user_repository_1.UserRepository !== "undefined" && user_repository_1.UserRepository) === "function" ? _a : Object])
 ], UserService);
 exports.UserService = UserService;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/venue/dto/create-venue.dto.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.CreateVenueDto = void 0;
+class CreateVenueDto {
+}
+exports.CreateVenueDto = CreateVenueDto;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/venue/dto/update-venue.dto.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.UpdateVenueDto = void 0;
+class UpdateVenueDto {
+}
+exports.UpdateVenueDto = UpdateVenueDto;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.controller.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b, _c, _d, _e, _f, _g, _h;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.VenueController = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const create_venue_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/dto/create-venue.dto.ts");
+const update_venue_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/dto/update-venue.dto.ts");
+const venue_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.service.ts");
+const mongoose_1 = __webpack_require__("mongoose");
+let VenueController = class VenueController {
+    constructor(venueService) {
+        this.venueService = venueService;
+    }
+    getVenue(venueId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log('getVenue aangeroepen');
+            console.log(venueId);
+            return yield this.venueService.getVenueById(venueId);
+        });
+    }
+    getVenues() {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.venueService.getAllVenues();
+        });
+    }
+    createVenue(createVenueDto) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.venueService.createVenue(createVenueDto.venueName, createVenueDto.venueImage, createVenueDto.adres, createVenueDto.city, createVenueDto.capacity);
+        });
+    }
+    updateVenue(venueId, updateVenueDto) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.venueService.updateVenue(venueId, updateVenueDto);
+        });
+    }
+};
+tslib_1.__decorate([
+    (0, common_1.Get)(':venueId'),
+    tslib_1.__param(0, (0, common_1.Param)('venueId')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
+], VenueController.prototype, "getVenue", null);
+tslib_1.__decorate([
+    (0, common_1.Get)(),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", []),
+    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], VenueController.prototype, "getVenues", null);
+tslib_1.__decorate([
+    (0, common_1.Post)(),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_d = typeof create_venue_dto_1.CreateVenueDto !== "undefined" && create_venue_dto_1.CreateVenueDto) === "function" ? _d : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+], VenueController.prototype, "createVenue", null);
+tslib_1.__decorate([
+    (0, common_1.Patch)(':venueId'),
+    tslib_1.__param(0, (0, common_1.Param)('venueId')),
+    tslib_1.__param(1, (0, common_1.Body)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [typeof (_f = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _f : Object, typeof (_g = typeof update_venue_dto_1.UpdateVenueDto !== "undefined" && update_venue_dto_1.UpdateVenueDto) === "function" ? _g : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+], VenueController.prototype, "updateVenue", null);
+VenueController = tslib_1.__decorate([
+    (0, common_1.Controller)('venues'),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof venue_service_1.VenueService !== "undefined" && venue_service_1.VenueService) === "function" ? _a : Object])
+], VenueController);
+exports.VenueController = VenueController;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.module.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.VenueModule = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const venue_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.controller.ts");
+const venue_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.repository.ts");
+const venue_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts");
+const venue_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.service.ts");
+let VenueModule = class VenueModule {
+};
+VenueModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: venue_schema_1.Venue.name, schema: venue_schema_1.VenueSchema }])],
+        controllers: [venue_controller_1.VenueController],
+        providers: [venue_service_1.VenueService, venue_repository_1.VenueRepository]
+    })
+], VenueModule);
+exports.VenueModule = VenueModule;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.repository.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.VenueRepository = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const mongoose_2 = __webpack_require__("mongoose");
+const venue_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts");
+const mongoose_3 = __webpack_require__("mongoose");
+let VenueRepository = class VenueRepository {
+    constructor(venueModel) {
+        this.venueModel = venueModel;
+    }
+    findById(venueId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log('repository findById aangeroepen');
+            return yield this.venueModel.findOne({ _id: new mongoose_3.Types.ObjectId(venueId) });
+        });
+    }
+    find(venueFilterQuery) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.venueModel.find(venueFilterQuery);
+        });
+    }
+    create(venue) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const newVenue = new this.venueModel(venue);
+            return yield newVenue.save();
+        });
+    }
+    findOneAndUpdate(venueFilterQuery, venue) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.venueModel.findOneAndUpdate(venueFilterQuery, venue, { new: true });
+        });
+    }
+};
+VenueRepository = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__param(0, (0, mongoose_1.InjectModel)(venue_schema_1.Venue.name)),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object])
+], VenueRepository);
+exports.VenueRepository = VenueRepository;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.VenueSchema = exports.Venue = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+let Venue = class Venue {
+};
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Venue.prototype, "venueName", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Venue.prototype, "venueImage", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Venue.prototype, "adres", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Venue.prototype, "city", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_a = typeof Number !== "undefined" && Number) === "function" ? _a : Object)
+], Venue.prototype, "capacity", void 0);
+Venue = tslib_1.__decorate([
+    (0, mongoose_1.Schema)()
+], Venue);
+exports.Venue = Venue;
+exports.VenueSchema = mongoose_1.SchemaFactory.createForClass(Venue);
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.service.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.VenueService = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const venue_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.repository.ts");
+let VenueService = class VenueService {
+    constructor(venueRepository) {
+        this.venueRepository = venueRepository;
+    }
+    getVenueById(venueId) {
+        console.log('service getById aangeroepen');
+        return this.venueRepository.findById(venueId);
+    }
+    getAllVenues() {
+        return this.venueRepository.find({});
+    }
+    createVenue(venueName, venueImage, adres, city, capacity) {
+        return this.venueRepository.create({
+            venueName,
+            venueImage,
+            adres,
+            city,
+            capacity
+        });
+    }
+    updateVenue(venueId, venueUpdates) {
+        return this.venueRepository.findOneAndUpdate({ _id: venueId }, venueUpdates);
+    }
+};
+VenueService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof venue_repository_1.VenueRepository !== "undefined" && venue_repository_1.VenueRepository) === "function" ? _a : Object])
+], VenueService);
+exports.VenueService = VenueService;
 
 
 /***/ }),
