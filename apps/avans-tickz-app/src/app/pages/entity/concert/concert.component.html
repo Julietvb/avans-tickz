@@ -4,12 +4,12 @@
     <button class="btn col-md-2 pull-right" routerLink="/concerts/create"> Add concert <i class="fa fa-plus"></i> </button>
   </div>
   <div class="row">
-    <div class="card col-6 concert-card" *ngFor="let concert of concerts | async" routerLink="{{ concert._id }}">
+    <div class="card col-6 concert-card" *ngFor="let concert of concerts" routerLink="{{ concert._id }}">
       <div class="card card-custom bg-white border-white border-0">
         <div
           class="card-custom-img"
           style="
-            background-image: url({{concert.venueImage}})
+            background-image: url({{concert.venue.venueImage}})
           "
         ></div>
         <div class="card-custom-avatar">
@@ -24,7 +24,7 @@
           <ul class="card-text">
             <li>{{ concert.date | date:('dd-MM-yyyy') }}</li>
             <li>{{ concert.time }}</li>
-            <li><a routerLink="">{{concert.venueName}}</a></li>
+            <li><a routerLink="">{{concert.venue.venueName}}</a></li>
             <li *ngIf="concert.amountOfTickets > 0">
               {{ concert.amountOfTickets }} ticket(s) left
             </li>

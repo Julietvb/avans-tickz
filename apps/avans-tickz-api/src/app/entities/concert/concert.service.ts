@@ -30,7 +30,7 @@ export class ConcertService {
     tickets: Ticket[],
     ticketPrice: Number,
     ticketType: string,
-    venueId: string
+    venue: Venue
   ): Promise<Concert> {
 
     for (let i = 0; i < amountOfTickets; i++) {
@@ -44,6 +44,11 @@ export class ConcertService {
 
     console.log(artists);
 
+    if (artists.length == 1) {
+      performTimes.length = 1
+      performTimes[0] = time;
+    }
+    
     performances = new Map<string, string>();
     for (let j = 0; j < artists.length; j++) {
         performances.set(artists.at(j), performTimes.at(j))
@@ -56,7 +61,7 @@ export class ConcertService {
       amountOfTickets,
       performances: performances,
       tickets: tickets,
-      venueId,
+      venue
     });
   }
 

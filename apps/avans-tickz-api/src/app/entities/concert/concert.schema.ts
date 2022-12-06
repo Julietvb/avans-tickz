@@ -21,7 +21,7 @@ export class Concert{
     @Prop([Ticket])
     tickets: Ticket[];
     @Prop()
-    venueId: string;
+    venue: Venue;
 }
 
 export const ConcertSchema = SchemaFactory.createForClass(Concert)

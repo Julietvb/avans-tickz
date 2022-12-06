@@ -12,7 +12,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root',
 })
-export class ConcertService {
+export class VenueService {
   constructor(private httpClient: HttpClient) {}
 
   getAllVenues(): Observable<Venue[]> {
@@ -22,7 +22,6 @@ export class ConcertService {
   getVenueById(_id: Types.ObjectId): Observable<Venue> {
     return this.httpClient.get(`http://localhost:3333/api/venues/${_id}`) as Observable<Venue>;
   }
-
 
   deleteConcert(concertId: Types.ObjectId) {
     // this.concertList.forEach((element, index) => {

@@ -16,5 +16,5 @@ export class CreateConcertDto{
     tickets: Ticket[];
     ticketPrice: Number;
     ticketType: string;
-    venueId: string;
+    venue: Venue;
 }

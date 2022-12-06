@@ -43,7 +43,7 @@ export class ConcertController {
       createConcertDto.tickets,
       createConcertDto.ticketPrice,
       createConcertDto.ticketType,
-      createConcertDto.venueId
+      createConcertDto.venue
     );
   }
 

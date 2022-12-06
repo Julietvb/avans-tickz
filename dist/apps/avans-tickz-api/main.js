@@ -115,7 +115,7 @@ let ConcertController = class ConcertController {
     }
     createConcert(createConcertDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.concertService.createConcert(createConcertDto.title, createConcertDto.date, createConcertDto.time, createConcertDto.amountOfTickets, createConcertDto.performances, createConcertDto.artists, createConcertDto.performTimes, createConcertDto.tickets, createConcertDto.ticketPrice, createConcertDto.ticketType, createConcertDto.venueId);
+            return this.concertService.createConcert(createConcertDto.title, createConcertDto.date, createConcertDto.time, createConcertDto.amountOfTickets, createConcertDto.performances, createConcertDto.artists, createConcertDto.performTimes, createConcertDto.tickets, createConcertDto.ticketPrice, createConcertDto.ticketType, createConcertDto.venue);
         });
     }
     updateConcert(concertId, updateConcertDto) {
@@ -242,10 +242,11 @@ exports.ConcertRepository = ConcertRepository;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConcertSchema = exports.Concert = void 0;
 const tslib_1 = __webpack_require__("tslib");
+const venue_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const ticket_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts");
 let Concert = class Concert {
@@ -276,8 +277,8 @@ tslib_1.__decorate([
 ], Concert.prototype, "tickets", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Concert.prototype, "venueId", void 0);
+    tslib_1.__metadata("design:type", typeof (_d = typeof venue_schema_1.Venue !== "undefined" && venue_schema_1.Venue) === "function" ? _d : Object)
+], Concert.prototype, "venue", void 0);
 Concert = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], Concert);
@@ -309,7 +310,7 @@ let ConcertService = class ConcertService {
     getAllConcerts() {
         return this.concertRepository.find({});
     }
-    createConcert(title, date, time, amountOfTickets, performances, artists, performTimes, tickets, ticketPrice, ticketType, venueId) {
+    createConcert(title, date, time, amountOfTickets, performances, artists, performTimes, tickets, ticketPrice, ticketType, venue) {
         for (let i = 0; i < amountOfTickets; i++) {
             tickets.push({
                 _id: new mongoose_1.Types.ObjectId(i),
@@ -319,6 +320,10 @@ let ConcertService = class ConcertService {
             });
         }
         console.log(artists);
+        if (artists.length == 1) {
+            performTimes.length = 1;
+            performTimes[0] = time;
+        }
         performances = new Map();
         for (let j = 0; j < artists.length; j++) {
             performances.set(artists.at(j), performTimes.at(j));
@@ -330,7 +335,7 @@ let ConcertService = class ConcertService {
             amountOfTickets,
             performances: performances,
             tickets: tickets,
-            venueId,
+            venue
         });
     }
     updateConcert(concertId, concertUpdates) {

@@ -18,7 +18,7 @@
                       id="title"
                       name="title"
                       #title = 'ngModel'
-                      [(ngModel)]="concert.title"
+                      [ngModel]="concert.title"
                       class="form-control col-10"
                       [ngClass]="{
                         'is-invalid': title.invalid && title.touched
@@ -47,7 +47,7 @@
                       type="text"
                       id="venueName"
                       name="venueName"
-                      [(ngModel)]="concert.venueName"
+                      [ngModel]="concert.venue.venueName"
                       class="form-control"
                       #venueName="ngModel"
                       pattern="^[A-Z]{1}[a-z]+(?:(\.\s|'s\s|\s?-\s?|\s)?(?=[A-Za-z]+))*(?:[A-Za-z]+)?$"
@@ -81,7 +81,7 @@
                       type="text"
                       id="venueImage"
                       name="venueImage"
-                      [(ngModel)]="concert.venueImage"
+                      [ngModel]="concert.venue.venueImage"
                       class="form-control"
                     />
                   </div>
@@ -96,7 +96,7 @@
                       type="date"
                       id="date"
                       name="date"
-                      [(ngModel)]="concert.date"
+                      [ngModel]="concert.date"
                       class="form-control"
                       #date="ngModel"
                       [ngClass]="{
@@ -122,7 +122,7 @@
                       type="time"
                       id="time"
                       name="time"
-                      [(ngModel)]="concert.time"
+                      [ngModel]="concert.time"
                       class="form-control"
                       #time="ngModel"
                       [ngClass]="{
@@ -150,7 +150,7 @@
                       type="text"
                       id="adres"
                       name="adres"
-                      [(ngModel)]="concert.adres"
+                      [ngModel]="concert.venue.adres"
                       class="form-control"
                       #adres="ngModel"
                       pattern="[A-Z]{1}[a-z]*\s?([A-Z]?[a-z]*)*\s[0-9]+\s?[A-Z a-z]?"
@@ -181,7 +181,7 @@
                       type="text"
                       id="city"
                       name="city"
-                      [(ngModel)]="concert.city"
+                      [ngModel]="concert.venue.city"
                       class="form-control"
                       #city="ngModel"
                       pattern="^(?:[A-Z]{1}[a-z]+(?:(\.\s|'s\s|\s?-\s?|\s)?(?=[A-Z]{1}[a-z]+)))*(?:[A-Z]{1}[a-z]+)?$"
@@ -214,7 +214,7 @@
                       type="number"
                       id="amountOfTickets"
                       name="amountOfTickets"
-                      [(ngModel)]="concert.amountOfTickets"
+                      [ngModel]="concert.amountOfTickets"
                       class="form-control"
                       #amountOfTickets="ngModel"
                       [ngClass]="{

@@ -16,5 +16,5 @@ export class UpdateConcertDto{
     tickets: Ticket[];
     ticketPrice: Number;
     ticketType: string;
-    venueId: string;
+    venue: Venue;
 }
