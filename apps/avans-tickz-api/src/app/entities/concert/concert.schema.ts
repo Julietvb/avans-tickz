@@ -20,8 +20,8 @@ export class Concert{
     performances: Map<string, string>;
     @Prop([Ticket])
     tickets: Ticket[];
-    @Prop()
-    venue: Venue;
+    @Prop({type: Types.ObjectId, ref: 'Venue'})
+    venue!: Venue;
 }
 
 export const ConcertSchema = SchemaFactory.createForClass(Concert)

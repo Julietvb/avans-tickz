@@ -12,6 +12,7 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root',
 })
+
 export class ConcertService {
   private concert?: Concert;
   public concertList: Concert[] = [
@@ -27,10 +28,26 @@ export class ConcertService {
     return this.httpClient.get(`http://localhost:3333/api/concerts/${_id}`) as Observable<Concert>;
   }
 
-  deleteConcert(concertId: Types.ObjectId) {
-    // this.concertList.forEach((element, index) => {
-    //   if (element.concertId == concertId) this.concertList.splice(index, 1);
-    // });
+  createConcert(concert: Concert): Observable<Concert>{
+    console.log("createConcert aangeroepen")
+    console.log("createConcert" + concert)
+    return this.httpClient.post<Concert>('http://localhost:3333/api/concerts',{
+      title: concert.title,
+      date: concert.date,
+      time: concert.time,
+      amountOfTickets: concert.amountOfTickets,
+      performances: [],
+      artists: concert.artists,
+      performTimes: concert.performTimes,
+      tickets: [],
+      ticketPrice: concert.ticketPrice,
+      ticketType: concert.ticketType,
+      venue: concert.venue
+    }) as Observable<Concert>;
+  }
+
+  deleteConcert(_id: Types.ObjectId) {
+    return this.httpClient.delete(`http://localhost:3333/api/concerts/${_id}`);
   }
 
   // private handleError(error: HttpErrorResponse): Observable<any> {

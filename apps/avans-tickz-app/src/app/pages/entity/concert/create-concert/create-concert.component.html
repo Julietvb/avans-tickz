@@ -7,42 +7,13 @@
           style="border-radius: 15px"
         >
           <div class="card-body p-4 p-md-5">
-            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Create concert</h3>
+            <h3 class="pb-2 pb-md-0 mb-md-3">Create concert</h3>
             <form
               #createConcertForm="ngForm"
               (ngSubmit)="createConcert(createConcertForm.value)"
             >
               <div class="row">
-                <div class="col-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="concertId">*Id</label>
-                    <input
-                      type="number"
-                      id="concertId"
-                      name="concertId"
-                      class="form-control"
-                      ngModel
-                      #id="ngModel"
-                      [ngClass]="{
-                        'is-invalid': id.invalid && id.touched
-                      }"
-                      required
-                      min="1"
-                    />
-                    <div
-                      *ngIf="id.invalid && id.touched"
-                      class="invalid-feedback"
-                    >
-                      <div *ngIf="id.errors?.['required']">
-                        Please give an id
-                      </div>
-                      <div *ngIf="id.errors?.['min']">
-                        Id must be at least 1
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-6 mb-4">
+                <div class="col mb-4">
                   <div class="form-outline">
                     <label class="form-label" for="title">*Title</label>
                     <input
@@ -66,54 +37,6 @@
                         Concert name is required
                       </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="venueName">*Venue name</label>
-                    <input
-                      type="text"
-                      id="venueName"
-                      name="venueName"
-                      class="form-control"
-                      ngModel
-                      #venueName="ngModel"
-                      pattern="^[A-Z]{1}[a-z]+(?:(\.\s|'s\s|\s?-\s?|\s)?(?=[A-Za-z]+))*(?:[A-Za-z]+)?$"
-                      [ngClass]="{
-                        'is-invalid': venueName.invalid && venueName.touched
-                      }"
-                      required
-                    />
-                    <div
-                      *ngIf="venueName.invalid && venueName.touched"
-                      class="invalid-feedback"
-                    >
-                      <div *ngIf="venueName.errors?.['required']">
-                        Venue name is required
-                      </div>
-
-                      <div *ngIf="venueName.errors?.['pattern']">
-                        <span>Please give a valid venue name </span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="col-md-6 mb-4 d-flex align-items-center">
-                  <div class="form-outline w-100">
-                    <label for="venueImage" class="form-label">
-                      Venue image URL</label
-                    >
-
-                    <input
-                      type="text"
-                      id="venueImage"
-                      name="venueImage"
-                      class="form-control"
-                      ngModel
-                    />
                   </div>
                 </div>
               </div>
@@ -167,6 +90,112 @@
                         Time is required
                       </div>
                     </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="artists">*Artist(s)</label>
+                    <input
+                      type="text"
+                      id="artists"
+                      name="artists"
+                      class="form-control"
+                      ngModel
+                      #artists="ngModel"
+                      [ngClass]="{
+                        'is-invalid': artists.invalid && artists.touched
+                      }"
+                      required
+                    />
+                    <div
+                      *ngIf="artists.invalid && artists.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="artists.errors?.['required']">
+                        Artist is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="performTimes">*Perform time(s)</label>
+                    <input
+                      type="text"
+                      id="performTimes"
+                      name="performTimes"
+                      class="form-control"
+                      ngModel
+                      #performTimes="ngModel"
+                      [ngClass]="{
+                        'is-invalid': performTimes.invalid && performTimes.touched
+                      }"
+                      required
+                    />
+                    <div
+                      *ngIf="performTimes.invalid && performTimes.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="performTimes.errors?.['required']">
+                        Perform time is required
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <h4 class="pb-1">Venue information</h4>
+
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="venueName"
+                      >*Venue name</label
+                    >
+                    <input
+                      type="text"
+                      id="venueName"
+                      name="venueName"
+                      class="form-control"
+                      ngModel
+                      #venueName="ngModel"
+                      pattern="^[A-Z]{1}[a-z]+(?:(\.\s|'s\s|\s?-\s?|\s)?(?=[A-Za-z]+))*(?:[A-Za-z]+)?$"
+                      [ngClass]="{
+                        'is-invalid': venueName.invalid && venueName.touched
+                      }"
+                      required
+                    />
+                    <div
+                      *ngIf="venueName.invalid && venueName.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="venueName.errors?.['required']">
+                        Venue name is required
+                      </div>
+
+                      <div *ngIf="venueName.errors?.['pattern']">
+                        <span>Please give a valid venue name </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline w-100">
+                    <label for="venueImage" class="form-label">
+                      Venue image URL</label
+                    >
+                    <input
+                      type="url"
+                      id="venueImage"
+                      name="venueImage"
+                      class="form-control"
+                      ngModel
+                    />
                   </div>
                 </div>
               </div>
@@ -236,6 +265,39 @@
               <div class="row">
                 <div class="col-md-6 mb-4 d-flex align-items-center">
                   <div class="form-outline w-100">
+                    <label for="capacity" class="form-label"
+                      >*Capacity</label
+                    >
+                    <input
+                      type="number"
+                      id="capacity"
+                      name="capacity"
+                      class="form-control"
+                      ngModel
+                      #capacity="ngModel"
+                      [ngClass]="{
+                        'is-invalid': capacity.invalid && capacity.touched
+                      }"
+                      required
+                      min="1"
+                    />
+                    <div
+                      *ngIf="capacity.invalid && capacity.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="capacity.errors?.['required']">
+                        Please give a capacity of the 
+                      </div>
+                      <div *ngIf="capacity.errors?.['min']">
+                        Capacity must be at least 1
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <h4 class="pb-1">Ticket information</h4>
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline w-100">
                     <label for="amountOfTickets" class="form-label"
                       >*Amount of Tickets</label
                     >
@@ -266,9 +328,69 @@
                     </div>
                   </div>
                 </div>
+
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline w-100">
+                    <label for="ticketPrice" class="form-label"
+                      >*Price per ticket</label
+                    >
+                    <input
+                      type="number"
+                      id="ticketPrice"
+                      name="ticketPrice"
+                      class="form-control"
+                      ngModel
+                      #ticketPrice="ngModel"
+                      [ngClass]="{
+                        'is-invalid': ticketPrice.invalid && ticketPrice.touched
+                      }"
+                      required
+                      min="1"
+                    />
+                    <div
+                      *ngIf="ticketPrice.invalid && ticketPrice.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="ticketPrice.errors?.['required']">
+                        Please give a amount of tickets.
+                      </div>
+                      <div *ngIf="ticketPrice.errors?.['min']">
+                        Amount of tickets must be at least 1
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
 
-              <button type="submit" class="btn">Create concert</button>
+              <div class="row">
+                <div class="form-outline w-100">
+                  <label for="ticketType" class="form-label"
+                    >*Ticket type (Mobile-only / Printed)</label
+                  >
+                  <input
+                    type="text"
+                    id="ticketType"
+                    name="ticketType"
+                    class="form-control"
+                    ngModel
+                    #ticketType="ngModel"
+                    [ngClass]="{
+                      'is-invalid': ticketType.invalid && ticketType.touched
+                    }"
+                    required
+                    min="1"
+                  />
+                  <div
+                    *ngIf="ticketType.invalid && ticketType.touched"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="ticketType.errors?.['required']">
+                      Please give a type.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <button type="submit" class="btn mt-3">Create concert</button>
             </form>
           </div>
         </div>

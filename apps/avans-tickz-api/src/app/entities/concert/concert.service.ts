@@ -30,7 +30,7 @@ export class ConcertService {
     tickets: Ticket[],
     ticketPrice: Number,
     ticketType: string,
-    venue: Venue
+    venue: Venue,
   ): Promise<Concert> {
 
     for (let i = 0; i < amountOfTickets; i++) {
@@ -42,16 +42,19 @@ export class ConcertService {
       });
     }
 
-    console.log(artists);
+    let artistString = artists.toString()
+    let artistArray = artistString.split(" / ")
 
-    if (artists.length == 1) {
-      performTimes.length = 1
-      performTimes[0] = time;
+    let performTimesString = performTimes.toString()
+    let timesArray = performTimesString.split(" / ")
+
+    if (artistArray.length == 1) {
+      timesArray[0] = time;
     }
     
     performances = new Map<string, string>();
-    for (let j = 0; j < artists.length; j++) {
-        performances.set(artists.at(j), performTimes.at(j))
+    for (let j = 0; j < artistArray.length; j++) {
+        performances.set(artistArray.at(j), timesArray.at(j))
     }
 
     return this.concertRepository.create({

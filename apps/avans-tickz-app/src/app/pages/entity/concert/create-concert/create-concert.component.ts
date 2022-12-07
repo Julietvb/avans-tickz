@@ -16,7 +16,8 @@ export class CreateConcertComponent implements OnInit {
   }
 
   createConcert(concert: Concert): void{
-    this.concertService.concertList.push(concert);
+    console.log(concert)
+    this.concertService.createConcert(concert).subscribe();
     this.router.navigate(['./concerts']);
   }
 }

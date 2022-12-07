@@ -10,14 +10,15 @@ export class ConcertRepository{
 
     async findById(concertId: string): Promise<Concert> {
         console.log('repository findById aangeroepen')
-        return await this.concertModel.findOne({_id: new Types.ObjectId(concertId)})
+        return await this.concertModel.findOne({_id: new Types.ObjectId(concertId)}).populate('venue')
     }
 
     async find(concertFilterQuery: FilterQuery<Concert>): Promise<Concert[]> {
-        return await this.concertModel.find(concertFilterQuery)
+        return await this.concertModel.find(concertFilterQuery).populate('venue')
     }
 
     async create(concert: Concert): Promise<Concert> {
+        console.log(concert);
         const newConcert = new this.concertModel(concert);
         return await newConcert.save()
     }

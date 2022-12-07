@@ -33,6 +33,7 @@ export class ConcertController {
   async createConcert(
     @Body() createConcertDto: CreateConcertDto
   ): Promise<Concert> {
+    console.log("controller aangeroepen")
     return this.concertService.createConcert(
       createConcertDto.title,
       createConcertDto.date,
