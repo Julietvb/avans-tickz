@@ -1,5 +1,7 @@
-import { Prop, Schema } from '@nestjs/mongoose';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Types } from 'mongoose';
+
+export type ArtistDocument = Artist & Document;
 
 @Schema()
 export class Artist {
@@ -12,3 +14,5 @@ export class Artist {
   @Prop()
   description: string;
 }
+
+export const ArtistSchema = SchemaFactory.createForClass(Artist)
