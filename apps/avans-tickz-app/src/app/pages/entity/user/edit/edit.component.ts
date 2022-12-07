@@ -12,7 +12,7 @@ import { Types } from 'mongoose';
 })
 export class EditComponent implements OnInit {
   user: User | undefined;
-  userId = Number(this.route.snapshot.paramMap.get('userId'));
+  userId = new Types.ObjectId(this.route.snapshot.paramMap.get('userId')!);
   
   constructor(
     private userService: UserService,

@@ -165,9 +165,9 @@ let AuthService = class AuthService {
         this.userService = userService;
         this.jwtService = jwtService;
     }
-    validateUser(emailAdres, pass) {
+    validateUser(username, pass) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userService.getUserByEmail(emailAdres);
+            const user = yield this.userService.getUserByEmail(username);
             if (user && user.password === pass) {
                 const { password } = user, result = tslib_1.__rest(user, ["password"]);
                 return result;
@@ -242,7 +242,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
         super({
             jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
             ignoreExpiration: false,
-            secretOrKey: constants_1.jwtConstants.secret,
+            secretOrKey: constants_1.jwtConstants.secret
         });
     }
     validate(payload) {
@@ -294,13 +294,14 @@ const common_1 = __webpack_require__("@nestjs/common");
 const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.service.ts");
 let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
     constructor(authService) {
-        super({ usernameField: 'emailAdres' });
+        super();
         this.authService = authService;
     }
-    validate(emailAdres, password) {
+    validate(username, password) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            const user = yield this.authService.validateUser(emailAdres, password);
+            const user = yield this.authService.validateUser(username, password);
             if (!user) {
+                console.log('no user found');
                 throw new common_1.UnauthorizedException();
             }
             return user;

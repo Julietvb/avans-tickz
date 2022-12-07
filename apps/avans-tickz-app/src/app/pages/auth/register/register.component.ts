@@ -16,7 +16,7 @@ export class RegisterComponent implements OnInit {
   }
 
   registerUser(user: User): void{
-    this.userService.userList.push(user);
+    // this.userService.userList.push(user);
     this.router.navigate(['./users']);
   }
 
