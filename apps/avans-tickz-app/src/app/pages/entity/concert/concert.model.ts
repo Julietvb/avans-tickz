@@ -1,5 +1,6 @@
 import { Venue } from "../venue/venue.model";
 import { Types } from "mongoose";
+import { Ticket } from "../ticket/ticket.model";
 
 
 export interface Concert{
@@ -10,8 +11,10 @@ export interface Concert{
     time: string;
     artists: string[],
     performTimes: string[],
+    performances: Map<string, string>
     ticketPrice: Number,
-    ticketType: Number,
+    ticketType: string,
+    tickets: Ticket[],
     amountOfTickets: Number;
     venue: Venue;
 }

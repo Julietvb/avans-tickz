@@ -46,6 +46,10 @@ export class ConcertService {
     }) as Observable<Concert>;
   }
 
+  updateConcert(_id: Types.ObjectId, concert: Partial<Concert>){
+    return this.httpClient.patch<Concert>(`http://localhost:3333/api/concerts/${_id}`, concert)
+  }
+
   deleteConcert(_id: Types.ObjectId) {
     return this.httpClient.delete(`http://localhost:3333/api/concerts/${_id}`);
   }

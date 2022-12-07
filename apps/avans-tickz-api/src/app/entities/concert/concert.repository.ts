@@ -9,7 +9,6 @@ export class ConcertRepository{
     constructor(@InjectModel(Concert.name) private concertModel: Model<ConcertDocument>) {}
 
     async findById(concertId: string): Promise<Concert> {
-        console.log('repository findById aangeroepen')
         return await this.concertModel.findOne({_id: new Types.ObjectId(concertId)}).populate('venue')
     }
 

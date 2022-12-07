@@ -19,8 +19,6 @@ export class ConcertController {
 
   @Get(':concertId')
   async getConcert(@Param('concertId') concertId: string): Promise<Concert> {
-    console.log('getConcert aangeroepen');
-    console.log(concertId);
     return await this.concertService.getConcertById(concertId);
   }
 

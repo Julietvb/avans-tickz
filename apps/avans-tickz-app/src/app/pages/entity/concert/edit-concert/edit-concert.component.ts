@@ -19,9 +19,16 @@ export class EditConcertComponent implements OnInit {
   constructor(private concertService: ConcertService, private venueService: VenueService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.concertService.getConcertById(this.concertId).subscribe((concert) =>
-      this.concert = concert);
+    this.concertService.getConcertById(this.concertId).subscribe((concert) =>{
+      this.concert = concert;
+      console.log(this.concert.tickets)});
   }  
+
+  editConcert(concert: Partial<Concert>){
+    console.log("editconcert ts" + concert + this.concertId)
+    this.concertService.updateConcert(this.concertId, concert).subscribe(concert => this.concert = concert);
+    console.log(concert)
+  }
 
   deleteConcert(){
     this.concertService.deleteConcert(this.concertId)

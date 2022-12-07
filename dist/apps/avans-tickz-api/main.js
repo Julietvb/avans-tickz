@@ -103,8 +103,6 @@ let ConcertController = class ConcertController {
     }
     getConcert(concertId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('getConcert aangeroepen');
-            console.log(concertId);
             return yield this.concertService.getConcertById(concertId);
         });
     }
@@ -221,7 +219,6 @@ let ConcertRepository = class ConcertRepository {
     }
     findById(concertId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('repository findById aangeroepen');
             return yield this.concertModel.findOne({ _id: new mongoose_3.Types.ObjectId(concertId) }).populate('venue');
         });
     }
@@ -325,7 +322,6 @@ let ConcertService = class ConcertService {
         this.concertRepository = concertRepository;
     }
     getConcertById(concertId) {
-        console.log('service getById aangeroepen');
         return this.concertRepository.findById(concertId);
     }
     getAllConcerts() {
@@ -337,13 +333,13 @@ let ConcertService = class ConcertService {
                 _id: new mongoose_1.Types.ObjectId(i),
                 price: ticketPrice,
                 type: ticketType,
-                concertName: title
+                concertName: title,
             });
         }
         let artistString = artists.toString();
-        let artistArray = artistString.split(" / ");
+        let artistArray = artistString.split(' / ');
         let performTimesString = performTimes.toString();
-        let timesArray = performTimesString.split(" / ");
+        let timesArray = performTimesString.split(' / ' || 0);
         if (artistArray.length == 1) {
             timesArray[0] = time;
         }
@@ -358,11 +354,32 @@ let ConcertService = class ConcertService {
             amountOfTickets,
             performances: performances,
             tickets: tickets,
-            venue
+            venue,
         });
     }
     updateConcert(concertId, concertUpdates) {
-        return this.concertRepository.findOneAndUpdate({ _id: concertId }, concertUpdates);
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log(concertUpdates);
+            let concert = yield this.concertRepository.findById(concertId.toString());
+            if (concertUpdates.amountOfTickets != concert.tickets.length) {
+                concertUpdates.tickets = [];
+                for (let i = 0; i < concertUpdates.amountOfTickets; i++) {
+                    concertUpdates.tickets.push({
+                        _id: new mongoose_1.Types.ObjectId(i),
+                        price: concert.tickets[0].price,
+                        type: concert.tickets[0].type,
+                        concertName: concert.title,
+                    });
+                }
+            }
+            if (concertUpdates.ticketType != concert.tickets[0].type) {
+                concert.tickets.forEach(ticket => {
+                    ticket.type = concertUpdates.ticketType;
+                });
+            }
+            console.log(concertUpdates);
+            return this.concertRepository.findOneAndUpdate({ _id: concertId }, concertUpdates);
+        });
     }
     deleteConcertById(concertId) {
         return this.concertRepository.deleteById(concertId);
