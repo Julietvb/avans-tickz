@@ -6,20 +6,48 @@
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const app_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app.service.ts");
+const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.service.ts");
+const jwt_auth_guard_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/jwt-auth.guard.ts");
+const local_auth_guard_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/local-auth.guard.ts");
 let AppController = class AppController {
-    constructor(appService) {
+    constructor(appService, authService) {
         this.appService = appService;
+        this.authService = authService;
+    }
+    login(req) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.authService.login(req.user._doc);
+        });
+    }
+    getProfile(req) {
+        return req.user;
     }
     getData() {
         return this.appService.getData();
     }
 };
+tslib_1.__decorate([
+    (0, common_1.UseGuards)(local_auth_guard_1.LocalAuthGuard),
+    (0, common_1.Post)('auth/login'),
+    tslib_1.__param(0, (0, common_1.Request)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object]),
+    tslib_1.__metadata("design:returntype", Promise)
+], AppController.prototype, "login", null);
+tslib_1.__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('profile'),
+    tslib_1.__param(0, (0, common_1.Request)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], AppController.prototype, "getProfile", null);
 tslib_1.__decorate([
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
@@ -28,7 +56,7 @@ tslib_1.__decorate([
 ], AppController.prototype, "getData", null);
 AppController = tslib_1.__decorate([
     (0, common_1.Controller)(),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _a : Object])
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _a : Object, typeof (_b = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" ? _b : Object])
 ], AppController);
 exports.AppController = AppController;
 
@@ -49,11 +77,12 @@ const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const user_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.module.ts");
 const concert_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.module.ts");
 const venue_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.module.ts");
+const auth_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.module.ts");
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/avansTickz'), user_module_1.UserModule, concert_module_1.ConcertModule, venue_module_1.VenueModule],
+        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/avansTickz'), user_module_1.UserModule, concert_module_1.ConcertModule, venue_module_1.VenueModule, auth_module_1.AuthModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
@@ -80,6 +109,209 @@ AppService = tslib_1.__decorate([
     (0, common_1.Injectable)()
 ], AppService);
 exports.AppService = AppService;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/auth/auth.module.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AuthModule = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.service.ts");
+const user_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.module.ts");
+const passport_1 = __webpack_require__("@nestjs/passport");
+const local_strategy_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/local.strategy.ts");
+const jwt_1 = __webpack_require__("@nestjs/jwt");
+const constants_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/constants.ts");
+const jwt_strategy_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/jwt.strategy.ts");
+let AuthModule = class AuthModule {
+};
+AuthModule = tslib_1.__decorate([
+    (0, common_1.Module)({
+        imports: [
+            user_module_1.UserModule,
+            passport_1.PassportModule,
+            jwt_1.JwtModule.register({
+                secret: constants_1.jwtConstants.secret,
+                signOptions: { expiresIn: '30d' },
+            }),
+        ],
+        providers: [auth_service_1.AuthService, local_strategy_1.LocalStrategy, jwt_strategy_1.JwtStrategy],
+        exports: [auth_service_1.AuthService],
+    })
+], AuthModule);
+exports.AuthModule = AuthModule;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/auth/auth.service.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.AuthService = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const user_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.service.ts");
+const jwt_1 = __webpack_require__("@nestjs/jwt");
+let AuthService = class AuthService {
+    constructor(userService, jwtService) {
+        this.userService = userService;
+        this.jwtService = jwtService;
+    }
+    validateUser(emailAdres, pass) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const user = yield this.userService.getUserByEmail(emailAdres);
+            if (user && user.password === pass) {
+                const { password } = user, result = tslib_1.__rest(user, ["password"]);
+                return result;
+            }
+            return null;
+        });
+    }
+    login(user) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const payload = { emailAdres: user.emailAdres, sub: user._id, firstName: user.firstName, lastName: user.lastName, birthDate: user.birthDate };
+            console.log(payload);
+            return {
+                access_token: this.jwtService.sign(payload),
+            };
+        });
+    }
+};
+AuthService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof user_service_1.UserService !== "undefined" && user_service_1.UserService) === "function" ? _a : Object, typeof (_b = typeof jwt_1.JwtService !== "undefined" && jwt_1.JwtService) === "function" ? _b : Object])
+], AuthService);
+exports.AuthService = AuthService;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/auth/constants.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.jwtConstants = void 0;
+exports.jwtConstants = {
+    secret: 'secretKey',
+};
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/auth/jwt-auth.guard.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.JwtAuthGuard = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const passport_1 = __webpack_require__("@nestjs/passport");
+let JwtAuthGuard = class JwtAuthGuard extends (0, passport_1.AuthGuard)('jwt') {
+};
+JwtAuthGuard = tslib_1.__decorate([
+    (0, common_1.Injectable)()
+], JwtAuthGuard);
+exports.JwtAuthGuard = JwtAuthGuard;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/auth/jwt.strategy.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.JwtStrategy = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const passport_jwt_1 = __webpack_require__("passport-jwt");
+const passport_1 = __webpack_require__("@nestjs/passport");
+const common_1 = __webpack_require__("@nestjs/common");
+const constants_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/constants.ts");
+let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
+    constructor() {
+        super({
+            jwtFromRequest: passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken(),
+            ignoreExpiration: false,
+            secretOrKey: constants_1.jwtConstants.secret,
+        });
+    }
+    validate(payload) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log(payload);
+            return { _id: payload.sub, emailAdres: payload.emailAdres, firstName: payload.firstName, lastName: payload.lastName, birthDate: payload.birthDate };
+        });
+    }
+};
+JwtStrategy = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [])
+], JwtStrategy);
+exports.JwtStrategy = JwtStrategy;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/auth/local-auth.guard.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LocalAuthGuard = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const passport_1 = __webpack_require__("@nestjs/passport");
+let LocalAuthGuard = class LocalAuthGuard extends (0, passport_1.AuthGuard)('local') {
+};
+LocalAuthGuard = tslib_1.__decorate([
+    (0, common_1.Injectable)()
+], LocalAuthGuard);
+exports.LocalAuthGuard = LocalAuthGuard;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/auth/local.strategy.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.LocalStrategy = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const passport_local_1 = __webpack_require__("passport-local");
+const passport_1 = __webpack_require__("@nestjs/passport");
+const common_1 = __webpack_require__("@nestjs/common");
+const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.service.ts");
+let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
+    constructor(authService) {
+        super({ usernameField: 'emailAdres' });
+        this.authService = authService;
+    }
+    validate(emailAdres, password) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const user = yield this.authService.validateUser(emailAdres, password);
+            if (!user) {
+                throw new common_1.UnauthorizedException();
+            }
+            return user;
+        });
+    }
+};
+LocalStrategy = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" ? _a : Object])
+], LocalStrategy);
+exports.LocalStrategy = LocalStrategy;
 
 
 /***/ }),
@@ -574,7 +806,8 @@ UserModule = tslib_1.__decorate([
     (0, common_1.Module)({
         imports: [mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }])],
         controllers: [user_controller_1.UserController],
-        providers: [user_service_1.UserService, user_repository_1.UserRepository]
+        providers: [user_service_1.UserService, user_repository_1.UserRepository],
+        exports: [user_service_1.UserService]
     })
 ], UserModule);
 exports.UserModule = UserModule;
@@ -603,6 +836,11 @@ let UserRepository = class UserRepository {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             console.log('repository findById aangeroepen');
             return yield this.userModel.findOne({ _id: new mongoose_3.Types.ObjectId(userId) });
+        });
+    }
+    findByEmail(email) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.userModel.findOne({ emailAdres: email });
         });
     }
     find(usersFilterQuery) {
@@ -704,6 +942,9 @@ let UserService = class UserService {
         console.log('service getById aangeroepen');
         return this.userRepository.findById(userId);
     }
+    getUserByEmail(emailAdres) {
+        return this.userRepository.findByEmail(emailAdres);
+    }
     getAllUsers() {
         return this.userRepository.find({});
     }
@@ -715,7 +956,7 @@ let UserService = class UserService {
             emailAdres,
             password,
             favoriteArtists: [],
-            myTickets: []
+            myTickets: [],
         });
     }
     updateUser(userId, userUpdates) {
@@ -1011,6 +1252,13 @@ module.exports = require("@nestjs/core");
 
 /***/ }),
 
+/***/ "@nestjs/jwt":
+/***/ ((module) => {
+
+module.exports = require("@nestjs/jwt");
+
+/***/ }),
+
 /***/ "@nestjs/mongoose":
 /***/ ((module) => {
 
@@ -1018,10 +1266,31 @@ module.exports = require("@nestjs/mongoose");
 
 /***/ }),
 
+/***/ "@nestjs/passport":
+/***/ ((module) => {
+
+module.exports = require("@nestjs/passport");
+
+/***/ }),
+
 /***/ "mongoose":
 /***/ ((module) => {
 
 module.exports = require("mongoose");
+
+/***/ }),
+
+/***/ "passport-jwt":
+/***/ ((module) => {
+
+module.exports = require("passport-jwt");
+
+/***/ }),
+
+/***/ "passport-local":
+/***/ ((module) => {
+
+module.exports = require("passport-local");
 
 /***/ }),
 
