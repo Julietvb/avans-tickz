@@ -9,15 +9,15 @@ export class ConcertRepository{
     constructor(@InjectModel(Concert.name) private concertModel: Model<ConcertDocument>) {}
 
     async findById(concertId: string): Promise<Concert> {
-        return await this.concertModel.findOne({_id: new Types.ObjectId(concertId)}).populate('venue')
+        return await this.concertModel.findOne({_id: new Types.ObjectId(concertId)}).populate('venue').populate('artists')
     }
 
     async find(concertFilterQuery: FilterQuery<Concert>): Promise<Concert[]> {
-        return await this.concertModel.find(concertFilterQuery).populate('venue')
+        return await this.concertModel.find(concertFilterQuery).populate('venue').populate('artists')
     }
 
     async create(concert: Concert): Promise<Concert> {
-        console.log(concert);
+        // console.log(concert);
         const newConcert = new this.concertModel(concert);
         return await newConcert.save()
     }

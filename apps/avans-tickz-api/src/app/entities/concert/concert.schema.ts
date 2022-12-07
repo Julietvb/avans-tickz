@@ -16,6 +16,8 @@ export class Concert{
     time: string;
     @Prop()
     amountOfTickets: Number;
+    @Prop([{type: Types.ObjectId, ref: 'Artist'}])
+    artists: Artist[];
     @Prop()
     performances: Map<string, string>;
     @Prop([Ticket])

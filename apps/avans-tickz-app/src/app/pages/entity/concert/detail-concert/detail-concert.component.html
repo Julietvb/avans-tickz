@@ -1,12 +1,12 @@
 <!-- Jumbotron -->
-<div class="p-5 d-flex justify-content-center bg-image concert-banner">
+<div class="p-5 d-flex justify-content-center bg-image concert-banner" *ngIf="currentConcert">
   <div class="mask">
     <div
       class="d-flex justify-content-center text-center align-items-center concert-banner-mask"
     >
       <div class="text-white">
-        <h1 class="mb-3">{{ currentConcert?.title }}</h1>
-        <h3>Artist name</h3>
+        <h1 class="mb-3">{{ currentConcert.title }}</h1>
+        <h3>{{currentConcert.artists[0].toString()}}</h3>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
       <h2><a routerLink="/">Artist name</a></h2>
       <p>
         {{ currentConcert.venue.venueName }} is welcoming
-        <a routerLink="/">artist name</a> with open arms!
+        <a routerLink="/">{{currentConcert.artists[0]}}</a> with open arms!
       </p>
       <div class="d-flex">
         <p>

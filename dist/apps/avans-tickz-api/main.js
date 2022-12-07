@@ -219,17 +219,17 @@ let ConcertRepository = class ConcertRepository {
     }
     findById(concertId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return yield this.concertModel.findOne({ _id: new mongoose_3.Types.ObjectId(concertId) }).populate('venue');
+            return yield this.concertModel.findOne({ _id: new mongoose_3.Types.ObjectId(concertId) }).populate('venue').populate('artists');
         });
     }
     find(concertFilterQuery) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return yield this.concertModel.find(concertFilterQuery).populate('venue');
+            return yield this.concertModel.find(concertFilterQuery).populate('venue').populate('artists');
         });
     }
     create(concert) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log(concert);
+            // console.log(concert);
             const newConcert = new this.concertModel(concert);
             return yield newConcert.save();
         });
@@ -286,6 +286,10 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:type", typeof (_b = typeof Number !== "undefined" && Number) === "function" ? _b : Object)
 ], Concert.prototype, "amountOfTickets", void 0);
 tslib_1.__decorate([
+    (0, mongoose_1.Prop)([{ type: mongoose_2.Types.ObjectId, ref: 'Artist' }]),
+    tslib_1.__metadata("design:type", Array)
+], Concert.prototype, "artists", void 0);
+tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", typeof (_c = typeof Map !== "undefined" && Map) === "function" ? _c : Object)
 ], Concert.prototype, "performances", void 0);
@@ -336,15 +340,25 @@ let ConcertService = class ConcertService {
                 concertName: title,
             });
         }
-        let artistString = artists.toString();
+        let artistString = '';
+        console.log(artists.toString());
+        artists.forEach((artist) => {
+            if (artist.name == artists[artists.length - 1].name) {
+                artistString += artist.name.toString();
+            }
+            else {
+                artistString += artist.name.toString() + ' / ';
+            }
+        });
+        console.log(artistString);
         let artistArray = artistString.split(' / ');
         let performTimesString = performTimes.toString();
-        let timesArray = performTimesString.split(' / ' || 0);
-        if (artistArray.length == 1) {
-            timesArray[0] = time;
-        }
+        let timesArray = performTimesString.split(' / ');
+        // if (artistArray.length == 1) {
+        //   timesArray[0] = time;
+        // }
         performances = new Map();
-        for (let j = 0; j < artistArray.length; j++) {
+        for (let j = 0; j < artists.length; j++) {
             performances.set(artistArray.at(j), timesArray.at(j));
         }
         return this.concertRepository.create({
@@ -352,6 +366,7 @@ let ConcertService = class ConcertService {
             date,
             time,
             amountOfTickets,
+            artists,
             performances: performances,
             tickets: tickets,
             venue,
@@ -373,7 +388,7 @@ let ConcertService = class ConcertService {
                 }
             }
             if (concertUpdates.ticketType != concert.tickets[0].type) {
-                concert.tickets.forEach(ticket => {
+                concert.tickets.forEach((ticket) => {
                     ticket.type = concertUpdates.ticketType;
                 });
             }

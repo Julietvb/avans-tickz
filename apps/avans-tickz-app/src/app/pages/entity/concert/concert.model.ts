@@ -13,7 +13,7 @@ export interface Concert{
     performTimes: string[],
     performances: Map<string, string>
     ticketPrice: Number,
-    ticketType: string,
+    ticketType: Number,
     tickets: Ticket[],
     amountOfTickets: Number;
     venue: Venue;

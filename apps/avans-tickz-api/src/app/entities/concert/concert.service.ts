@@ -24,7 +24,7 @@ export class ConcertService {
     time: string,
     amountOfTickets: Number,
     performances: Map<string, string>,
-    artists: string[],
+    artists: Artist[],
     performTimes: string[],
     tickets: Ticket[],
     ticketPrice: Number,
@@ -40,18 +40,27 @@ export class ConcertService {
       });
     }
 
-    let artistString = artists.toString();
+    let artistString = '';
+    console.log(artists.toString());
+    artists.forEach((artist) => {
+      if (artist.name == artists[artists.length-1].name) {
+        artistString += artist.name.toString();
+      } else {
+      artistString += artist.name.toString() + ' / ';
+      }
+    });
+    console.log(artistString);
     let artistArray = artistString.split(' / ');
 
     let performTimesString = performTimes.toString();
-    let timesArray = performTimesString.split(' / ' || '/');
+    let timesArray = performTimesString.split(' / ');
 
-    if (artistArray.length == 1) {
-      timesArray[0] = time;
-    }
+    // if (artistArray.length == 1) {
+    //   timesArray[0] = time;
+    // }
 
     performances = new Map<string, string>();
-    for (let j = 0; j < artistArray.length; j++) {
+    for (let j = 0; j < artists.length; j++) {
       performances.set(artistArray.at(j), timesArray.at(j));
     }
 
@@ -60,6 +69,7 @@ export class ConcertService {
       date,
       time,
       amountOfTickets,
+      artists,
       performances: performances,
       tickets: tickets,
       venue,
@@ -72,7 +82,7 @@ export class ConcertService {
   ): Promise<Concert> {
     console.log(concertUpdates);
     let concert = await this.concertRepository.findById(concertId.toString());
-    
+
     if (concertUpdates.amountOfTickets != concert.tickets.length) {
       concertUpdates.tickets = [];
       for (let i = 0; i < concertUpdates.amountOfTickets; i++) {
@@ -86,8 +96,8 @@ export class ConcertService {
     }
 
     if (concertUpdates.ticketType != concert.tickets[0].type) {
-      concert.tickets.forEach(ticket => {
-        ticket.type = concertUpdates.ticketType
+      concert.tickets.forEach((ticket) => {
+        ticket.type = concertUpdates.ticketType;
       });
     }
 

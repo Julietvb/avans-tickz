@@ -11,7 +11,7 @@ export class UpdateConcertDto{
     time: string;
     amountOfTickets: Number;
     performances: Map<string, string>;
-    artists: string[];
+    artists: Artist[];
     performTimes: string[];
     tickets: Ticket[];
     ticketPrice: Number;
