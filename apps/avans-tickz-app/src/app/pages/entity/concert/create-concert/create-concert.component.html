@@ -169,6 +169,9 @@
                     <li>Capacity: {{venue.capacity}}</li>
                   </ul>
                 </div>
+                <div *ngIf="!venueSelected" class="col-md-6">
+                  <p> <strong>*Please select a venue </strong> </p>
+                </div>
               </div>
 
               <h4 class="pb-1">Ticket information</h4>

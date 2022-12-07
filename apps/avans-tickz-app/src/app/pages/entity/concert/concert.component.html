@@ -3,7 +3,7 @@
     <h1 class="col-md-10">All concerts</h1>
     <button class="btn col-md-2 pull-right" routerLink="/concerts/create"> Add concert <i class="fa fa-plus"></i> </button>
   </div>
-  <div class="row">
+  <div class="row mb-5">
     <div class="card col-6 concert-card" *ngFor="let concert of concerts" routerLink="{{ concert._id }}">
       <div class="card card-custom bg-white border-white border-0">
         <div

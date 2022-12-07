@@ -19,13 +19,16 @@ export class CreateConcertComponent implements OnInit {
 
   ngOnInit(): void {
     this.concertService.getAllVenues().subscribe((allVenues) => this.venues = allVenues);
+    this.venueSelected = false;
   }
 
   createConcert(concert: Concert): void{
-    console.log(concert)
-    concert.venue = this.venue;
-    this.concertService.createConcert(concert).subscribe();
-    this.router.navigate(['./concerts']);
+    if (this.venueSelected) {
+      console.log(concert)
+      concert.venue = this.venue;
+      this.concertService.createConcert(concert).subscribe();
+      this.router.navigate(['./concerts']);
+    }
   }
 
   setVenue(_id: Types.ObjectId){
