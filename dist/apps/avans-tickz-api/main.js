@@ -248,6 +248,7 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
     validate(payload) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             console.log(payload);
+            console.log(passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken.toString());
             return { _id: payload.sub, emailAdres: payload.emailAdres, firstName: payload.firstName, lastName: payload.lastName, birthDate: payload.birthDate };
         });
     }

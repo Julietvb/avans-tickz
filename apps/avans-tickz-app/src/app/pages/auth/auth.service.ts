@@ -12,11 +12,6 @@ import {
 import { User } from '../entity/user/user.model';
 import { Types } from 'mongoose';
 
-const httpOptions = {
-  observe: 'body',
-  responseType: 'json',
-};
-
 @Injectable({
   providedIn: 'root',
 })
@@ -25,6 +20,7 @@ export class AuthService {
   private readonly currentUser = 'currentuser';
   private readonly headers = new HttpHeaders({
     'Content-Type': 'application/json',
+    'Authorization': 'bearer' + this.getUserFromLocalStorage()
   });
 
   constructor(private httpClient: HttpClient) {
@@ -66,12 +62,10 @@ export class AuthService {
       );
   }
 
-  register(userData: User): Observable<User> {
+  register(userData: User){
     console.log(userData);
     return this.httpClient
-      .post<User>(`http://localhost:3333/api/users`, userData, {
-        headers: this.headers,
-      })
+      .post<User>(`http://localhost:3333/api/users`, userData)
       .pipe(
         map((user) => {
           // const user = new User(response);
@@ -102,9 +96,22 @@ export class AuthService {
   }
 
   getProfile(): Observable<User> {
+    let access_token = this.getUserFromLocalStorage()
     return this.httpClient.get(
-      `http://localhost:3333/api/profile`
+      `http://localhost:3333/api/profile`, this.getHttpOptions()
     ) as Observable<User>;
+  }
+
+  getHttpOptions(): object {
+    let token;
+    this.getUserFromLocalStorage().subscribe((p) => {
+      token = p.access_token;
+    }).unsubscribe();
+
+    return { headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: 'Bearer ' + token})
+    }
   }
 
   // createUser(user: User): Observable<any> {

@@ -20,6 +20,7 @@ import { EditConcertComponent } from './pages/entity/concert/edit-concert/edit-c
 import { DetailConcertComponent } from './pages/entity/concert/detail-concert/detail-concert.component';
 import { CreateConcertComponent } from './pages/entity/concert/create-concert/create-concert.component';
 import { LoginComponent } from './pages/auth/login/login.component';
+import { ProfileComponent } from './pages/auth/profile/profile.component';
 
 
 @NgModule({
@@ -37,6 +38,7 @@ import { LoginComponent } from './pages/auth/login/login.component';
     DetailConcertComponent,
     CreateConcertComponent,
     LoginComponent,
+    ProfileComponent,
   ],
   imports: [BrowserModule, RoutingModule, NgbModule, FormsModule, HttpClientModule],
   providers: [DatePipe],

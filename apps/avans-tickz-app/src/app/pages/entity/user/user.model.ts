@@ -5,4 +5,5 @@ export interface User {
     emailAdres: string;
     password: string; 
     favoriteArtists: string[];
+    access_token: '';
 }
