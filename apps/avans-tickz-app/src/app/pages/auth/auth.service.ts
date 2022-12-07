@@ -1,6 +1,14 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, from, map, Observable, of } from 'rxjs';
+import {
+  BehaviorSubject,
+  catchError,
+  from,
+  map,
+  Observable,
+  of,
+  switchMap,
+} from 'rxjs';
 import { User } from '../entity/user/user.model';
 import { Types } from 'mongoose';
 
@@ -19,7 +27,19 @@ export class AuthService {
     'Content-Type': 'application/json',
   });
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) {
+    this.getUserFromLocalStorage();
+    switchMap((user: User) => {
+      if (user) {
+        console.log('User found in local storage');
+        this.currentUser$.next(user);
+        return of(user);
+      } else {
+        console.log(`No current user found`);
+        return of(undefined);
+      }
+    });
+  }
 
   login(username: string, password: string) {
     console.log(username, password);
@@ -33,22 +53,52 @@ export class AuthService {
         map((user) => {
           this.saveUserToLocalStorage(user);
           this.currentUser$.next(user);
-        //   this.alertService.success('You have been logged in');
+          //   this.alertService.success('You have been logged in');
           return user;
         }),
         catchError((error: any) => {
           console.log('error:', error);
           console.log('error.message:', error.message);
           console.log('error.error.message:', error.error.message);
-        //   this.alertService.error(error.error.message || error.message);
+          //   this.alertService.error(error.error.message || error.message);
           return of(undefined);
         })
       );
   }
 
+  register(userData: User): Observable<User> {
+    console.log(userData);
+    return this.httpClient
+      .post<User>(`http://localhost:3333/api/users`, userData, {
+        headers: this.headers,
+      })
+      .pipe(
+        map((user) => {
+          // const user = new User(response);
+          console.dir(user);
+          this.saveUserToLocalStorage(user);
+          this.currentUser$.next(user);
+          // this.alertService.success('You have been registered');
+          return user;
+        }),
+        catchError((error: any) => {
+          console.log('error:', error);
+          console.log('error.message:', error.message);
+          console.log('error.error.message:', error.error.message);
+          // this.alertService.error(error.error.message || error.message);
+          return of();
+        })
+      );
+  }
+
   private saveUserToLocalStorage(user: User): void {
-    console.log(JSON.stringify(user))
+    console.log(JSON.stringify(user));
     localStorage.setItem(this.currentUser, JSON.stringify(user));
+  }
+
+  getUserFromLocalStorage(): Observable<User> {
+    const localUser = JSON.parse(localStorage.getItem(this.currentUser)!);
+    return of(localUser);
   }
 
   getProfile(): Observable<User> {

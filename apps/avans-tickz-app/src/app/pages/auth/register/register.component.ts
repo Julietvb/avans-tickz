@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { User } from '../../entity/user/user.model';
 import { UserService } from '../../entity/user/user.service';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'avans-tickz-register',
@@ -10,14 +11,17 @@ import { UserService } from '../../entity/user/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
   }
 
   registerUser(user: User): void{
-    // this.userService.userList.push(user);
-    this.router.navigate(['./users']);
+    this.authService.register(user).subscribe((user) => {
+      if (user) {
+        console.log('user = ', user);
+        this.router.navigate(['./users']);
+      }
+    });
   }
-
 }
