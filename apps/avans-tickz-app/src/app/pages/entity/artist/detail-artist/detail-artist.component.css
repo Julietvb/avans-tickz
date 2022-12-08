@@ -1,0 +1,22 @@
+.artist-banner {
+  background-image: url(https://static.vecteezy.com/system/resources/previews/001/987/723/original/abstract-banner-technology-stripes-geometric-diagonal-pink-blue-background-free-vector.jpg);
+  height: 300px;
+}
+
+.mask {
+  background-color: rgba(0, 0, 0, 0.6);
+  width: 100%;
+}
+
+.artist-banner-mask {
+  top: 25%;
+  position: relative;
+}
+
+h2 {
+  color: rgba(245, 87, 108, 1);
+}
+
+.artistInformation {
+  padding-top: 5%;
+}
