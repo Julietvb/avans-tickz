@@ -1004,7 +1004,7 @@ exports.UpdateUserDto = UpdateUserDto;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e, _f, _g, _h;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -1022,6 +1022,12 @@ let UserController = class UserController {
             console.log('getUser aangeroepen');
             console.log(userId);
             return yield this.userService.getUserById(userId);
+        });
+    }
+    getUserByEmail(email) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log(email);
+            return yield this.userService.getUserByEmail(email);
         });
     }
     getUsers() {
@@ -1054,25 +1060,32 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
 ], UserController.prototype, "getUser", null);
 tslib_1.__decorate([
+    (0, common_1.Get)('/email/:email'),
+    tslib_1.__param(0, (0, common_1.Param)('email')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], UserController.prototype, "getUserByEmail", null);
+tslib_1.__decorate([
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+    tslib_1.__metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], UserController.prototype, "getUsers", null);
 tslib_1.__decorate([
     (0, common_1.Post)(),
     tslib_1.__param(0, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_d = typeof create_user_dto_1.CreateUserDto !== "undefined" && create_user_dto_1.CreateUserDto) === "function" ? _d : Object]),
-    tslib_1.__metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+    tslib_1.__metadata("design:paramtypes", [typeof (_e = typeof create_user_dto_1.CreateUserDto !== "undefined" && create_user_dto_1.CreateUserDto) === "function" ? _e : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
 ], UserController.prototype, "createUser", null);
 tslib_1.__decorate([
     (0, common_1.Patch)(':userId'),
     tslib_1.__param(0, (0, common_1.Param)('userId')),
     tslib_1.__param(1, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_f = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _f : Object, typeof (_g = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _g : Object]),
-    tslib_1.__metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+    tslib_1.__metadata("design:paramtypes", [typeof (_g = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _g : Object, typeof (_h = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _h : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], UserController.prototype, "updateUser", null);
 tslib_1.__decorate([
     (0, common_1.Delete)(':userId'),

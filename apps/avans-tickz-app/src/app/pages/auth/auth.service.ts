@@ -11,6 +11,7 @@ import {
 } from 'rxjs';
 import { User } from '../entity/user/user.model';
 import { Types } from 'mongoose';
+import { UserService } from '../entity/user/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -22,10 +23,14 @@ export class AuthService {
   private readonly token = 'token';
   private readonly headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'Authorization': 'bearer' + this.getUserFromLocalStorage()
+    Authorization: 'bearer' + this.getUserFromLocalStorage(),
   });
+  private thisUser!: User;
 
-  constructor(private httpClient: HttpClient) {
+  constructor(
+    private httpClient: HttpClient,
+    private userService: UserService
+  ) {
     this.getUserFromLocalStorage();
     switchMap((user: User) => {
       if (user) {
@@ -49,6 +54,13 @@ export class AuthService {
       )
       .pipe(
         map((user) => {
+          this.userService
+            .getUserByEmail(username)
+            .subscribe((returnedUser) => {
+              this.thisUser = returnedUser;
+              this.saveUserToLocalStorage(this.thisUser);
+            });
+
           this.saveTokenToLocalStorage(user);
           this.currentUser$.next(user);
           //   this.alertService.success('You have been logged in');
@@ -64,7 +76,7 @@ export class AuthService {
       );
   }
 
-  register(userData: User){
+  register(userData: User) {
     console.log(userData);
     return this.httpClient
       .post<User>(`http://localhost:3333/api/users`, userData)
@@ -73,6 +85,7 @@ export class AuthService {
           // const user = new User(response);
           console.dir(user);
           this.saveUserToLocalStorage(user);
+          this.thisUser = user;
           this.currentUser$.next(user);
           // this.alertService.success('You have been registered');
           return user;
@@ -109,20 +122,25 @@ export class AuthService {
 
   getProfile(): Observable<User> {
     return this.httpClient.get(
-      `http://localhost:3333/api/profile`, this.getHttpOptions()
+      `http://localhost:3333/api/profile`,
+      this.getHttpOptions()
     ) as Observable<User>;
   }
 
   getHttpOptions(): object {
     let token;
-    this.getTokenFromLocalStorage().subscribe((p) => {
-      token = p.access_token;
-    }).unsubscribe();
+    this.getTokenFromLocalStorage()
+      .subscribe((p) => {
+        token = p.access_token;
+      })
+      .unsubscribe();
 
-    return { headers: new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + token})
-    }
+    return {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      }),
+    };
   }
 
   // private handleError(error: HttpErrorResponse): Observable<any> {

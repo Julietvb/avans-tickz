@@ -7,6 +7,7 @@ import {Types} from 'mongoose';
 import { Artist } from '../../artist/artist.model';
 import { VenueService } from '../../venue/venue.service';
 import { ArtistService } from '../../artist/artist.service';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'avans-tickz-create-concert',
@@ -22,7 +23,9 @@ export class CreateConcertComponent implements OnInit {
   artist!: Artist;
   artistSelected!: boolean;
 
-  constructor(private concertService: ConcertService, private venueService: VenueService, private artistService: ArtistService,  private route: ActivatedRoute, private router: Router) { }
+  creatorId!: Types.ObjectId;
+
+  constructor(private concertService: ConcertService, private authService: AuthService, private venueService: VenueService, private artistService: ArtistService,  private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.venueService.getAllVenues().subscribe((allVenues) => this.venues = allVenues);
@@ -33,8 +36,12 @@ export class CreateConcertComponent implements OnInit {
 
   createConcert(concert: Concert): void{
     if (this.venueSelected) {
+      this.authService.getUserFromLocalStorage().subscribe((user) => this.creatorId = user._id)
+
       console.log(concert);
       concert.venue = this.venue;
+      concert.creatorId = this.creatorId;
+
       this.concertService.createConcert(concert).subscribe();
       this.router.navigate(['./concerts']);
     }

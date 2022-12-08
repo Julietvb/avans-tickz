@@ -26,6 +26,10 @@ export class UserService {
     return this.httpClient.get(`http://localhost:3333/api/users/${_id}`) as Observable<User>;
   }
 
+  getUserByEmail(email: string): Observable<User> {
+    return this.httpClient.get(`http://localhost:3333/api/users/email/${email}`) as Observable<User>;
+  }
+
   deleteUser(_id: Types.ObjectId){
     return this.httpClient.delete(`http://localhost:3333/api/users/${_id}`)
   }
