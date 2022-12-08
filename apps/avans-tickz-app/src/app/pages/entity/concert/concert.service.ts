@@ -37,9 +37,6 @@ export class ConcertService {
       date: concert.date,
       time: concert.time,
       amountOfTickets: concert.amountOfTickets,
-      performances: [],
-      artists: concert.artists,
-      performTimes: concert.performTimes,
       tickets: [],
       ticketPrice: concert.ticketPrice,
       ticketType: concert.ticketType,
@@ -55,13 +52,6 @@ export class ConcertService {
     return this.httpClient.delete(`http://localhost:3333/api/concerts/${_id}`);
   }
 
-  getAllVenues(){
-    return this.httpClient.get('http://localhost:3333/api/venues') as Observable<Venue[]>;
-  }
-
-  getVenueById(_id: Types.ObjectId): Observable<Venue> {
-    return this.httpClient.get(`http://localhost:3333/api/venues/${_id}`) as Observable<Venue>;
-  }
   // private handleError(error: HttpErrorResponse): Observable<any> {
   //   console.log(error);
   //   // return an error observable with a user-facing error message

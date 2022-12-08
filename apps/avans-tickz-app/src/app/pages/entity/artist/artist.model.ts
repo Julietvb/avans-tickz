@@ -1,12 +1,11 @@
 import {Types} from "mongoose";
 
-export class UpdateArtistDto {
+export interface Artist{
+    _id: Types.ObjectId;
     name: string;
     birthDate: Date;
     genre: string;
     description: string;
-    creatorId: Types.ObjectId
     artistImage: string;
     artistHeader: string;
-
 }

@@ -94,67 +94,33 @@
                 </div>
               </div>
 
-              <div class="row">
-                <div class="col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="artists">*Artist(s)</label>
-                    <input
-                      type="text"
-                      id="artists"
-                      name="artists"
-                      class="form-control"
-                      ngModel
-                      #artists="ngModel"
-                      [ngClass]="{
-                        'is-invalid': artists.invalid && artists.touched
-                      }"
-                      required
-                    />
-                    <div
-                      *ngIf="artists.invalid && artists.touched"
-                      class="invalid-feedback"
-                    >
-                      <div *ngIf="artists.errors?.['required']">
-                        Artist is required
-                      </div>
+              <div class="row pb-3">
+                <div class="col-md-6">
+                  <div ngbDropdown class="d-inline-block">
+                    <button type="button" class="btn customDropdown" id="artistDropdown" ngbDropdownToggle>
+                      Choose an artist
+                    </button>
+                    <div ngbDropdownMenu aria-labelledby="artistDropdown">
+                      <button ngbDropdownItem type="button" *ngFor="let artist of artists" (click)="setArtist(artist._id)"> {{artist.name}}</button>
                     </div>
                   </div>
                 </div>
-
-                <div class="col-md-6 mb-4">
-                  <div class="form-outline">
-                    <label class="form-label" for="performTimes"
-                      >*Perform time(s)</label
-                    >
-                    <input
-                      type="text"
-                      id="performTimes"
-                      name="performTimes"
-                      class="form-control"
-                      ngModel
-                      #performTimes="ngModel"
-                      [ngClass]="{
-                        'is-invalid':
-                          performTimes.invalid && performTimes.touched
-                      }"
-                      required
-                    />
-                    <div
-                      *ngIf="performTimes.invalid && performTimes.touched"
-                      class="invalid-feedback"
-                    >
-                      <div *ngIf="performTimes.errors?.['required']">
-                        Perform time is required
-                      </div>
-                    </div>
-                  </div>
+                <div *ngIf="artistSelected" class="col-md-6">
+                  <p> <strong> Chosen artist: {{artist.name}}</strong></p>
+                  <ul>
+                    <li>Genre: {{artist.genre}}</li>
+                  </ul>
+                </div>
+                <div *ngIf="!artistSelected" class="col-md-6">
+                  <p> <strong>*Please select an artist </strong> </p>
                 </div>
               </div>
+
 
               <div class="row pb-3">
                 <div class="col-md-6">
                   <div ngbDropdown class="d-inline-block">
-                    <button type="button" class="btn venueDropdown" id="venueDropdown" ngbDropdownToggle>
+                    <button type="button" class="btn customDropdown" id="venueDropdown" ngbDropdownToggle>
                       Choose a venue
                     </button>
                     <div ngbDropdownMenu aria-labelledby="venueDropdown">

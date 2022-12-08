@@ -19,6 +19,10 @@ import { AboutComponent } from './pages/about/about.component';
 import { EditConcertComponent } from './pages/entity/concert/edit-concert/edit-concert.component';
 import { DetailConcertComponent } from './pages/entity/concert/detail-concert/detail-concert.component';
 import { CreateConcertComponent } from './pages/entity/concert/create-concert/create-concert.component';
+import { ArtistComponent } from './pages/entity/artist/artist.component';
+import { CreateArtistComponent } from './pages/entity/artist/create-artist/create-artist.component';
+import { EditArtistComponent } from './pages/entity/artist/edit-artist/edit-artist.component';
+import { DetailArtistComponent } from './pages/entity/artist/detail-artist/detail-artist.component';
 
 
 @NgModule({
@@ -35,6 +39,10 @@ import { CreateConcertComponent } from './pages/entity/concert/create-concert/cr
     EditConcertComponent,
     DetailConcertComponent,
     CreateConcertComponent,
+    ArtistComponent,
+    CreateArtistComponent,
+    EditArtistComponent,
+    DetailArtistComponent,
   ],
   imports: [BrowserModule, RoutingModule, NgbModule, FormsModule, HttpClientModule],
   providers: [DatePipe],

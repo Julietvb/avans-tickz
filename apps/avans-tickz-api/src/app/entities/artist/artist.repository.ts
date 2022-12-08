@@ -18,6 +18,7 @@ export class ArtistRepository{
 
     async create(artist: Artist): Promise<Artist> {
         const newArtist = new this.artistModel(artist);
+        
         return await newArtist.save()
     }
 

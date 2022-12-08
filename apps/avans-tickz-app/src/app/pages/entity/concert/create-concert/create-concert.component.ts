@@ -4,6 +4,9 @@ import { Venue } from '../../venue/venue.model';
 import { Concert } from '../concert.model';
 import { ConcertService } from '../concert.service';
 import {Types} from 'mongoose';
+import { Artist } from '../../artist/artist.model';
+import { VenueService } from '../../venue/venue.service';
+import { ArtistService } from '../../artist/artist.service';
 
 @Component({
   selector: 'avans-tickz-create-concert',
@@ -15,16 +18,22 @@ export class CreateConcertComponent implements OnInit {
   venue!: Venue;
   venueSelected!: boolean;
 
-  constructor(private concertService: ConcertService, private route: ActivatedRoute, private router: Router) { }
+  artists!: Artist[];
+  artist!: Artist;
+  artistSelected!: boolean;
+
+  constructor(private concertService: ConcertService, private venueService: VenueService, private artistService: ArtistService,  private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
-    this.concertService.getAllVenues().subscribe((allVenues) => this.venues = allVenues);
+    this.venueService.getAllVenues().subscribe((allVenues) => this.venues = allVenues);
+    this.artistService.getAllArtists().subscribe((allArtists) => this.artists = allArtists);
+
     this.venueSelected = false;
   }
 
   createConcert(concert: Concert): void{
     if (this.venueSelected) {
-      console.log(concert)
+      console.log(concert);
       concert.venue = this.venue;
       this.concertService.createConcert(concert).subscribe();
       this.router.navigate(['./concerts']);
@@ -32,8 +41,14 @@ export class CreateConcertComponent implements OnInit {
   }
 
   setVenue(_id: Types.ObjectId){
-    this.concertService.getVenueById(_id).subscribe((venue) => {this.venue = venue
+    this.venueService.getVenueById(_id).subscribe((venue) => {this.venue = venue
       console.log(venue)})
       this.venueSelected = true;
+  }
+
+  setArtist(_id: Types.ObjectId){
+    this.artistService.getArtistById(_id).subscribe((artist) => {this.artist = artist
+      console.log(artist)})
+      this.artistSelected = true;
   }
 }

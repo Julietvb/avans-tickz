@@ -5,4 +5,6 @@ export class CreateArtistDto {
     genre: string;
     description: string;
     creatorId: Types.ObjectId
+    artistImage: string;
+    artistHeader: string;
 }

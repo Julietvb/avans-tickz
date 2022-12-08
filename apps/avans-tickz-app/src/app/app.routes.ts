@@ -1,6 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AboutComponent } from './pages/about/about.component';
+import { ArtistComponent } from './pages/entity/artist/artist.component';
+import { CreateArtistComponent } from './pages/entity/artist/create-artist/create-artist.component';
+import { DetailArtistComponent } from './pages/entity/artist/detail-artist/detail-artist.component';
+import { EditArtistComponent } from './pages/entity/artist/edit-artist/edit-artist.component';
 import { ConcertComponent } from './pages/entity/concert/concert.component';
 import { CreateConcertComponent } from './pages/entity/concert/create-concert/create-concert.component';
 import { DetailConcertComponent } from './pages/entity/concert/detail-concert/detail-concert.component';
@@ -22,6 +26,10 @@ const routes: Routes = [
   { path: 'concerts/create', pathMatch: 'full', component: CreateConcertComponent },
   { path: 'concerts/:concertId', pathMatch: 'full', component: DetailConcertComponent },
   { path: 'concerts/:concertId/edit', pathMatch: 'full', component: EditConcertComponent },
+  { path: 'artists', pathMatch: 'full', component: ArtistComponent },
+  { path: 'artists/create', pathMatch: 'full', component: CreateArtistComponent },
+  { path: 'artists/:artistId', pathMatch: 'full', component: DetailArtistComponent },
+  { path: 'artists/:artistId/edit', pathMatch: 'full', component: EditArtistComponent },
   { path: 'about', pathMatch: 'full', component: AboutComponent }
 ];
 

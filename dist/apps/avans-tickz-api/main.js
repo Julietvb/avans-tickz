@@ -114,7 +114,7 @@ let ArtistController = class ArtistController {
     }
     createArtist(createArtistDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.artistService.createArtist(createArtistDto.name, createArtistDto.birthDate, createArtistDto.genre, createArtistDto.description, createArtistDto.creatorId);
+            return this.artistService.createArtist(createArtistDto.name, createArtistDto.birthDate, createArtistDto.genre, createArtistDto.description, createArtistDto.artistImage, createArtistDto.artistHeader, createArtistDto.creatorId);
         });
     }
     updateArtist(artistId, updateArtistDto) {
@@ -287,6 +287,10 @@ tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", typeof (_b = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _b : Object)
 ], Artist.prototype, "creatorId", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Artist.prototype, "artistHeader", void 0);
 Artist = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], Artist);
@@ -317,12 +321,14 @@ let ArtistService = class ArtistService {
     getAllArtists() {
         return this.artistRepository.find({});
     }
-    createArtist(name, birthDate, genre, description, creatorId) {
+    createArtist(name, birthDate, genre, description, artistImage, artistHeader, creatorId) {
         return this.artistRepository.create({
             name,
             birthDate,
             genre,
             description,
+            artistImage,
+            artistHeader,
             creatorId
         });
     }
