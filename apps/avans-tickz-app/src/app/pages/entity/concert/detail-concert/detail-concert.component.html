@@ -6,7 +6,7 @@
     >
       <div class="text-white">
         <h1 class="mb-3">{{ currentConcert.title }}</h1>
-        <h3>{{currentConcert.artists[0].toString()}}</h3>
+        <h3>{{currentConcert.artist.name}}</h3>
       </div>
     </div>
   </div>
@@ -18,7 +18,7 @@
       <h2><a routerLink="/">Artist name</a></h2>
       <p>
         {{ currentConcert.venue.venueName }} is welcoming
-        <a routerLink="/">{{currentConcert.artists[0]}}</a> with open arms!
+        <a routerLink="/artists/{{currentConcert.artist._id}}"> {{currentConcert.artist.name}} </a> with open arms!
       </p>
       <div class="d-flex">
         <p>
@@ -90,7 +90,7 @@
             alt="Avatar"
           />
         </div>
-        <p align="center">artist name</p>
+        <p align="center">{{currentConcert.artist.name}}</p>
       </div>
     </div>
   </div>
