@@ -18,6 +18,8 @@ import { Types } from 'mongoose';
 export class AuthService {
   public currentUser$ = new BehaviorSubject<User | undefined>(undefined);
   private readonly currentUser = 'currentuser';
+  public token$ = new BehaviorSubject<User | undefined>(undefined);
+  private readonly token = 'token';
   private readonly headers = new HttpHeaders({
     'Content-Type': 'application/json',
     'Authorization': 'bearer' + this.getUserFromLocalStorage()
@@ -47,7 +49,7 @@ export class AuthService {
       )
       .pipe(
         map((user) => {
-          this.saveUserToLocalStorage(user);
+          this.saveTokenToLocalStorage(user);
           this.currentUser$.next(user);
           //   this.alertService.success('You have been logged in');
           return user;
@@ -90,13 +92,22 @@ export class AuthService {
     localStorage.setItem(this.currentUser, JSON.stringify(user));
   }
 
+  private saveTokenToLocalStorage(user: User): void {
+    console.log(JSON.stringify(user));
+    localStorage.setItem(this.token, JSON.stringify(user));
+  }
+
   getUserFromLocalStorage(): Observable<User> {
     const localUser = JSON.parse(localStorage.getItem(this.currentUser)!);
     return of(localUser);
   }
 
+  getTokenFromLocalStorage(): Observable<User> {
+    const localToken = JSON.parse(localStorage.getItem(this.token)!);
+    return of(localToken);
+  }
+
   getProfile(): Observable<User> {
-    let access_token = this.getUserFromLocalStorage()
     return this.httpClient.get(
       `http://localhost:3333/api/profile`, this.getHttpOptions()
     ) as Observable<User>;
@@ -104,7 +115,7 @@ export class AuthService {
 
   getHttpOptions(): object {
     let token;
-    this.getUserFromLocalStorage().subscribe((p) => {
+    this.getTokenFromLocalStorage().subscribe((p) => {
       token = p.access_token;
     }).unsubscribe();
 
