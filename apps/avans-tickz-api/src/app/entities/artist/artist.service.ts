@@ -16,12 +16,15 @@ export class ArtistService{
         return this.artistRepository.find({})
     }
 
-    createArtist(name: string, birthDate: Date, genre: string, description: string): Promise<Artist>{
+    createArtist(name: string, birthDate: Date, genre: string, description: string, artistImage: string
+        ): Promise<Artist>{
         return this.artistRepository.create({
             name,
             birthDate,
             genre,
             description,
+            artistImage
+
         })
     }
 

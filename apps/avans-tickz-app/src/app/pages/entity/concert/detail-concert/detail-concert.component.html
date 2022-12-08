@@ -1,12 +1,15 @@
 <!-- Jumbotron -->
-<div class="p-5 d-flex justify-content-center bg-image concert-banner" *ngIf="currentConcert">
+<div
+  class="p-5 d-flex justify-content-center bg-image concert-banner"
+  *ngIf="currentConcert"
+>
   <div class="mask">
     <div
       class="d-flex justify-content-center text-center align-items-center concert-banner-mask"
     >
       <div class="text-white">
         <h1 class="mb-3">{{ currentConcert.title }}</h1>
-        <h3>{{currentConcert.artist.name}}</h3>
+        <h3>{{ currentConcert.artist.name }}</h3>
       </div>
     </div>
   </div>
@@ -15,27 +18,52 @@
 <div class="container" *ngIf="currentConcert">
   <div class="row mt-3">
     <div class="col-6">
-      <h2><a routerLink="/">Artist name</a></h2>
-      <p>
+      <h5>
         {{ currentConcert.venue.venueName }} is welcoming
-        <a routerLink="/artists/{{currentConcert.artist._id}}"> {{currentConcert.artist.name}} </a> with open arms!
-      </p>
-      <div class="d-flex">
-        <p>
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-calendar"
-            viewBox="0 0 16 16"
-          >
-            <path
-              d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"
-            />
-          </svg>
-          {{ currentConcert.date | date: 'fullDate' }}
-        </p>
+        <a routerLink="/artists/{{ currentConcert.artist._id }}">
+          {{ currentConcert.artist.name }}
+        </a>
+        with open arms!
+      </h5>
+      <div class="mt-3">
+        <div class="d-flex">
+          <p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-clock"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"
+              />
+              <path
+                d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"
+              />
+            </svg>
+            {{currentConcert.time}}
+          </p>
+        </div>
+
+        <div class="d-flex">
+          <p>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-calendar"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"
+              />
+            </svg>
+            {{ currentConcert.date | date: 'fullDate' }}
+          </p>
+        </div>
       </div>
 
       <div>
@@ -56,8 +84,17 @@
           {{ currentConcert.venue.venueName }}
         </p>
         <p>
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
-            <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-geo-alt-fill"
+            viewBox="0 0 16 16"
+          >
+            <path
+              d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10zm0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"
+            />
           </svg>
           {{ currentConcert.venue.adres }} -
           {{ currentConcert.venue.city }}
@@ -86,11 +123,11 @@
         <div class="card-custom-avatar">
           <img
             class="img-fluid"
-            src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
+            src="{{ currentConcert.artist.artistImage }}"
             alt="Avatar"
           />
         </div>
-        <p align="center">{{currentConcert.artist.name}}</p>
+        <a routerLink="" align="center">{{ currentConcert.artist.name }}</a>
       </div>
     </div>
   </div>

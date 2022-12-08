@@ -3,4 +3,5 @@ export class UpdateArtistDto {
     birthDate: Date;
     genre: string;
     description: string;
+    artistImage: string;
 }

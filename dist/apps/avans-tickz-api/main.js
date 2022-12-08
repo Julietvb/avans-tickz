@@ -282,6 +282,10 @@ tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", String)
 ], Artist.prototype, "description", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
+], Artist.prototype, "artistImage", void 0);
 Artist = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], Artist);
@@ -312,12 +316,13 @@ let ArtistService = class ArtistService {
     getAllArtists() {
         return this.artistRepository.find({});
     }
-    createArtist(name, birthDate, genre, description) {
+    createArtist(name, birthDate, genre, description, artistImage) {
         return this.artistRepository.create({
             name,
             birthDate,
             genre,
             description,
+            artistImage
         });
     }
     updateArtist(artistId, artistUpdates) {

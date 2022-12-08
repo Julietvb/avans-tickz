@@ -6,4 +6,5 @@ export interface Artist{
     birthDate: Date;
     genre: string;
     description: string;
+    artistImage: string;
 }
