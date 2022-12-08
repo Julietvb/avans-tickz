@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { UpdateConcertDto } from './dto/update-concert.dto';
 import { ConcertRepository } from './concert.repository';
 import { Concert } from './concert.schema';
@@ -23,9 +23,7 @@ export class ConcertService {
     date: Date,
     time: string,
     amountOfTickets: Number,
-    performances: Map<string, string>,
-    artists: Artist[],
-    performTimes: string[],
+    artist: Artist,
     tickets: Ticket[],
     ticketPrice: Number,
     ticketType: string,
@@ -40,37 +38,12 @@ export class ConcertService {
       });
     }
 
-    let artistString = '';
-    console.log(artists.toString());
-    artists.forEach((artist) => {
-      if (artist.name == artists[artists.length-1].name) {
-        artistString += artist.name.toString();
-      } else {
-      artistString += artist.name.toString() + ' / ';
-      }
-    });
-    console.log(artistString);
-    let artistArray = artistString.split(' / ');
-
-    let performTimesString = performTimes.toString();
-    let timesArray = performTimesString.split(' / ');
-
-    // if (artistArray.length == 1) {
-    //   timesArray[0] = time;
-    // }
-
-    performances = new Map<string, string>();
-    for (let j = 0; j < artists.length; j++) {
-      performances.set(artistArray.at(j), timesArray.at(j));
-    }
-
     return this.concertRepository.create({
       title,
       date,
       time,
       amountOfTickets,
-      artists,
-      performances: performances,
+      artist,
       tickets: tickets,
       venue,
     });

@@ -21,7 +21,7 @@ export class ArtistService{
             name,
             birthDate,
             genre,
-            description
+            description,
         })
     }
 

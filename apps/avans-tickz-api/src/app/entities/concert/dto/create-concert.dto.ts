@@ -3,6 +3,7 @@ import { Ticket } from "../../ticket/ticket.schema";
 import { Venue } from "../../venue/venue.schema";
 
 import {Types} from "mongoose";
+import { Type } from "@nestjs/common";
 
 
 export class CreateConcertDto{
@@ -10,9 +11,7 @@ export class CreateConcertDto{
     date: Date;
     time: string;
     amountOfTickets: Number;
-    performances: Map<string, string>;
-    artists: Artist[];
-    performTimes: string[];
+    artist: Artist;
     tickets: Ticket[];
     ticketPrice: Number;
     ticketType: string;

@@ -8,7 +8,8 @@ import { ArtistService } from "./artist.service";
 @Module({
     imports: [MongooseModule.forFeature([{name: Artist.name, schema: ArtistSchema}])],
     controllers: [ArtistController],
-    providers: [ArtistService, ArtistRepository]
+    providers: [ArtistService, ArtistRepository],
+    exports: [ArtistRepository]
 })
 
 export class ArtistModule{}

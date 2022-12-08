@@ -12,8 +12,6 @@ export class ArtistController{
 
     @Get(':artistId')
     async getArtist(@Param('artistId') artistId: string): Promise<Artist>{
-        console.log('getArtist aangeroepen')
-        console.log(artistId)
         return await this.artistService.getArtistById(artistId);
     }
 
