@@ -34,6 +34,11 @@ export class ArtistService {
     }) as Observable<Artist>;
   }
 
+  updateArtist(_id: Types.ObjectId, artist: Partial<Artist>){
+    return this.httpClient.patch<Artist>(`http://localhost:3333/api/artists/${_id}`, artist)
+  }
+
+
   // private handleError(error: HttpErrorResponse): Observable<any> {
   //   console.log(error);
   //   // return an error observable with a user-facing error message

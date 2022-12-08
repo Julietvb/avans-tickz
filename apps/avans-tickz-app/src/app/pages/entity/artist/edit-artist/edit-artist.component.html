@@ -1,1 +1,117 @@
-<p>edit-artist works!</p>
+<section>
+    <div class="container py-5 h-100">
+      <div class="row justify-content-center align-items-center h-100">
+        <div class="col-12 col-lg-9 col-xl-7">
+          <div
+            class="card shadow-2-strong card-registration"
+            style="border-radius: 15px"
+          >
+            <div class="card-body p-4 p-md-5">
+              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Create artist</h3>
+              <form
+                #artistEdit="ngForm"
+              >
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        [ngModel]="artist.name"
+                        class="form-control"
+                      />
+                      <label class="form-label" for="name">Name</label>
+                    </div>
+                  </div>
+  
+                  <div class="col-md-6 mb-4 d-flex align-items-center">
+                    <div class="form-outline datepicker w-100">
+                      <input
+                        type="date"
+                        id="birthdayDate"
+                        name="birthDate"
+                        [ngModel]="artist.birthDate"
+                        class="form-control"
+                      />
+                      <label for="birthdayDate" class="form-label"
+                        >Birthday</label
+                      >
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 pb-2">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        id="artistImage"
+                        name="artistImage"
+                        [ngModel]="artist.artistImage"
+                        class="form-control"
+                      />
+                      <label class="form-label" for="artistImage">Image url</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        id="artistHeader"
+                        name="artistHeader"
+                        [ngModel]="artist.artistHeader"
+                        class="form-control"
+                      />
+                      <label class="form-label" for="artistHeader">Header url</label>
+                    </div>
+                  </div>
+                </div>
+  
+                <div class="row">
+                  <div class="col-md-6 mb-4 pb-2">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        id="genre"
+                        name="genre"
+                        [ngModel]="artist.genre"
+                        class="form-control"
+                      />
+                      <label class="form-label" for="genre">Genre</label>
+                    </div>
+                  </div>
+                  <div class="col-md-6 mb-4 pb-2">
+                    <div class="form-outline">
+                      <input
+                        type="text"
+                        id="description"
+                        name="description"
+                        [ngModel]="artist.description"
+                        class="form-control"
+                      />
+                      <label class="form-label" for="description">Description</label>
+                    </div>
+                  </div>
+                </div>
+  
+                <button
+                type="button"
+                class="btn form-button me-2"
+                routerLink="/artists"
+              >
+                <i class="fa fa-angle-left"> </i> Back
+              </button>
+              <button type="button" class="btn form-button me-2" routerLink="/artists" (click)="editArtist(artistEdit.value)">
+                Save changes
+              </button>
+              <button type="button" class="btn form-button me-2 deleteButton" (click)="deleteArtist()">
+                Delete
+              </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
