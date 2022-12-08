@@ -13,6 +13,8 @@ export class Artist {
   genre: string;
   @Prop()
   description: string;
+  @Prop()
+  creatorId: Types.ObjectId
 }
 
 export const ArtistSchema = SchemaFactory.createForClass(Artist)
