@@ -5,5 +5,4 @@ export class CreateArtistDto {
     description: string;
     artistImage: string;
     artistHeader: string;
-
 }

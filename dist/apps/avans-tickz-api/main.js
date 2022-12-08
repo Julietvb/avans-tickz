@@ -114,7 +114,7 @@ let ArtistController = class ArtistController {
     }
     createArtist(createArtistDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.artistService.createArtist(createArtistDto.name, createArtistDto.birthDate, createArtistDto.genre, createArtistDto.description);
+            return this.artistService.createArtist(createArtistDto.name, createArtistDto.birthDate, createArtistDto.genre, createArtistDto.description, createArtistDto.artistImage, createArtistDto.artistHeader);
         });
     }
     updateArtist(artistId, updateArtistDto) {
