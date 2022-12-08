@@ -15,53 +15,6 @@ const httpOptions = {
 
 export class UserService {
   // private user?: User;
-  public userList: User[] = [
-    {
-      userId: 1,
-      firstName: 'John',
-      lastName: 'Doe',
-      birthDate: new Date('12-20-2000'),
-      emailAdres: 'johndoe@gmail.com',
-      password: 'password',
-      favoriteArtists: []
-    },
-    {
-      userId: 2,
-      firstName: 'Jane',
-      lastName: 'Doe',
-      birthDate: new Date('3-6-2012'),
-      emailAdres: 'janedoe@gmail.com',
-      password: 'password',
-      favoriteArtists: []
-    },
-    {
-      userId: 3,
-      firstName: 'Jan',
-      lastName: 'Jansen',
-      birthDate: new Date('11-12-2013'),
-      emailAdres: 'janjansen@gmail.com',
-      password: 'password',
-      favoriteArtists: []
-    },
-    {
-      userId: 4,
-      firstName: 'Daniël',
-      lastName: 'van Zuijdam',
-      birthDate: new Date('6-10-2004'),
-      emailAdres: 'dca.vanzuijdam@student.avans.nl',
-      password: 'password',
-      favoriteArtists: []
-    },
-    {
-      userId: 5,
-      firstName: 'Juliet',
-      lastName: 'van Bezooijen',
-      birthDate: new Date('8-29-2003'),
-      emailAdres: 'jay.vanbezooijen@student.avans.nl',
-      password: 'password',
-      favoriteArtists: []
-    },
-  ];
 
   constructor(private httpClient: HttpClient) {}
 
@@ -73,11 +26,8 @@ export class UserService {
     return this.httpClient.get(`http://localhost:3333/api/users/${_id}`) as Observable<User>;
   }
 
-  deleteUser(userId: number){
-    this.userList.forEach((element,index) => {
-      if(element.userId == userId) 
-      this.userList.splice(index, 1);
-    });
+  deleteUser(_id: Types.ObjectId){
+    return this.httpClient.delete(`http://localhost:3333/api/users/${_id}`)
   }
 
   // createUser(user: User): Observable<any> {

@@ -13,6 +13,10 @@ export class UserRepository{
         return await this.userModel.findOne({_id: new Types.ObjectId(userId)})
     }
 
+    async findByEmail(email: string): Promise<User> {
+        return await this.userModel.findOne({emailAdres: email});
+      }    
+
     async find(usersFilterQuery: FilterQuery<User>): Promise<User[]> {
         return await this.userModel.find(usersFilterQuery)
     }
