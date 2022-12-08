@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Request } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./user.schema";
@@ -15,6 +15,12 @@ export class UserController{
         console.log('getUser aangeroepen')
         console.log(userId)
         return await this.userService.getUserById(userId);
+    }
+
+    @Get('/email/:email')
+    async getUserByEmail(@Param('email') email: string):Promise<User>{
+        console.log(email)
+        return await this.userService.getUserByEmail(email);
     }
 
     @Get()

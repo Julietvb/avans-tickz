@@ -30,7 +30,8 @@ export class ArtistService {
       artistImage: artist.artistImage,
       artistHeader: artist.artistHeader,
       genre: artist.genre,
-      description: artist.description
+      description: artist.description,
+      creatorId: artist.creatorId
     }) as Observable<Artist>;
   }
 

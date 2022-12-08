@@ -23,6 +23,8 @@ export class Concert {
   tickets: Ticket[];
   @Prop({ type: Types.ObjectId, ref: 'Venue' })
   venue!: Venue;
+  @Prop()
+  creatorId: Types.ObjectId
 }
 
 export const ConcertSchema = SchemaFactory.createForClass(Concert);

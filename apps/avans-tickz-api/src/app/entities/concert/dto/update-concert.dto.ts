@@ -15,4 +15,5 @@ export class UpdateConcertDto{
     ticketPrice: Number;
     ticketType: string;
     venue: Venue;
+    creatorId: Types.ObjectId
 }

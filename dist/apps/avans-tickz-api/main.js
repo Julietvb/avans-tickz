@@ -348,7 +348,7 @@ let ArtistController = class ArtistController {
     }
     createArtist(createArtistDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return this.artistService.createArtist(createArtistDto.name, createArtistDto.birthDate, createArtistDto.genre, createArtistDto.description, createArtistDto.artistImage, createArtistDto.artistHeader);
+            return this.artistService.createArtist(createArtistDto.name, createArtistDto.birthDate, createArtistDto.genre, createArtistDto.description, createArtistDto.artistImage, createArtistDto.artistHeader, createArtistDto.creatorId);
         });
     }
     updateArtist(artistId, updateArtistDto) {
@@ -493,11 +493,12 @@ exports.ArtistRepository = ArtistRepository;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ArtistSchema = exports.Artist = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const mongoose_2 = __webpack_require__("mongoose");
 let Artist = class Artist {
 };
 tslib_1.__decorate([
@@ -518,8 +519,8 @@ tslib_1.__decorate([
 ], Artist.prototype, "description", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", String)
-], Artist.prototype, "artistImage", void 0);
+    tslib_1.__metadata("design:type", typeof (_b = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _b : Object)
+], Artist.prototype, "creatorId", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", String)
@@ -554,7 +555,7 @@ let ArtistService = class ArtistService {
     getAllArtists() {
         return this.artistRepository.find({});
     }
-    createArtist(name, birthDate, genre, description, artistImage, artistHeader) {
+    createArtist(name, birthDate, genre, description, artistImage, artistHeader, creatorId) {
         return this.artistRepository.create({
             name,
             birthDate,
@@ -562,6 +563,7 @@ let ArtistService = class ArtistService {
             description,
             artistImage,
             artistHeader,
+            creatorId
         });
     }
     updateArtist(artistId, artistUpdates) {
@@ -636,7 +638,7 @@ let ConcertController = class ConcertController {
     createConcert(createConcertDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             console.log("controller aangeroepen");
-            return this.concertService.createConcert(createConcertDto.title, createConcertDto.date, createConcertDto.time, createConcertDto.amountOfTickets, createConcertDto.artist, createConcertDto.tickets, createConcertDto.ticketPrice, createConcertDto.ticketType, createConcertDto.venue);
+            return this.concertService.createConcert(createConcertDto.title, createConcertDto.date, createConcertDto.time, createConcertDto.amountOfTickets, createConcertDto.artist, createConcertDto.tickets, createConcertDto.ticketPrice, createConcertDto.ticketType, createConcertDto.venue, createConcertDto.creatorId);
         });
     }
     updateConcert(concertId, updateConcertDto) {
@@ -781,7 +783,7 @@ exports.ConcertRepository = ConcertRepository;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d;
+var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConcertSchema = exports.Concert = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -820,6 +822,10 @@ tslib_1.__decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'Venue' }),
     tslib_1.__metadata("design:type", typeof (_d = typeof venue_schema_1.Venue !== "undefined" && venue_schema_1.Venue) === "function" ? _d : Object)
 ], Concert.prototype, "venue", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", typeof (_e = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _e : Object)
+], Concert.prototype, "creatorId", void 0);
 Concert = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], Concert);
@@ -850,7 +856,7 @@ let ConcertService = class ConcertService {
     getAllConcerts() {
         return this.concertRepository.find({});
     }
-    createConcert(title, date, time, amountOfTickets, artist, tickets, ticketPrice, ticketType, venue) {
+    createConcert(title, date, time, amountOfTickets, artist, tickets, ticketPrice, ticketType, venue, creatorId) {
         for (let i = 0; i < amountOfTickets; i++) {
             tickets.push({
                 _id: new mongoose_1.Types.ObjectId(i),
@@ -867,13 +873,19 @@ let ConcertService = class ConcertService {
             artist,
             tickets: tickets,
             venue,
+            creatorId,
         });
     }
     updateConcert(concertId, concertUpdates) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log(concertUpdates);
             let concert = yield this.concertRepository.findById(concertId.toString());
-            if (concertUpdates.amountOfTickets != concert.tickets.length) {
+            if ((concertUpdates.amountOfTickets == undefined)) {
+                concertUpdates.tickets = [];
+                concert.tickets.forEach((ticket) => {
+                    concertUpdates.tickets.push(ticket);
+                });
+            }
+            else if (concertUpdates.amountOfTickets != concert.tickets.length) {
                 concertUpdates.tickets = [];
                 for (let i = 0; i < concertUpdates.amountOfTickets; i++) {
                     concertUpdates.tickets.push({
@@ -884,12 +896,6 @@ let ConcertService = class ConcertService {
                     });
                 }
             }
-            if (concertUpdates.ticketType != concert.tickets[0].type) {
-                concert.tickets.forEach((ticket) => {
-                    ticket.type = concertUpdates.ticketType;
-                });
-            }
-            console.log(concertUpdates);
             return this.concertRepository.findOneAndUpdate({ _id: concertId }, concertUpdates);
         });
     }
@@ -998,7 +1004,7 @@ exports.UpdateUserDto = UpdateUserDto;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e, _f, _g, _h;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -1016,6 +1022,12 @@ let UserController = class UserController {
             console.log('getUser aangeroepen');
             console.log(userId);
             return yield this.userService.getUserById(userId);
+        });
+    }
+    getUserByEmail(email) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log(email);
+            return yield this.userService.getUserByEmail(email);
         });
     }
     getUsers() {
@@ -1048,25 +1060,32 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", typeof (_b = typeof Promise !== "undefined" && Promise) === "function" ? _b : Object)
 ], UserController.prototype, "getUser", null);
 tslib_1.__decorate([
+    (0, common_1.Get)('/email/:email'),
+    tslib_1.__param(0, (0, common_1.Param)('email')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [String]),
+    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+], UserController.prototype, "getUserByEmail", null);
+tslib_1.__decorate([
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+    tslib_1.__metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], UserController.prototype, "getUsers", null);
 tslib_1.__decorate([
     (0, common_1.Post)(),
     tslib_1.__param(0, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_d = typeof create_user_dto_1.CreateUserDto !== "undefined" && create_user_dto_1.CreateUserDto) === "function" ? _d : Object]),
-    tslib_1.__metadata("design:returntype", typeof (_e = typeof Promise !== "undefined" && Promise) === "function" ? _e : Object)
+    tslib_1.__metadata("design:paramtypes", [typeof (_e = typeof create_user_dto_1.CreateUserDto !== "undefined" && create_user_dto_1.CreateUserDto) === "function" ? _e : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_f = typeof Promise !== "undefined" && Promise) === "function" ? _f : Object)
 ], UserController.prototype, "createUser", null);
 tslib_1.__decorate([
     (0, common_1.Patch)(':userId'),
     tslib_1.__param(0, (0, common_1.Param)('userId')),
     tslib_1.__param(1, (0, common_1.Body)()),
     tslib_1.__metadata("design:type", Function),
-    tslib_1.__metadata("design:paramtypes", [typeof (_f = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _f : Object, typeof (_g = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _g : Object]),
-    tslib_1.__metadata("design:returntype", typeof (_h = typeof Promise !== "undefined" && Promise) === "function" ? _h : Object)
+    tslib_1.__metadata("design:paramtypes", [typeof (_g = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _g : Object, typeof (_h = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _h : Object]),
+    tslib_1.__metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], UserController.prototype, "updateUser", null);
 tslib_1.__decorate([
     (0, common_1.Delete)(':userId'),

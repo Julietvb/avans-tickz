@@ -4,6 +4,7 @@ import { Concert } from './concert.model';
 import { HttpClient } from '@angular/common/http';
 import { Types } from 'mongoose';
 import { Venue } from '../venue/venue.model';
+import { AuthService } from '../../auth/auth.service';
 
 const httpOptions = {
   observe: 'body',
@@ -19,7 +20,7 @@ export class ConcertService {
   public concertList: Concert[] = [
   ];
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient, private authService: AuthService) {}
   
   getAllConcerts(): Observable<Concert[]> {
     return this.httpClient.get('http://localhost:3333/api/concerts') as Observable<Concert[]>;
@@ -32,6 +33,7 @@ export class ConcertService {
   createConcert(concert: Concert): Observable<Concert>{
     console.log("createConcert aangeroepen")
     console.log("createConcert" + concert)
+
     return this.httpClient.post<Concert>('http://localhost:3333/api/concerts',{
       title: concert.title,
       date: concert.date,
@@ -40,7 +42,8 @@ export class ConcertService {
       tickets: [],
       ticketPrice: concert.ticketPrice,
       ticketType: concert.ticketType,
-      venue: concert.venue
+      venue: concert.venue,
+      creatorId: concert.creatorId
     }) as Observable<Concert>;
   }
 

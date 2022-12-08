@@ -16,4 +16,5 @@ export interface Concert{
     tickets: Ticket[],
     amountOfTickets: Number;
     venue: Venue;
+    creatorId: Types.ObjectId;
 }

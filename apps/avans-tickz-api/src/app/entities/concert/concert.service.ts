@@ -27,7 +27,8 @@ export class ConcertService {
     tickets: Ticket[],
     ticketPrice: Number,
     ticketType: string,
-    venue: Venue
+    venue: Venue,
+    creatorId: Types.ObjectId
   ): Promise<Concert> {
     for (let i = 0; i < amountOfTickets; i++) {
       tickets.push({
@@ -46,6 +47,7 @@ export class ConcertService {
       artist,
       tickets: tickets,
       venue,
+      creatorId,
     });
   }
 
@@ -53,10 +55,15 @@ export class ConcertService {
     concertId: Types.ObjectId,
     concertUpdates: UpdateConcertDto
   ): Promise<Concert> {
-    console.log(concertUpdates);
+
     let concert = await this.concertRepository.findById(concertId.toString());
 
-    if (concertUpdates.amountOfTickets != concert.tickets.length) {
+    if ((concertUpdates.amountOfTickets == undefined)) {
+      concertUpdates.tickets = [];
+      concert.tickets.forEach((ticket) => {
+        concertUpdates.tickets.push(ticket);
+      });
+    } else if (concertUpdates.amountOfTickets != concert.tickets.length) {
       concertUpdates.tickets = [];
       for (let i = 0; i < concertUpdates.amountOfTickets; i++) {
         concertUpdates.tickets.push({
@@ -67,14 +74,6 @@ export class ConcertService {
         });
       }
     }
-
-    if (concertUpdates.ticketType != concert.tickets[0].type) {
-      concert.tickets.forEach((ticket) => {
-        ticket.type = concertUpdates.ticketType;
-      });
-    }
-
-    console.log(concertUpdates);
     return this.concertRepository.findOneAndUpdate(
       { _id: concertId },
       concertUpdates

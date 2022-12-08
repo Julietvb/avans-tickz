@@ -22,7 +22,8 @@ export class ArtistService {
     genre: string,
     description: string,
     artistImage: string,
-    artistHeader: string
+    artistHeader: string,
+    creatorId: Types.ObjectId
   ): Promise<Artist> {
     return this.artistRepository.create({
       name,
@@ -31,6 +32,7 @@ export class ArtistService {
       description,
       artistImage,
       artistHeader,
+      creatorId
     });
   }
 
