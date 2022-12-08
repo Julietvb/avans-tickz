@@ -4,4 +4,5 @@ export class CreateArtistDto {
     genre: string;
     description: string;
     artistImage: string;
+    artistHeader: string;
 }

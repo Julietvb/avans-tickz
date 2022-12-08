@@ -7,4 +7,5 @@ export interface Artist{
     genre: string;
     description: string;
     artistImage: string;
+    artistHeader: string;
 }

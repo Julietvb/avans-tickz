@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row mt-2">
+    <h1 class="col-md-10">All artists</h1>
+    <button class="btn col-md-2 pull-right" routerLink="/artists/create">
+      Add artist <i class="fa fa-plus"></i>
+    </button>
+  </div>
+  <div class="row mt-3">
+    <div class="card col-4" routerLink="{{artist._id}}" *ngFor="let artist of artists">
+        <img src="{{artist.artistHeader}}" class="card-img-top header-img" />
+        <div class="card-body">
+          <h5 class="card-title">{{artist.name}}</h5>
+          <p class="card-text">
+            {{artist.description.substring(0, 350)}}...
+          </p>
+          <a class="btn" routerLink="{{artist._id}}/edit">Edit artist</a>
+        </div>
+      </div>
+    </div>
+  </div>
