@@ -15,6 +15,7 @@ export class Artist {
   description: string;
   @Prop()
   creatorId: Types.ObjectId
+  @Prop()
   artistImage: string;
   @Prop()
   artistHeader: string;

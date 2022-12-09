@@ -22,18 +22,17 @@ export class DetailArtistComponent implements OnInit {
   constructor(private artistService: ArtistService, private route: ActivatedRoute, private authService: AuthService, private userService: UserService) { }
 
   ngOnInit(): void {
-    this.artistService.getArtistById(this.artistId).subscribe((artist) => this.artist = artist);
+    this.artistService.getArtistById(this.artistId).subscribe((artist) => {this.artist = artist
+    console.log(artist)});
     this.authService.getUserFromLocalStorage().subscribe((user) => this.currentUser = user)
 
   }
 
   addToFavorites(_id: Types.ObjectId) {
-    console.log('addToFavorites');
     this.userService.getUserById(this.currentUser._id).subscribe((user) => {
       this.currentUser = user;
       this.artistService.getArtistById(_id).subscribe((artist) => {
         this.currentUser.favoriteArtists.push(artist);
-        console.log(this.currentUser);
         this.userService
           .updateUser(this.currentUser._id, this.currentUser)
           .subscribe((updatedUser) =>

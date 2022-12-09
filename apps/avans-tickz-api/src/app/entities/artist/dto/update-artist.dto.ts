@@ -8,5 +8,4 @@ export class UpdateArtistDto {
     creatorId: Types.ObjectId
     artistImage: string;
     artistHeader: string;
-
 }

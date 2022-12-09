@@ -524,6 +524,10 @@ tslib_1.__decorate([
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", String)
+], Artist.prototype, "artistImage", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)(),
+    tslib_1.__metadata("design:type", String)
 ], Artist.prototype, "artistHeader", void 0);
 Artist = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
