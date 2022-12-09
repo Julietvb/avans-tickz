@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { User } from '../user.model';
 import { UserService } from '../user.service';
 import { Types } from 'mongoose';
+import { AuthService } from '../../../auth/auth.service';
 
 @Component({
   selector: 'avans-tickz-edit',
@@ -12,11 +13,12 @@ import { Types } from 'mongoose';
 export class EditComponent implements OnInit {
   user!: User;
   userId = new Types.ObjectId(this.route.snapshot.paramMap.get('userId')!);
-  
+
   constructor(
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -27,12 +29,16 @@ export class EditComponent implements OnInit {
     });
   }
 
-  deleteUser(): void{
-    this.userService.deleteUser(this.userId).subscribe()
-    this.router.navigate(['/'])
+  deleteUser(): void {
+    this.userService.deleteUser(this.userId).subscribe();
+    this.router.navigate(['/']);
   }
 
-  editUser(): void{
-    // this.router.navigate('/users');
+  editUser(user: User): void {
+    this.userService.updateUser(this.userId, user).subscribe((updatedUser) => {
+      this.user = updatedUser;
+      this.authService.saveUserToLocalStorage(updatedUser);
+    });
+    this.router.navigate([`../profile`]);
   }
 }
