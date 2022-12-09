@@ -38,6 +38,5 @@ export class UserComponent implements OnInit {
   }
 
   follow(user: User){
-    this.currentUser.following.push(user);
   }
 }

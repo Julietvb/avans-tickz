@@ -21,4 +21,7 @@ export class ArtistComponent implements OnInit {
     this.authService.getUserFromLocalStorage().subscribe((user) => this.currentuserId = user._id)
   }
 
+  addToFavorites(_id: Types.ObjectId){
+    
+  }
 }
