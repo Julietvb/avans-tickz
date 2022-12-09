@@ -70,7 +70,7 @@
                       #emailAdres="ngModel"
                       pattern="[\w-\.]+@([\w-]+\.)+[\w-]{2,4}"
                       [ngClass]="{
-                        'is-invalid': emailAdres.invalid
+                        'is-invalid': emailAdres.invalid && emailAdres.touched
                       }"
                       class="form-control"
                       required
@@ -98,7 +98,7 @@
                       ngModel
                       #password="ngModel"
                       [ngClass]="{
-                        'is-invalid': password.invalid
+                        'is-invalid': password.invalid && password.touched
                       }"
                       class="form-control"
                       required
@@ -115,7 +115,8 @@
                 </div>
               </div>
 
-              <button type="submit" class="btn">Register</button>
+              <button *ngIf="!userRegister.valid"class="btn disabled">Register</button>
+              <button *ngIf="userRegister.valid" type="submit" class="btn">Register</button>
             </form>
           </div>
         </div>

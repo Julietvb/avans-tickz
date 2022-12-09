@@ -9,10 +9,12 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  validLogin!: boolean;
 
   constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.validLogin = true;
   }
 
   login(email: string, password: string): void {
@@ -20,9 +22,12 @@ export class LoginComponent implements OnInit {
     .login(email, password)
     .subscribe((user) => {
       if (user) {
+        this.validLogin = true;
         console.log('Logged in');
         this.router.navigate(['/profile'])
         this.router.navigate(['/']);
+      } else{
+        this.validLogin = false;
       }
     });
   }

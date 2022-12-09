@@ -1,118 +1,189 @@
 <avans-tickz-nav></avans-tickz-nav>
 <section>
-    <div class="container py-5 h-100" *ngIf="artist">
-      <div class="row justify-content-center align-items-center h-100">
-        <div class="col-12 col-lg-9 col-xl-7">
-          <div
-            class="card shadow-2-strong card-registration"
-            style="border-radius: 15px"
-          >
-            <div class="card-body p-4 p-md-5">
-              <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit artist</h3>
-              <form
-                #artistEdit="ngForm"
-              >
-                <div class="row">
-                  <div class="col-md-6 mb-4">
-                    <div class="form-outline">
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        [ngModel]="artist.name"
-                        class="form-control"
-                      />
-                      <label class="form-label" for="name">Name</label>
-                    </div>
-                  </div>
-  
-                  <div class="col-md-6 mb-4 d-flex align-items-center">
-                    <div class="form-outline datepicker w-100">
-                      <input
-                        type="date"
-                        id="birthdayDate"
-                        name="birthDate"
-                        [ngModel]="artist.birthDate"
-                        class="form-control"
-                      />
-                      <label for="birthdayDate" class="form-label"
-                        >Birthday</label
-                      >
+  <div class="container py-5 h-100" *ngIf="artist">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div
+          class="card shadow-2-strong card-registration"
+          style="border-radius: 15px"
+        >
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Edit artist</h3>
+            <form #artistEdit="ngForm">
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="name">*Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      [ngModel]="artist.name"
+                      #name="ngModel"
+                      [ngClass]="{
+                        'is-invalid': name.invalid && name.touched
+                      }"
+                      class="form-control"
+                      required
+                    />
+                    <div
+                      *ngIf="name.invalid && name.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="name.errors?.['required']">
+                        Please enter a name.
+                      </div>
                     </div>
                   </div>
                 </div>
-  
-                <div class="row">
-                  <div class="col-md-6 mb-4 pb-2">
-                    <div class="form-outline">
-                      <input
-                        type="text"
-                        id="artistImage"
-                        name="artistImage"
-                        [ngModel]="artist.artistImage"
-                        class="form-control"
-                      />
-                      <label class="form-label" for="artistImage">Image url</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-4 pb-2">
-                    <div class="form-outline">
-                      <input
-                        type="text"
-                        id="artistHeader"
-                        name="artistHeader"
-                        [ngModel]="artist.artistHeader"
-                        class="form-control"
-                      />
-                      <label class="form-label" for="artistHeader">Header url</label>
-                    </div>
-                  </div>
-                </div>
-  
-                <div class="row">
-                  <div class="col-md-6 mb-4 pb-2">
-                    <div class="form-outline">
-                      <input
-                        type="text"
-                        id="genre"
-                        name="genre"
-                        [ngModel]="artist.genre"
-                        class="form-control"
-                      />
-                      <label class="form-label" for="genre">Genre</label>
-                    </div>
-                  </div>
-                  <div class="col-md-6 mb-4 pb-2">
-                    <div class="form-outline">
-                      <input
-                        type="text"
-                        id="description"
-                        name="description"
-                        [ngModel]="artist.description"
-                        class="form-control"
-                      />
-                      <label class="form-label" for="description">Description</label>
+
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline datepicker w-100">
+                    <label for="birthdayDate" class="form-label"
+                      >*Birthday</label
+                    >
+                    <input
+                      type="date"
+                      id="birthdayDate"
+                      name="birthDate"
+                      [ngModel]="artist.birthDate"
+                      #birthDate="ngModel"
+                      [ngClass]="{
+                        'is-invalid': birthDate.invalid && birthDate.touched
+                      }"
+                      class="form-control"
+                      required
+                    />
+                    <div *ngIf="birthDate.invalid" class="invalid-feedback">
+                      <div *ngIf="birthDate.errors?.['required']">
+                        Please enter a birthDate.
+                      </div>
                     </div>
                   </div>
                 </div>
-  
-                <button
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <label class="form-label" for="artistImage"
+                      >Image url</label
+                    >
+
+                    <input
+                      type="text"
+                      id="artistImage"
+                      name="artistImage"
+                      [ngModel]="artist.artistImage"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <label class="form-label" for="artistHeader"
+                      >Header url</label
+                    >
+
+                    <input
+                      type="text"
+                      id="artistHeader"
+                      name="artistHeader"
+                      [ngModel]="artist.artistHeader"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <label class="form-label" for="genre">*Genre</label>
+
+                    <input
+                      type="text"
+                      id="genre"
+                      name="genre"
+                      [ngModel]="artist.genre"
+                      #genre="ngModel"
+                      [ngClass]="{
+                        'is-invalid': genre.invalid && genre.touched
+                      }"
+                      class="form-control"
+                      required
+                    />
+                    <div
+                      *ngIf="genre.invalid && genre.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="genre.errors?.['required']">
+                        Please enter a genre.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <label class="form-label" for="description"
+                      >*Description</label
+                    >
+                    <input
+                      type="text"
+                      id="description"
+                      name="description"
+                      [ngModel]="artist.description"
+                      #description="ngModel"
+                      [ngClass]="{
+                        'is-invalid': description.invalid && description.touched
+                      }"
+                      class="form-control"
+                      required
+                    />
+                    <div *ngIf="description.invalid" class="invalid-feedback">
+                      <div *ngIf="description.errors?.['required']">
+                        Please enter a description.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button
                 type="button"
                 class="btn form-button me-2"
                 routerLink="/artists"
               >
                 <i class="fa fa-angle-left"> </i> Back
               </button>
-              <button type="button" class="btn form-button me-2" routerLink="/artists" (click)="editArtist(artistEdit.value)">
+              <button
+                type="button"
+                class="btn form-button me-2 disabled"
+                routerLink="/artists"
+                *ngIf="!artistEdit.valid"
+              >
                 Save changes
               </button>
-              <button type="button" class="btn form-button me-2 deleteButton" (click)="deleteArtist()">
+              <button
+                type="button"
+                class="btn form-button me-2"
+                routerLink="/artists"
+                *ngIf="artistEdit.valid"
+                (click)="editArtist(artistEdit.value)"
+              >
+                Save changes
+              </button>
+              <button
+                type="button"
+                class="btn form-button me-2 deleteButton"
+                (click)="deleteArtist()"
+              >
                 Delete
               </button>
-              </form>
-            </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
