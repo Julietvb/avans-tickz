@@ -8,5 +8,6 @@ export interface User {
     emailAdres: string;
     password: string; 
     favoriteArtists: string[];
+    following: User[];
     access_token: '';
 }

@@ -28,6 +28,9 @@ export class User {
 
   @Prop([Ticket])
   myTickets: Ticket[];
+
+  @Prop([User])
+  following: User[];
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

@@ -1,7 +1,7 @@
 <div class="container">
   <h3 align="center">All users</h3>
 
-  <p *ngIf="(users$ | async)?.length === 0">
+  <p *ngIf="usersLength === 0">
     Er zijn nog geen gebruikers.
   </p>
 
@@ -10,16 +10,16 @@
       <th>First name</th>
       <th>Last name</th>
       <th>Email</th>
-      <th>Manage</th>
+      <th></th>
     </thead>
     <tbody>
-      <tr *ngFor="let user of users$ | async" routerLink="{{ user._id }}">
+      <tr *ngFor="let user of users"  routerLink="{{ user._id }}">
         <td>{{ user.firstName }}</td>
         <td>{{ user.lastName }}</td>
         <td>{{ user.emailAdres }}</td>
         <td>
-          <button type="submit" class="btn" routerLink="{{ user._id }}/edit">
-            Edit user
+          <button type="submit" class="btn" (click)="follow(user)">
+            Follow user
           </button>
         </td>
       </tr>

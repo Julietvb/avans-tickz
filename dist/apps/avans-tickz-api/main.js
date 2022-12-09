@@ -1195,13 +1195,14 @@ exports.UserRepository = UserRepository;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
+var User_1;
 var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserSchema = exports.User = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const ticket_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts");
-let User = class User {
+let User = User_1 = class User {
 };
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
@@ -1231,7 +1232,11 @@ tslib_1.__decorate([
     (0, mongoose_1.Prop)([ticket_schema_1.Ticket]),
     tslib_1.__metadata("design:type", Array)
 ], User.prototype, "myTickets", void 0);
-User = tslib_1.__decorate([
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)([User_1]),
+    tslib_1.__metadata("design:type", Array)
+], User.prototype, "following", void 0);
+User = User_1 = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], User);
 exports.User = User;

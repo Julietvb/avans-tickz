@@ -24,8 +24,8 @@ export class CreateArtistComponent implements OnInit {
 
     artist.creatorId = this.creatorId;
 
-    this.artistService.createArtist(artist).subscribe((returnedArtist) => 
-    this.router.navigate([`/artists/${returnedArtist._id}`]));
-    
+    this.artistService.createArtist(artist).subscribe(() =>{ 
+    this.router.navigate([`reroute`]);
+    this.router.navigate([`/artists`])});
   }
 }

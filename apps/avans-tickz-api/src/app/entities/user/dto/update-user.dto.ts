@@ -1,4 +1,5 @@
 import {Types} from "mongoose";
+import { User } from "../user.schema";
 
 export class UpdateUserDto{
     _id: Types.ObjectId;
@@ -7,4 +8,5 @@ export class UpdateUserDto{
     birthDate: Date;
     emailAdres: string;
     password: string;
+    following: User[];
 }

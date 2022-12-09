@@ -13,7 +13,7 @@
           <p class="card-text">
             {{artist.description.substring(0, 350)}}...
           </p>
-          <a class="btn" routerLink="{{artist._id}}/edit">Edit artist</a>
+          <a class="btn" *ngIf="artist.creatorId == currentuserId" routerLink="{{artist._id}}/edit">Edit artist</a>
         </div>
       </div>
     </div>

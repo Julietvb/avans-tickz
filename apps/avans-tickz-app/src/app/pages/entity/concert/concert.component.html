@@ -35,7 +35,7 @@
           class="card-footer"
           style="background: inherit; border-color: inherit"
         >
-          <a class="btn" routerLink="{{concert._id}}/edit">Edit concert</a>
+          <a class="btn" *ngIf="concert.creatorId == currentuserId" routerLink="{{concert._id}}/edit">Edit concert</a>
         </div>
       </div>
     </div>
