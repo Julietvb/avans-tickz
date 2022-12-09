@@ -34,25 +34,10 @@ export class UserService {
     return this.httpClient.delete(`http://localhost:3333/api/users/${_id}`)
   }
 
-  // createUser(user: User): Observable<any> {
-  //   console.log('User create aangeroepen');
-  //   this.user = { ...user };
-  //   this.user.userId = ++this.userId;
-  //   this.userList.push(this.user);
-  //   console.log(`Nieuwe user toegevoegd met ID ${this.userId}`);
-  //   return of({
-  //     status: 201,
-  //     message: 'success',
-  //   });
-  // }
-
-  // updateUser(user?: User): Observable<any> {
-  //   console.log('Update User aangeroepen');
-  //   return of({
-  //     status: 201,
-  //     message: 'success',
-  //   });
-  // }
+  updateUser(_id: Types.ObjectId, user: Partial<User>): Observable<User>{
+    console.log(_id)
+    return this.httpClient.patch(`http://localhost:3333/api/users/${_id}`, user) as Observable<User>;
+  }
 
   // private handleError(error: HttpErrorResponse): Observable<any> {
   //   console.log(error);

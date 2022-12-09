@@ -1,24 +1,58 @@
-<table class="table">
-    <thead>
-      <tr>
-        <th>First name</th>
-        <th>Last name</th>
-        <th>Email</th>
-        <th>Date of birth</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>{{ currentUser?.firstName }}</td>
-        <td>{{ currentUser?.lastName }}</td>
-        <td>{{ currentUser?.emailAdres }}</td>
-        <td>
-            {{dateFormat}}
-        </td>
-      </tr>
-    </tbody>
-  </table>
-  <button type="submit" class="btn" routerLink="/users/{{ currentUser?._id }}/edit">
-    Edit user
-  </button>
-  
+<table class="table mt-2">
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Date of birth</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>{{ currentUser.firstName }}</td>
+      <td>{{ currentUser.lastName }}</td>
+      <td>{{ currentUser.emailAdres }}</td>
+      <td>
+        {{ currentUser.birthDate | date: 'dd-MM-yyyy' }}
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<table *ngIf="currentUser.favoriteArtists.length >= 1" class="table">
+  <thead>
+    <tr>
+      <th>My favorite artists</th>
+      <th></th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody *ngFor="let favoriteArtist of currentUser?.favoriteArtists">
+    <tr>
+      <td>{{ favoriteArtist.name }}</td>
+      <td>Genre: {{ favoriteArtist.genre }}</td>
+      <td>Date of birth: {{ favoriteArtist.birthDate | date: 'dd-MM-yyyy'}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<table *ngIf="currentUser.favoriteArtists == undefined || currentUser.favoriteArtists.length == 0" class="table">
+  <thead>
+    <tr>
+      <th>My favorite artists</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>You don't have any favorite artists yet! Click the heart button on an artists detail page to add them to your favorites!</td>
+    </tr>
+  </tbody>
+</table>
+
+<button
+  type="submit"
+  class="btn"
+  routerLink="/users/{{ currentUser._id }}/edit"
+>
+  Edit user
+</button>

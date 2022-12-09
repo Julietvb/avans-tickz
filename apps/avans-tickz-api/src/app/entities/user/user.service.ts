@@ -9,14 +9,13 @@ export class UserService {
   constructor(private readonly userRepository: UserRepository) {}
 
   getUserById(userId: string): Promise<User> {
-    console.log('service getById aangeroepen');
     return this.userRepository.findById(userId);
   }
 
-  getUserByEmail(emailAdres: string): Promise<User>{
+  getUserByEmail(emailAdres: string): Promise<User> {
     return this.userRepository.findByEmail(emailAdres);
   }
-  
+
   getAllUsers(): Promise<User[]> {
     return this.userRepository.find({});
   }
@@ -39,10 +38,18 @@ export class UserService {
     });
   }
 
-  updateUser(
+  async updateUser(
     userId: Types.ObjectId,
     userUpdates: UpdateUserDto
   ): Promise<User> {
+    let user = await this.userRepository.findById(userId.toString());
+
+    if (userUpdates.favoriteArtists == undefined) {
+      userUpdates.favoriteArtists = [];
+      user.favoriteArtists.forEach((artist) => {
+        userUpdates.favoriteArtists.push(artist);
+      }) 
+    }
     return this.userRepository.findOneAndUpdate({ _id: userId }, userUpdates);
   }
 

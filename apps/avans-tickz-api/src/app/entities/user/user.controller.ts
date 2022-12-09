@@ -12,8 +12,6 @@ export class UserController{
 
     @Get(':userId')
     async getUser(@Param('userId') userId: string): Promise<User>{
-        console.log('getUser aangeroepen')
-        console.log(userId)
         return await this.userService.getUserById(userId);
     }
 
@@ -35,6 +33,8 @@ export class UserController{
 
     @Patch(':userId')
     async updateUser(@Param('userId') userId: Types.ObjectId, @Body() updateUserDto: UpdateUserDto): Promise<User> {
+        console.log('controller updates:')
+        console.log(updateUserDto.favoriteArtists)
         return this.userService.updateUser(userId, updateUserDto);
     }
 

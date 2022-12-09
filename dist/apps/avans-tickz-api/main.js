@@ -549,7 +549,6 @@ let ArtistService = class ArtistService {
         this.artistRepository = artistRepository;
     }
     getArtistById(artistId) {
-        console.log('service getById aangeroepen');
         return this.artistRepository.findById(artistId);
     }
     getAllArtists() {
@@ -1019,8 +1018,6 @@ let UserController = class UserController {
     }
     getUser(userId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('getUser aangeroepen');
-            console.log(userId);
             return yield this.userService.getUserById(userId);
         });
     }
@@ -1042,6 +1039,8 @@ let UserController = class UserController {
     }
     updateUser(userId, updateUserDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log('controller updates:');
+            console.log(updateUserDto.favoriteArtists);
             return this.userService.updateUser(userId, updateUserDto);
         });
     }
@@ -1150,7 +1149,6 @@ let UserRepository = class UserRepository {
     }
     findById(userId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('repository findById aangeroepen');
             return yield this.userModel.findOne({ _id: new mongoose_3.Types.ObjectId(userId) });
         });
     }
@@ -1172,6 +1170,8 @@ let UserRepository = class UserRepository {
     }
     findOneAndUpdate(userFilterQuery, user) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log(userFilterQuery);
+            console.log(user);
             return yield this.userModel.findOneAndUpdate(userFilterQuery, user, { new: true });
         });
     }
@@ -1224,7 +1224,7 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:type", String)
 ], User.prototype, "password", void 0);
 tslib_1.__decorate([
-    (0, mongoose_1.Prop)([String]),
+    (0, mongoose_1.Prop)(),
     tslib_1.__metadata("design:type", Array)
 ], User.prototype, "favoriteArtists", void 0);
 tslib_1.__decorate([
@@ -1255,7 +1255,6 @@ let UserService = class UserService {
         this.userRepository = userRepository;
     }
     getUserById(userId) {
-        console.log('service getById aangeroepen');
         return this.userRepository.findById(userId);
     }
     getUserByEmail(emailAdres) {
@@ -1276,7 +1275,16 @@ let UserService = class UserService {
         });
     }
     updateUser(userId, userUpdates) {
-        return this.userRepository.findOneAndUpdate({ _id: userId }, userUpdates);
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            let user = yield this.userRepository.findById(userId.toString());
+            if (userUpdates.favoriteArtists == undefined) {
+                userUpdates.favoriteArtists = [];
+                user.favoriteArtists.forEach((artist) => {
+                    userUpdates.favoriteArtists.push(artist);
+                });
+            }
+            return this.userRepository.findOneAndUpdate({ _id: userId }, userUpdates);
+        });
     }
     deleteUserById(userId) {
         return this.userRepository.deleteById(userId);

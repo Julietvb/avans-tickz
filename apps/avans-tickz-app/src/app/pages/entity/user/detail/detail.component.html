@@ -13,7 +13,7 @@
       <td>{{ currentUser?.lastName }}</td>
       <td>{{ currentUser?.emailAdres }}</td>
       <td>
-          {{dateFormat}}
+          {{currentUser?.birthDate | date: 'dd-MM-yyyy'}}
       </td>
     </tr>
   </tbody>

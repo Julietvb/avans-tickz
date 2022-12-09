@@ -9,7 +9,6 @@ export class UserRepository{
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
 
     async findById(userId: string): Promise<User> {
-        console.log('repository findById aangeroepen')
         return await this.userModel.findOne({_id: new Types.ObjectId(userId)})
     }
 
@@ -27,6 +26,8 @@ export class UserRepository{
     }
 
     async findOneAndUpdate(userFilterQuery: FilterQuery<User>, user: Partial<User>): Promise<User> {
+        console.log(userFilterQuery)
+        console.log(user)
         return await this.userModel.findOneAndUpdate(userFilterQuery, user, {new: true});
     }
 

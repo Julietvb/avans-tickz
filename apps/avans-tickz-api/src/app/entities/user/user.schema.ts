@@ -23,7 +23,7 @@ export class User {
   @Prop()
   password: string;
 
-  @Prop([String])
+  @Prop()
   favoriteArtists: Artist[];
 
   @Prop([Ticket])

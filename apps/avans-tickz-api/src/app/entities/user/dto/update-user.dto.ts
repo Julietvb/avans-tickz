@@ -1,4 +1,5 @@
 import {Types} from "mongoose";
+import { Artist } from "../../artist/artist.schema";
 import { User } from "../user.schema";
 
 export class UpdateUserDto{
@@ -9,4 +10,5 @@ export class UpdateUserDto{
     emailAdres: string;
     password: string;
     following: User[];
+    favoriteArtists: Artist[];
 }

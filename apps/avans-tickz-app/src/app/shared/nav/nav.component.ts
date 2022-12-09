@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../pages/auth/auth.service';
+import { User } from '../../pages/entity/user/user.model';
 
 @Component({
   selector: 'avans-tickz-nav',
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent implements OnInit {
+  currentUser!: User;
+  userAuthenticated!: boolean
 
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.authService.getUserFromLocalStorage().subscribe((user) => {
+      this.currentUser = user;
+      if (user == undefined) {
+        this.userAuthenticated = false;
+      } else {
+        this.userAuthenticated = true;
+      }
+    });
   }
 
 }

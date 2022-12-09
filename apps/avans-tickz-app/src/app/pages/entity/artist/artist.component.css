@@ -6,3 +6,8 @@
 .header-img{
     height: 150px;
 }
+
+.card-link{
+    color: white;
+    text-decoration: underline;
+}

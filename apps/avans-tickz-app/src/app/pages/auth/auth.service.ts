@@ -100,12 +100,12 @@ export class AuthService {
       );
   }
 
-  private saveUserToLocalStorage(user: User): void {
+  saveUserToLocalStorage(user: User): void {
     console.log(JSON.stringify(user));
     localStorage.setItem(this.currentUser, JSON.stringify(user));
   }
 
-  private saveTokenToLocalStorage(user: User): void {
+  saveTokenToLocalStorage(user: User): void {
     console.log(JSON.stringify(user));
     localStorage.setItem(this.token, JSON.stringify(user));
   }
