@@ -13,7 +13,6 @@ import { DetailComponent } from './pages/entity/user/detail/detail.component';
 import { ConcertComponent } from './pages/entity/concert/concert.component';
 import { EditComponent } from './pages/entity/user/edit/edit.component';
 import { HomeComponent } from './pages/home/home.component';
-import { DatePipe } from '@angular/common';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { AboutComponent } from './pages/about/about.component';
 import { EditConcertComponent } from './pages/entity/concert/edit-concert/edit-concert.component';
@@ -49,7 +48,7 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
     ProfileComponent,
   ],
   imports: [BrowserModule, RoutingModule, NgbModule, FormsModule, HttpClientModule],
-  providers: [DatePipe],
+  providers: [],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
