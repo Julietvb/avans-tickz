@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { Artist } from '../artist.model';
 import { ArtistService } from '../artist.service';
 import { Types } from 'mongoose';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../user/user.model';
 import { UserService } from '../../user/user.service';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'avans-tickz-detail-artist',
@@ -13,7 +14,6 @@ import { UserService } from '../../user/user.service';
   styleUrls: ['./detail-artist.component.css'],
 })
 export class DetailArtistComponent implements OnInit {
-  artistId = new Types.ObjectId(this.route.snapshot.paramMap.get('artistId')!);
   artist!: Artist;
   currentUser!: User;
   favoriteArtist!: boolean;
@@ -27,19 +27,28 @@ export class DetailArtistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.artistService.getArtistById(this.artistId).subscribe((artist) => {
-      this.artist = artist;
-      console.log(artist);
-      this.authService.getUserFromLocalStorage().subscribe((user) => {
-        this.currentUser = user;
-        for (let favoriteArtist of user.favoriteArtists) {
-          if (favoriteArtist._id == this.artist._id) {
-            this.favoriteArtist = true;
-            break;
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) =>
+          this.artistService.getArtistById(
+            new Types.ObjectId(params.get('artistId')!)
+          )
+        )
+      )
+      .subscribe((artist) => {
+        this.artist = artist;
+        console.log(artist);
+
+        this.authService.getUserFromLocalStorage().subscribe((user) => {
+          this.currentUser = user;
+          for (let favoriteArtist of user.favoriteArtists) {
+            if (favoriteArtist._id == artist._id) {
+              this.favoriteArtist = true;
+              break;
+            }
           }
-        }
+        });
       });
-    });
   }
 
   addToFavorites(_id: Types.ObjectId) {

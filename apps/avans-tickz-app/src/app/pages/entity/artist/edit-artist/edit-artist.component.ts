@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Artist } from '../artist.model';
 import { ArtistService } from '../artist.service';
 import { Types } from 'mongoose';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
+import { switchMap } from 'rxjs';
 
 @Component({
   selector: 'avans-tickz-edit-artist',
@@ -10,8 +11,8 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./edit-artist.component.css'],
 })
 export class EditArtistComponent implements OnInit {
+  artistId!: Types.ObjectId;
   artist!: Artist;
-  artistId = new Types.ObjectId(this.route.snapshot.paramMap.get('artistId')!);
 
   constructor(
     private artistService: ArtistService,
@@ -20,21 +21,34 @@ export class EditArtistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.artistService
-      .getArtistById(this.artistId)
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) =>
+          this.artistService.getArtistById(
+            new Types.ObjectId(params.get('artistId')!)
+          )
+        )
+      )
       .subscribe((foundArtist) => (this.artist = foundArtist));
   }
 
   editArtist(artist: Partial<Artist>) {
     this.artistService
-      .updateArtist(this.artistId, artist)
-      .subscribe((editedArtist) => (this.artist = editedArtist));
-    this.router.navigate(['/reroute']);
-    this.router.navigate(['/artists']);
+      .updateArtist(this.artist._id, artist)
+      .subscribe((editedArtist) => {this.artist = editedArtist});
   }
 
   deleteArtist() {
-    this.artistService.deleteArtist(this.artistId).subscribe();
+    this.route.paramMap
+      .pipe(
+        switchMap((params: ParamMap) =>
+          this.artistService.deleteArtist(
+            new Types.ObjectId(params.get('artistId')!)
+          )
+        )
+      )
+      .subscribe();
+
     this.router.navigate(['../artists']);
   }
 }

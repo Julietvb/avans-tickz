@@ -103,7 +103,7 @@
               >
                 <i class="fa fa-angle-left"> </i> Back
               </button>
-              <button type="button" class="btn form-button me-2" routerLink="/artists" (click)="editArtist(artistEdit.value)">
+              <button type="button" class="btn form-button me-2" routerLink="/artists/{{artist._id}}" (click)="editArtist(artistEdit.value)">
                 Save changes
               </button>
               <button type="button" class="btn form-button me-2 deleteButton" (click)="deleteArtist()">

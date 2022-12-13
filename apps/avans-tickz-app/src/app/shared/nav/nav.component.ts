@@ -15,7 +15,6 @@ export class NavComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    console.log('nav onInit called')
     this.authService.getUserFromLocalStorage().subscribe((user) => {
       this.currentUser = user;
       if (user == undefined) {

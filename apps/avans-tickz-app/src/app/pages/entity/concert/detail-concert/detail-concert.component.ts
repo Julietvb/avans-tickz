@@ -1,6 +1,6 @@
 import { DatePipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, Type } from '@angular/core';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Concert } from '../concert.model';
 import { ConcertService } from '../concert.service';
 import { Types } from 'mongoose';
@@ -8,6 +8,7 @@ import { VenueService } from '../../venue/venue.service';
 import { Venue } from '../../venue/venue.model';
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../user/user.model';
+import { Observable, switchMap } from 'rxjs';
 
 @Component({
   selector: 'avans-tickz-detail-concert',
@@ -15,10 +16,7 @@ import { User } from '../../user/user.model';
   styleUrls: ['./detail-concert.component.css'],
 })
 export class DetailConcertComponent implements OnInit {
-  concertId = new Types.ObjectId(
-    this.route.snapshot.paramMap.get('concertId')!
-  );
-  currentConcert: Concert | undefined;
+  currentConcert!: Concert;
   venue: Venue | undefined;
   userAuthenticated!: boolean;
   currentUser!: User;
@@ -33,9 +31,11 @@ export class DetailConcertComponent implements OnInit {
   ngOnInit(): void {
     console.log('Detail page aangeroepen');
 
-    this.concertService.getConcertById(this.concertId).subscribe((concert) => 
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) => this.concertService.getConcertById(new Types.ObjectId(params.get('concertId')!))
+    )).subscribe((concert) =>
       this.currentConcert = concert
-    );
+    )
 
     this.authService.getUserFromLocalStorage().subscribe((user) => {
       this.currentUser = user;
