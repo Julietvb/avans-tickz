@@ -122,6 +122,7 @@
                 type="button"
                 class="btn form-button me-2 mt-2"
                 routerLink="/profile"
+                *ngIf="userEdit.valid"
                 (click)="editUser(userEdit.value)"
               >
                 Save changes

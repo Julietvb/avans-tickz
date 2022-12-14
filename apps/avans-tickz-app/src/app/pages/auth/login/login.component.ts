@@ -12,6 +12,8 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  validLogin!: boolean;
+
   constructor(
     private authService: AuthService,
     private router: Router,
@@ -19,7 +21,9 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.validLogin = true;
+  }
 
   login(email: string, password: string): void {
     this.authService.login(email, password).subscribe((user) => {
@@ -30,9 +34,9 @@ export class LoginComponent implements OnInit {
           'You are not successfully logged in',
           'Something went wrong'
         );
+        this.validLogin = false;
       }
     });
-    this.router.navigate([`/concerts`])
     this.router.navigate([`/`]);
   }
 }

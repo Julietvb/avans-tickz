@@ -14,31 +14,72 @@
               >
                 <div class="col mb-4 pb-2">
                   <div class="form-outline">
+                    <label class="form-label" for="emailAdres">Email</label>
                     <input
                       type="email"
                       id="emailAdres"
                       name="emailAdres"
                       ngModel
                       class="form-control"
+                      #emailAdres="ngModel"
+                      pattern="[\w-\.]+@([\w-]+\.)+[\w-]{2,4}"
+                      [ngClass]="{
+                        'is-invalid': emailAdres.invalid && emailAdres.touched
+                      }"
+                      required
                     />
-                    <label class="form-label" for="emailAdres">Email</label>
+                    <div
+                      *ngIf="emailAdres.invalid && emailAdres.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="emailAdres.errors?.['required']">
+                        Please enter an email.
+                      </div>
+                      <div *ngIf="emailAdres.errors?.['pattern']">
+                        Please enter a valid email.
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div class="col mb-4 pb-2">
                   <div class="form-outline">
+                    <label class="form-label" for="password">Password</label>
                     <input
                       type="text"
                       id="password"
                       name="password"
                       ngModel
+                      #password="ngModel"
+                      [ngClass]="{
+                        'is-invalid': password.invalid && password.touched
+                      }"
                       class="form-control"
+                      required
                     />
-                    <label class="form-label" for="password">Password</label>
+                    <div
+                      *ngIf="password.invalid && password.touched"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="password.errors?.['required']">
+                        Please enter a password.
+                      </div>
+                    </div>
                   </div>
                 </div>
 
                 <div align="center">
-                  <button type="submit" class="btn">Login</button>
+                  <button *ngIf="!userLogin.valid" class="btn disabled">
+                    Login
+                  </button>
+                  <p *ngIf="!validLogin">
+                    <strong
+                      >! The provided information does not correspond, please
+                      check if your email and password are correct.
+                    </strong>
+                  </p>
+                  <button *ngIf="userLogin.valid" type="submit" class="btn">
+                    Login
+                  </button>
                   <p class="pt-3">
                     No account yet? Register
                     <a routerLink="/register">here!</a>

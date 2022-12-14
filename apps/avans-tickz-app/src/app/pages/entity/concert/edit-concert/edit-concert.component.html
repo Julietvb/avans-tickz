@@ -134,7 +134,10 @@
               >
                 <i class="fa fa-angle-left"> </i> Back
               </button>
-              <button type="button" class="btn form-button me-2" routerLink="/concerts" (click)="editConcert(concertEdit.value)">
+              <button *ngIf="!concertEdit.valid" type="button" class="btn form-button me-2 disabled">
+                Save changes
+              </button>
+              <button *ngIf="concertEdit.valid" type="button" class="btn form-button me-2" routerLink="/concerts" (click)="editConcert(concertEdit.value)">
                 Save changes
               </button>
               <button type="button" class="btn form-button me-2 deleteButton" (click)="deleteConcert()">
