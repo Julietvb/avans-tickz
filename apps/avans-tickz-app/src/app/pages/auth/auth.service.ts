@@ -12,6 +12,8 @@ import {
 import { User } from '../entity/user/user.model';
 import { Types } from 'mongoose';
 import { UserService } from '../entity/user/user.service';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable({
   providedIn: 'root',
@@ -29,7 +31,9 @@ export class AuthService {
 
   constructor(
     private httpClient: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private router: Router,
+    private toastr: ToastrService
   ) {
     this.getUserFromLocalStorage();
     switchMap((user: User) => {
@@ -141,6 +145,14 @@ export class AuthService {
         Authorization: 'Bearer ' + token,
       }),
     };
+  }
+
+  logout(): void {
+    this.router.navigate(['/']);
+    localStorage.removeItem(this.currentUser);
+    this.currentUser$.next(undefined);
+
+    this.toastr.success('You have been logged out', 'Log out successful');
   }
 
   // private handleError(error: HttpErrorResponse): Observable<any> {

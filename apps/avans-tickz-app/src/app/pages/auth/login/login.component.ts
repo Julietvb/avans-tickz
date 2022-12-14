@@ -1,29 +1,38 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { skip } from 'rxjs';
 import { User } from '../../entity/user/user.model';
 import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'avans-tickz-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastr: ToastrService,
+    private route: ActivatedRoute
+  ) {}
 
-  constructor(private authService: AuthService, private router: Router) { }
-
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   login(email: string, password: string): void {
-    this.authService
-    .login(email, password)
-    .subscribe((user) => {
+    this.authService.login(email, password).subscribe((user) => {
       if (user) {
-        console.log('Logged in');
-        this.router.navigate(['/profile'])
-        this.router.navigate(['/']);
+        this.toastr.success('You are now logged in', 'Log in successful');
+      } else {
+        this.toastr.error(
+          'You are not successfully logged in',
+          'Something went wrong'
+        );
       }
     });
+    this.router.navigate([`/concerts`])
+    this.router.navigate([`/`]);
   }
 }

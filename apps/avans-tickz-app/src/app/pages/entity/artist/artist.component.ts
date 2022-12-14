@@ -22,7 +22,7 @@ export class ArtistComponent implements OnInit {
     private artistService: ArtistService,
     private authService: AuthService,
     private userService: UserService,
-    private router: Router
+    private router: Router,
   ) {}
 
   ngOnInit(): void {

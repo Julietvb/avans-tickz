@@ -23,6 +23,11 @@ export class UserComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.userService.getAllUsers().subscribe((users) => {
+      this.users = users;
+      this.usersLength = users.length;
+    });
+
     this.authService.getUserFromLocalStorage().subscribe((user) => {
       this.currentUser = user;
       this.userService.getAllUsers().subscribe((users) => {

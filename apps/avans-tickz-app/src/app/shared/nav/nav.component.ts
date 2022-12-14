@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { AuthService } from '../../pages/auth/auth.service';
 import { User } from '../../pages/entity/user/user.model';
 
@@ -11,17 +13,15 @@ import { User } from '../../pages/entity/user/user.model';
 export class NavComponent implements OnInit {
   currentUser!: User;
   userAuthenticated!: boolean;
+  loggedInUser$!: Observable<User | undefined> 
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.authService.getUserFromLocalStorage().subscribe((user) => {
-      this.currentUser = user;
-      if (user == undefined) {
-        this.userAuthenticated = false;
-      } else {
-        this.userAuthenticated = true;
-      }
-    });
+    this.loggedInUser$ = this.authService.currentUser$
+  }
+
+  logout(): void {
+    this.authService.logout()
   }
 }

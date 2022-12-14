@@ -1,4 +1,4 @@
-<avans-tickz-nav></avans-tickz-nav>
+
 <div class="container">
   <h3 align="center">All users</h3>
 
@@ -19,7 +19,7 @@
         <td>{{ user.lastName }}</td>
         <td>{{ user.emailAdres }}</td>
         <td>
-          <button type="submit" class="btn" (click)="follow(user)">
+          <button type="submit" *ngIf="currentUser != undefined" class="btn" (click)="follow(user)">
             Follow user
           </button>
         </td>

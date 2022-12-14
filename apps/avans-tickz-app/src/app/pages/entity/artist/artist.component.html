@@ -1,4 +1,4 @@
-<avans-tickz-nav></avans-tickz-nav>
+
 <div class="container">
   <div class="row mt-2">
     <h1 class="col-md-10">All artists</h1>
@@ -98,8 +98,8 @@
       >
         <h5 class="card-title">{{ artist.name }}</h5>
         <p class="card-text">{{ artist.description.substring(0, 350) }}...</p>
-        <a class="pull-right mb-0 mt-0 card-link" routerLink="{{ artist._id }}"
-          >Read more ></a
+        <a class="btn pull-right mb-0 mt-0" routerLink="{{ artist._id }}"
+          >Read more</a
         >
       </div>
     </div>
