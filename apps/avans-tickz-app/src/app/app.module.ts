@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { RoutingModule } from './app.routes';
 import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http'
+import { HttpClientModule } from '@angular/common/http';
+import { ToastrModule } from 'ngx-toastr';
 
 import { UserComponent } from './pages/entity/user/user.component';
 import { NavComponent } from './shared/nav/nav.component';
@@ -24,7 +26,6 @@ import { EditArtistComponent } from './pages/entity/artist/edit-artist/edit-arti
 import { DetailArtistComponent } from './pages/entity/artist/detail-artist/detail-artist.component';
 import { LoginComponent } from './pages/auth/login/login.component';
 import { ProfileComponent } from './pages/auth/profile/profile.component';
-
 
 @NgModule({
   declarations: [
@@ -47,7 +48,18 @@ import { ProfileComponent } from './pages/auth/profile/profile.component';
     LoginComponent,
     ProfileComponent,
   ],
-  imports: [BrowserModule, RoutingModule, NgbModule, FormsModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    RoutingModule,
+    NgbModule,
+    FormsModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      progressBar: true,
+      preventDuplicates: true,
+    }),
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
