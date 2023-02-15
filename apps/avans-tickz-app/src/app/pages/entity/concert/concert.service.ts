@@ -30,6 +30,10 @@ export class ConcertService {
     return this.httpClient.get(`http://localhost:3333/api/concerts/${_id}`) as Observable<Concert>;
   }
 
+  getConcertByName(name: string): Observable<Concert> {
+    return this.httpClient.get(`http://localhost:3333/api/concerts/name/${name}`) as Observable<Concert>;
+  }
+
   createConcert(concert: Concert): Observable<Concert>{
     console.log("createConcert aangeroepen")
     console.log("createConcert" + concert)

@@ -14,6 +14,10 @@ export class ConcertService {
     return this.concertRepository.findById(concertId);
   }
 
+  getConcertByName(name: string): Promise<Concert> {
+    return this.concertRepository.findByName(name);
+  }
+
   getAllConcerts(): Promise<Concert[]> {
     return this.concertRepository.find({});
   }

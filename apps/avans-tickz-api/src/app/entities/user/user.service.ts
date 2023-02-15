@@ -50,6 +50,13 @@ export class UserService {
         userUpdates.favoriteArtists.push(artist);
       }) 
     }
+
+    if (userUpdates.myTickets == undefined) {
+      userUpdates.myTickets = [];
+      user.myTickets.forEach((ticket) => {
+        userUpdates.myTickets.push(ticket);
+      }) 
+    }
     return this.userRepository.findOneAndUpdate({ _id: userId }, userUpdates);
   }
 

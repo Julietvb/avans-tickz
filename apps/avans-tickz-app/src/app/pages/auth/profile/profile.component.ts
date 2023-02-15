@@ -4,6 +4,8 @@ import { User } from '../../entity/user/user.model';
 import { UserService } from '../../entity/user/user.service';
 import { AuthService } from '../auth.service';
 import { Types } from 'mongoose'
+import { Ticket } from '../../entity/ticket/ticket.model';
+import { ConcertService } from '../../entity/concert/concert.service';
 
 @Component({
   selector: 'avans-tickz-profile',
@@ -12,10 +14,12 @@ import { Types } from 'mongoose'
 })
 export class ProfileComponent implements OnInit {
   currentUser!: User;
+  tickets!: Ticket[];
 
   constructor(
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private concertService: ConcertService
   ) {
     this.authService
       .getUserFromLocalStorage()
@@ -25,6 +29,13 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getUserById(this.currentUser._id).subscribe((user) => {
       this.currentUser = user;
+
+      this.currentUser.myTickets.forEach(ticket => {
+        this.concertService.getConcertByName(ticket.concertName).subscribe((concert) => {
+        ticket.concert = concert})
+        this.tickets = this.currentUser.myTickets
+      });
+
     });
   }
 

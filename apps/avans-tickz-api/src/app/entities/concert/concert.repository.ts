@@ -12,6 +12,10 @@ export class ConcertRepository{
         return await this.concertModel.findOne({_id: new Types.ObjectId(concertId)}).populate('venue').populate('artist')
     }
 
+    async findByName(name: string): Promise<Concert> {
+        return await this.concertModel.findOne({title: name}).populate('venue').populate('artist')
+    }
+
     async find(concertFilterQuery: FilterQuery<Concert>): Promise<Concert[]> {
         return await this.concertModel.find(concertFilterQuery).populate('venue').populate('artist')
     }

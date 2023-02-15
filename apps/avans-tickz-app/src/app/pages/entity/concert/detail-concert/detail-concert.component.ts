@@ -9,6 +9,7 @@ import { Venue } from '../../venue/venue.model';
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../user/user.model';
 import { Observable, switchMap } from 'rxjs';
+import { UserService } from '../../user/user.service';
 
 @Component({
   selector: 'avans-tickz-detail-concert',
@@ -21,10 +22,12 @@ export class DetailConcertComponent implements OnInit {
   userAuthenticated!: boolean;
   currentUser!: User;
   returnedConcert!: Concert;
+  returnedUser!: User;
 
   constructor(
     private concertService: ConcertService,
     private authService: AuthService,
+    private userService: UserService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -63,14 +66,17 @@ export class DetailConcertComponent implements OnInit {
 
     console.log('Updated length: ' + updatedConcert.tickets.length)
     console.log('Updated amount: ' + updatedConcert.amountOfTickets)
-    
+    console.log(ticket)
 
-    if(ticket != null){
+    if(ticket != undefined){
+      console.log("Originele tickets: " + updatedUser.myTickets)
       updatedUser.myTickets.push(ticket);
-      console.log(updatedUser.myTickets)
+      console.log("Update tickets: " + updatedUser.myTickets)
     }
 
-    // this.authService.
+    this.userService.updateUser(updatedUser._id, updatedUser).subscribe((returnedUser) => {this.returnedUser = returnedUser;
+      this.authService.saveUserToLocalStorage(this.returnedUser);
+    console.log(this.returnedUser)})
 
     this.concertService
     .updateConcert(updatedConcert._id, updatedConcert)
