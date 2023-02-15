@@ -14,8 +14,8 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: any) {
-    console.log(payload)
-    console.log(ExtractJwt.fromAuthHeaderAsBearerToken.toString())
+    // console.log(payload)
+    // console.log(ExtractJwt.fromAuthHeaderAsBearerToken.toString())
     return { _id: payload.sub, emailAdres: payload.emailAdres, firstName: payload.firstName, lastName: payload.lastName, birthDate: payload.birthDate };
   }
 }

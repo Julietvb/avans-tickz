@@ -20,6 +20,7 @@ export class DetailConcertComponent implements OnInit {
   venue: Venue | undefined;
   userAuthenticated!: boolean;
   currentUser!: User;
+  returnedConcert!: Concert;
 
   constructor(
     private concertService: ConcertService,
@@ -45,5 +46,37 @@ export class DetailConcertComponent implements OnInit {
         this.userAuthenticated = true;
       }
     });
+  }
+
+  buyTickets(){
+    console.log(this.currentConcert._id)
+    console.log(ticket);
+
+    console.log('Original length: ' + this.currentConcert.tickets.length)
+    console.log('Original amount: ' + this.currentConcert.amountOfTickets)
+
+    var updatedConcert = this.currentConcert;
+    var updatedUser = this.currentUser;
+
+    var ticket = updatedConcert.tickets.pop();
+    updatedConcert.amountOfTickets =  updatedConcert.amountOfTickets.valueOf() - 1;
+
+    console.log('Updated length: ' + updatedConcert.tickets.length)
+    console.log('Updated amount: ' + updatedConcert.amountOfTickets)
+    
+
+    if(ticket != null){
+      updatedUser.myTickets.push(ticket);
+      console.log(updatedUser.myTickets)
+    }
+
+    // this.authService.
+
+    this.concertService
+    .updateConcert(updatedConcert._id, updatedConcert)
+    .subscribe((editedConcert) => {this.returnedConcert = editedConcert;
+    console.log(this.returnedConcert)});
+
+
   }
 }

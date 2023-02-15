@@ -10,7 +10,7 @@
       <a
         class="nav-item nav-link"
         routerLink="/login"
-        *ngIf="(loggedInUser$ | async) === undefined"
+        *ngIf="currentUser === undefined || currentUser === null"
         >Login</a
       >
     </li>
@@ -18,7 +18,7 @@
       <a
         class="nav-item nav-link"
         routerLink="/profile"
-        *ngIf="(loggedInUser$ | async) != undefined"
+        *ngIf="currentUser !== undefined && currentUser !== null"
         > Profile </a
       >
     </li>
@@ -26,7 +26,7 @@
       <a
         class="nav-item nav-link"
         routerLink=""
-        *ngIf="(loggedInUser$ | async) != undefined"
+        *ngIf="currentUser !== undefined && currentUser !== null"
         (click)="logout()"
         ><svg
           xmlns="http://www.w3.org/2000/svg"

@@ -179,7 +179,7 @@ let AuthService = class AuthService {
     login(user) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             const payload = { emailAdres: user.emailAdres, sub: user._id, firstName: user.firstName, lastName: user.lastName, birthDate: user.birthDate };
-            console.log(payload);
+            // console.log(payload)
             return {
                 access_token: this.jwtService.sign(payload),
             };
@@ -248,8 +248,8 @@ let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(pas
     }
     validate(payload) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log(payload);
-            console.log(passport_jwt_1.ExtractJwt.fromAuthHeaderAsBearerToken.toString());
+            // console.log(payload)
+            // console.log(ExtractJwt.fromAuthHeaderAsBearerToken.toString())
             return { _id: payload.sub, emailAdres: payload.emailAdres, firstName: payload.firstName, lastName: payload.lastName, birthDate: payload.birthDate };
         });
     }

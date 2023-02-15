@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { AuthService } from '../../pages/auth/auth.service';
 import { User } from '../../pages/entity/user/user.model';
 
@@ -11,14 +11,21 @@ import { User } from '../../pages/entity/user/user.model';
   styleUrls: ['./nav.component.css'],
 })
 export class NavComponent implements OnInit {
-  currentUser!: User;
+  currentUser: User | undefined;
   userAuthenticated!: boolean;
+  userSubscription!: Subscription;
+  localUserSubscription!: Subscription;
   loggedInUser$!: Observable<User | undefined> 
 
   constructor(private authService: AuthService, private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
-    this.loggedInUser$ = this.authService.currentUser$
+    this.userSubscription = this.authService.currentUser$.subscribe(
+      (user) => (this.currentUser = user)
+    );
+    this.localUserSubscription = this.authService
+    .getUserFromLocalStorage()
+    .subscribe((user) => (this.currentUser = user));
   }
 
   logout(): void {

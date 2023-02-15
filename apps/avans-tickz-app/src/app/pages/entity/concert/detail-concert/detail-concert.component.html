@@ -1,4 +1,3 @@
-
 <!-- Jumbotron -->
 <div
   class="p-5 d-flex justify-content-center bg-image concert-banner"
@@ -104,18 +103,32 @@
     </div>
     <div class="col-6">
       <div *ngIf="currentConcert.amountOfTickets > 0 && userAuthenticated">
-        <button class="btn pull-right">Buy tickets</button>
-        <p class="pull-right">
-          Hurry up! There are only
-          <i>{{ currentConcert.amountOfTickets }}</i> tickets left! Buy tickets
-          by clicking the button above.
-        </p>
+        <div class="d-flex flex-column align-items-end">
+          <div>
+            <button class="btn" (click)="buyTickets()">Buy tickets</button>
+          </div>
+          <div align="end" class="mb-2">
+            Hurry up! There are only
+            <i>{{ currentConcert.amountOfTickets }}</i> tickets left! Buy tickets
+            by clicking the button above.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="currentConcert.amountOfTickets > 0 && !userAuthenticated">
+        <div class="d-flex flex-column align-items-end">
+          <div>
+            <button class="btn" routerLink="/login">Log in</button>
+          </div>
+          <div align="end" class="mb-2">
+              Hurry up! There are only
+              {{ currentConcert.amountOfTickets }} tickets left! Log in to buy
+              tickets and attend your favorite concerts.
+          </div>
+        </div>
       </div>
       <div *ngIf="currentConcert.amountOfTickets <= 0">
         <button class="btn btn-disabled pull-right">Sold Out</button>
-        <p
-          class="soldOut-text pull-right"
-        >
+        <p class="soldOut-text pull-right">
           Sadly this concert is sold out. Check
           <a routerLink="/concerts">here</a> to see all the other concerts you
           can visit!
@@ -130,7 +143,11 @@
             alt="Avatar"
           />
         </div>
-        <a routerLink="/artists/{{currentConcert.artist._id}}" align="center">{{ currentConcert.artist.name }}</a>
+        <a
+          routerLink="/artists/{{ currentConcert.artist._id }}"
+          align="center"
+          >{{ currentConcert.artist.name }}</a
+        >
       </div>
     </div>
   </div>
