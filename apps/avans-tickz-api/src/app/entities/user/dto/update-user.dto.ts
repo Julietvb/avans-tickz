@@ -10,7 +10,7 @@ export class UpdateUserDto{
     birthDate: Date;
     emailAdres: string;
     password: string;
-    following: User[];
+    following: Types.ObjectId[];
     favoriteArtists: Artist[];
     myTickets: Ticket[];
 }

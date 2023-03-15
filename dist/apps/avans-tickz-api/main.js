@@ -1204,6 +1204,11 @@ let UserRepository = class UserRepository {
             return yield this.userModel.deleteOne({ _id: new mongoose_3.Types.ObjectId(userId) });
         });
     }
+    follow(userId, followUserId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.userModel.findOneAndUpdate({ _id: userId }, { $push: { following: followUserId } }, { new: true });
+        });
+    }
 };
 UserRepository = tslib_1.__decorate([
     (0, common_1.Injectable)(),
@@ -1255,6 +1260,13 @@ tslib_1.__decorate([
     (0, mongoose_1.Prop)([ticket_schema_1.Ticket]),
     tslib_1.__metadata("design:type", Array)
 ], User.prototype, "myTickets", void 0);
+tslib_1.__decorate([
+    (0, mongoose_1.Prop)({
+        default: [],
+        ref: 'User',
+    }),
+    tslib_1.__metadata("design:type", Array)
+], User.prototype, "following", void 0);
 User = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
 ], User);
@@ -1296,6 +1308,7 @@ let UserService = class UserService {
             password,
             favoriteArtists: [],
             myTickets: [],
+            following: [],
         });
     }
     updateUser(userId, userUpdates) {
@@ -1318,6 +1331,12 @@ let UserService = class UserService {
     }
     deleteUserById(userId) {
         return this.userRepository.deleteById(userId);
+    }
+    follow(userId, followUserId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const user = yield this.userRepository.follow(userId, followUserId);
+            return [user];
+        });
     }
 };
 UserService = tslib_1.__decorate([

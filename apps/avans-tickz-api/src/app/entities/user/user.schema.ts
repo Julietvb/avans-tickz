@@ -28,6 +28,12 @@ export class User {
 
   @Prop([Ticket])
   myTickets: Ticket[];
+
+  @Prop({
+    default: [],
+    ref: 'User',
+  })
+  following : Types.ObjectId[]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

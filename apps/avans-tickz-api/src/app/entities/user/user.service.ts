@@ -35,6 +35,7 @@ export class UserService {
       password,
       favoriteArtists: [],
       myTickets: [],
+      following: [],
     });
   }
 
@@ -62,5 +63,12 @@ export class UserService {
 
   deleteUserById(userId: string) {
     return this.userRepository.deleteById(userId);
+  }
+
+  async follow(userId: Types.ObjectId, followUserId: Types.ObjectId): Promise<User[]> {
+
+    const user = await this.userRepository.follow(userId, followUserId);
+
+    return [user]
   }
 }
