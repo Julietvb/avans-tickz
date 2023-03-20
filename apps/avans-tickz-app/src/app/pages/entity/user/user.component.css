@@ -1,0 +1,31 @@
+  .header {
+    text-align: center;
+    padding: 20px;
+    font-size:20px;
+  }
+  
+  .card {
+    opacity: 0.8;
+  }
+  .card-deck{
+    margin-bottom: 20px;
+  }
+  .card-title {
+    font-weight:bold;
+    text-align: center;
+  }
+  .card-subtitle {
+    font-weight: lighter;
+    font-style: italic;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  .card-footer{
+    text-align: center;
+  }
+
+  .list-group-item{
+    margin-bottom: 5px;
+  }
+
+

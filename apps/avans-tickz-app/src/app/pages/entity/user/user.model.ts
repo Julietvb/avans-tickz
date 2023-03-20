@@ -11,6 +11,6 @@ export interface User {
     password: string; 
     favoriteArtists: Artist[];
     myTickets: Ticket[];
-    following: User[];
+    following: Types.ObjectId[];
     access_token: '';
 }
