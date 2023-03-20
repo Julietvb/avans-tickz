@@ -39,6 +39,12 @@ export class UserService {
     return this.httpClient.patch(`http://localhost:3333/api/users/${_id}`, user) as Observable<User>;
   }
 
+  follow(followUserId: Types.ObjectId, loggedInUser: User): Observable<User>{
+    console.log(`user ${loggedInUser.firstName} wants to follow someone`)
+    return this.httpClient.post<User>(`http://localhost:3333/api/users/follow/${followUserId}`, loggedInUser) as Observable<User>;  
+    // return this.httpClient.patch(`http://localhost:3333/api/users/follow/${_id}`, user._id) as Observable<User>;
+  }
+
   // private handleError(error: HttpErrorResponse): Observable<any> {
   //   console.log(error);
   //   // return an error observable with a user-facing error message

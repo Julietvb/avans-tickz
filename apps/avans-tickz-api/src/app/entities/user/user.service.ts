@@ -65,10 +65,7 @@ export class UserService {
     return this.userRepository.deleteById(userId);
   }
 
-  async follow(userId: Types.ObjectId, followUserId: Types.ObjectId): Promise<User[]> {
-
-    const user = await this.userRepository.follow(userId, followUserId);
-
-    return [user]
+  async follow(loggedInUserId: Types.ObjectId, followUserId: string ): Promise<User> {
+    return this.userRepository.follow(loggedInUserId, new Types.ObjectId(followUserId));
   }
 }

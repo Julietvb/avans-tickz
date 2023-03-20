@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Request } from "@nestjs/common";
+import { Body, Controller, Delete, Get, Param, Patch, Post, Req, Request } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./user.schema";
@@ -37,6 +37,14 @@ export class UserController{
         console.log(updateUserDto.favoriteArtists)
         return this.userService.updateUser(userId, updateUserDto);
     }
+
+    //Follow
+    @Post('/follow/:id')
+    async follow(@Body() loggedInUser, @Param('id') followUserId: string): Promise<User> {
+        console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
+        return this.userService.follow(loggedInUser._id, followUserId);
+    }
+
 
     @Delete(':userId')
     async deleteUser(@Param('userId') userId: string){

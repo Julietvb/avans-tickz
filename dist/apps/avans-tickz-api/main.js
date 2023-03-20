@@ -1027,7 +1027,7 @@ exports.UpdateUserDto = UpdateUserDto;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -1066,6 +1066,13 @@ let UserController = class UserController {
             console.log('controller updates:');
             console.log(updateUserDto.favoriteArtists);
             return this.userService.updateUser(userId, updateUserDto);
+        });
+    }
+    //Follow
+    follow(loggedInUser, followUserId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
+            return this.userService.follow(loggedInUser._id, followUserId);
         });
     }
     deleteUser(userId) {
@@ -1110,6 +1117,14 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [typeof (_g = typeof mongoose_1.Types !== "undefined" && mongoose_1.Types.ObjectId) === "function" ? _g : Object, typeof (_h = typeof update_user_dto_1.UpdateUserDto !== "undefined" && update_user_dto_1.UpdateUserDto) === "function" ? _h : Object]),
     tslib_1.__metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], UserController.prototype, "updateUser", null);
+tslib_1.__decorate([
+    (0, common_1.Post)('/follow/:id'),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, String]),
+    tslib_1.__metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+], UserController.prototype, "follow", null);
 tslib_1.__decorate([
     (0, common_1.Delete)(':userId'),
     tslib_1.__param(0, (0, common_1.Param)('userId')),
@@ -1204,9 +1219,10 @@ let UserRepository = class UserRepository {
             return yield this.userModel.deleteOne({ _id: new mongoose_3.Types.ObjectId(userId) });
         });
     }
-    follow(userId, followUserId) {
+    follow(loggedInUserId, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return yield this.userModel.findOneAndUpdate({ _id: userId }, { $push: { following: followUserId } }, { new: true });
+            console.log(followUserId);
+            return yield this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { following: followUserId._id } }, { new: true });
         });
     }
 };
@@ -1286,6 +1302,7 @@ exports.UserService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const user_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.repository.ts");
+const mongoose_1 = __webpack_require__("mongoose");
 let UserService = class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
@@ -1332,10 +1349,9 @@ let UserService = class UserService {
     deleteUserById(userId) {
         return this.userRepository.deleteById(userId);
     }
-    follow(userId, followUserId) {
+    follow(loggedInUserId, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            const user = yield this.userRepository.follow(userId, followUserId);
-            return [user];
+            return this.userRepository.follow(loggedInUserId, new mongoose_1.Types.ObjectId(followUserId));
         });
     }
 };

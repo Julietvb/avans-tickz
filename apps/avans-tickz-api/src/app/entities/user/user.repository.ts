@@ -35,7 +35,8 @@ export class UserRepository{
         return await this.userModel.deleteOne({_id: new Types.ObjectId(userId)})
     }
 
-    async follow(userId: Types.ObjectId, followUserId: Types.ObjectId) : Promise<User>{
-        return await this.userModel.findOneAndUpdate({ _id: userId }, { $push: { following: followUserId } }, {new: true});
+    async follow(loggedInUserId: Types.ObjectId, followUserId: Types.ObjectId) : Promise<User>{
+        console.log(followUserId)
+        return await this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { following: followUserId._id } }, {new: true});
     }
 }
