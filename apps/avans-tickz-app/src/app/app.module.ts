@@ -9,6 +9,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 
+
 import { UserComponent } from './pages/entity/user/user.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { DetailComponent } from './pages/entity/user/detail/detail.component';

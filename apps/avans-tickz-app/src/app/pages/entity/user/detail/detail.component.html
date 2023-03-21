@@ -1,5 +1,4 @@
-
-<table class="table">
+<!-- <table class="table">
   <thead>
     <tr>
       <th>First name</th>
@@ -10,12 +9,135 @@
   </thead>
   <tbody>
     <tr>
-      <td>{{ currentUser?.firstName }}</td>
-      <td>{{ currentUser?.lastName }}</td>
-      <td>{{ currentUser?.emailAdres }}</td>
+      <td>{{ currentUser.firstName }}</td>
+      <td>{{ currentUser.lastName }}</td>
+      <td>{{ currentUser.emailAdres }}</td>
       <td>
-          {{currentUser?.birthDate | date: 'dd-MM-yyyy'}}
+        {{ currentUser.birthDate | date: 'dd-MM-yyyy' }}
       </td>
     </tr>
   </tbody>
 </table>
+
+<div
+  class="row artistRow"
+  *ngIf="
+    currentUser.favoriteArtists.length != 0 &&
+    currentUser.favoriteArtists.length != 1
+  "
+>
+  <h4>Favorite artists:</h4>
+  <div
+    *ngFor="let favoriteArtist of currentUser.favoriteArtists"
+    class="col-md-6"
+  >
+    <div class="card-custom-avatar">
+      <img
+        class="img-fluid"
+        src="{{ favoriteArtist.artistImage }}"
+        alt="Avatar"
+      />
+      <p>{{ favoriteArtist.name }}</p>
+    </div>
+  </div>
+</div>
+<div
+  class="row artistRow"
+  *ngIf="
+    currentUser.favoriteArtists.length != 0 &&
+    currentUser.favoriteArtists.length == 1
+  "
+>
+  <h4>Favorite artists:</h4>
+  <div
+    *ngFor="let favoriteArtist of currentUser.favoriteArtists"
+    class="col-md-12"
+  >
+    <div class="card-custom-avatar">
+      <img
+        class="img-fluid"
+        src="{{ favoriteArtist.artistImage }}"
+        alt="Avatar"
+      />
+      <p>{{ favoriteArtist.name }}</p>
+    </div>
+  </div>
+</div> -->
+<div class="container">
+  <div class="profile">
+      <div class="profile-header">
+          <div class="profile-header-content">
+              <ul class="profile-header-tab nav nav-tabs nav-tabs-v2">
+                  <li class="nav-item">
+                      <a [ngClass]="tabSelected == 'favoriteArtists' ? 'nav-link-active' : 'nav-link'" (click)="tabChange('favoriteArtists')">
+                          <div class="nav-field">Favorite Artists</div>
+                      </a>
+                  </li>
+                  <li class="nav-item">
+                      <a [ngClass]="tabSelected == 'following' ? 'nav-link-active' : 'nav-link'"  (click)="tabChange('following')">
+                          <div class="nav-field">Following</div>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+
+      <div class="profile-container row">
+          <div class="profile-sidebar col-sm-12 col-md-4 col-lg-4">
+              <div class="desktop-sticky-top">
+                  <h4>{{currentUser.firstName}} {{currentUser.lastName}}</h4>
+                  <div class="font-weight-600 mb-3 text-muted mt-n2">{{currentUser.emailAdres}}</div>
+                  <p>{{currentUser.birthDate | date: 'dd-MM-yyyy'}}</p>
+                  <hr class="mt-4 mb-4" />
+              </div>
+          </div>
+
+          <div class="profile-content col-sm-12 col-md-8 col-lg-8" *ngIf="tabSelected === 'favoriteArtists'">
+              <div class="row">
+                  <div class="col-xl-12">
+                      <div class="tab-content p-0">
+                          <div class="tab-pane fade active show" id="favoriteArtists">
+                              <div class="list-group" *ngFor="let artist of currentUser.favoriteArtists">
+                                  <div class="list-group-item d-flex align-items-center">
+                                      <img src="{{artist.artistImage}}" alt="" width="50px" class="rounded-sm ml-n2 me-3" />
+                                      <div class="flex-fill pl-3 pr-3">
+                                          <div><a href="#" class="text-dark font-weight-600">{{artist.name}}</a></div>
+                                          <div class="text-muted fs-13px">{{artist.genre}}</div>
+                                      </div>
+                                      <a href="#" class="btn btn-outline-primary">Follow</a>
+                                  </div>
+                              </div>
+                              <div class="text-center p-3">
+                                  <a [routerLink]="['../../artists']" class="text-dark text-decoration-none">Show all artists <b class="caret"></b></a>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="profile-content" *ngIf="tabSelected === 'following'">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="tab-content p-0">
+                        <div class="tab-pane fade active show" id="following">
+                            <div class="list-group" *ngFor="let followUser of currentUser.following">
+                                <div class="list-group-item d-flex align-items-center">
+                                    <img src="" alt="" width="50px" class="rounded-sm ml-n2 me-3" />
+                                    <div class="flex-fill pl-3 pr-3">
+                                        <div><a href="#" class="text-dark font-weight-600">{{followUser}}</a></div>
+                                        <!-- <div class="text-muted fs-13px">{{artist.genre}}</div> -->
+                                    </div>
+                                    <a href="#" class="btn btn-outline-primary">Follow</a>
+                                </div>
+                            </div>
+                            <div class="text-center p-3">
+                                <a [routerLink]="['../../artists']" class="text-dark text-decoration-none">Show all artists <b class="caret"></b></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>

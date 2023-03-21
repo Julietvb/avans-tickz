@@ -41,9 +41,4 @@ export class UserComponent implements OnInit {
       });
     });
   }
-
-  follow(user: User){
-    console.log(user._id.toString())
-    this.userService.follow(user._id, this.currentUser).subscribe()
-  }
 }

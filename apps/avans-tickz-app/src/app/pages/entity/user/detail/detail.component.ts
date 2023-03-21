@@ -13,7 +13,8 @@ import { Observable } from 'rxjs';
 })
 export class DetailComponent implements OnInit {
   userId = new Types.ObjectId(this.route.snapshot.paramMap.get('userId')!);
-  currentUser: User | undefined;
+  currentUser!: User;
+  tabSelected!: string;
   
   constructor(
     private route: ActivatedRoute,
@@ -26,5 +27,15 @@ export class DetailComponent implements OnInit {
     this.userService.getUserById(this.userId).subscribe((user) => {
       this.currentUser = user;
     });
+    this.tabSelected = 'favoriteArtists'
+  }
+
+  tabChange(tab: string){
+    this.tabSelected = tab;
+  }
+
+  follow(user: User){
+    console.log(user._id.toString())
+    this.userService.follow(user._id, this.currentUser).subscribe()
   }
 }

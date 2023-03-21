@@ -14,7 +14,7 @@ export class HomeComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.loggedInUser$ = this.authService.currentUser$
+    this.loggedInUser$ = this.authService.getUserFromLocalStorage()
   }
 
 }
