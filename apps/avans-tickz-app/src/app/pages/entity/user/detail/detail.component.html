@@ -88,6 +88,8 @@
                   <h4>{{currentUser.firstName}} {{currentUser.lastName}}</h4>
                   <div class="font-weight-600 mb-3 text-muted mt-n2">{{currentUser.emailAdres}}</div>
                   <p>{{currentUser.birthDate | date: 'dd-MM-yyyy'}}</p>
+                  <button class="btn" (click)="follow(currentUser)" *ngIf="!isFollowing"> <i class="fa fa-user-plus"></i> Follow user</button>
+                  <button class="btn" *ngIf="isFollowing"> <i class="fa fa-user-plus"></i> Unfollow user</button>
                   <hr class="mt-4 mb-4" />
               </div>
           </div>
@@ -104,38 +106,43 @@
                                           <div><a href="#" class="text-dark font-weight-600">{{artist.name}}</a></div>
                                           <div class="text-muted fs-13px">{{artist.genre}}</div>
                                       </div>
-                                      <a href="#" class="btn btn-outline-primary">Follow</a>
                                   </div>
                               </div>
                               <div class="text-center p-3">
-                                  <a [routerLink]="['../../artists']" class="text-dark text-decoration-none">Show all artists <b class="caret"></b></a>
+                                  <a [routerLink]="['../../artists']" class="text-dark text-decoration-underline">Show all artists <i class="fa fa-arrow-right text-decoration-underline"></i></a>
                               </div>
                           </div>
                       </div>
                   </div>
               </div>
           </div>
-          <div class="profile-content" *ngIf="tabSelected === 'following'">
-            <div class="row">
+          <div class="profile-content col-sm-12 col-md-8 col-lg-8" *ngIf="tabSelected === 'following'">
+            <div class="row" *ngIf="followingList.length != 0">
                 <div class="col-xl-12">
                     <div class="tab-content p-0">
                         <div class="tab-pane fade active show" id="following">
-                            <div class="list-group" *ngFor="let followUser of currentUser.following">
-                                <div class="list-group-item d-flex align-items-center">
-                                    <img src="" alt="" width="50px" class="rounded-sm ml-n2 me-3" />
+                            <div class="list-group" *ngFor="let followUser of followingList">
+                                <div class="list-group-item d-flex align-items-center" *ngIf="followUser != undefined">
+                                  <i class="fa fa-user me-3"></i>
                                     <div class="flex-fill pl-3 pr-3">
-                                        <div><a href="#" class="text-dark font-weight-600">{{followUser}}</a></div>
+                                        <div><a href="#" class="text-dark font-weight-600">{{followUser.firstName}} {{followUser.lastName}}</a></div>
                                         <!-- <div class="text-muted fs-13px">{{artist.genre}}</div> -->
                                     </div>
-                                    <a href="#" class="btn btn-outline-primary">Follow</a>
+                                    <a href="#" class="btn btn-outline-primary">View profile</a>
                                 </div>
                             </div>
                             <div class="text-center p-3">
-                                <a [routerLink]="['../../artists']" class="text-dark text-decoration-none">Show all artists <b class="caret"></b></a>
+                                <a [routerLink]="['../']" class="text-dark text-decoration-underline">Show all users <i class="fa fa-arrow-right text-decoration-underline"></i></a>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <div class="row" *ngIf="followingList.length == 0">
+              <p>This user does not follow anyone!</p>
+              <div>
+                <a [routerLink]="['../']" class="text-dark text-decoration-underline">Show all users <i class="fa fa-arrow-right text-decoration-underline"></i></a>
+            </div>
             </div>
         </div>
       </div>

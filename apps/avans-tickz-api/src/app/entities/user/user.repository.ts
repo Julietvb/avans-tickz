@@ -26,8 +26,8 @@ export class UserRepository{
     }
 
     async findOneAndUpdate(userFilterQuery: FilterQuery<User>, user: Partial<User>): Promise<User> {
-        console.log(userFilterQuery)
-        console.log(user)
+        // console.log(userFilterQuery)
+        // console.log(user)
         return await this.userModel.findOneAndUpdate(userFilterQuery, user, {new: true});
     }
 
@@ -36,7 +36,7 @@ export class UserRepository{
     }
 
     async follow(loggedInUserId: Types.ObjectId, followUserId: Types.ObjectId) : Promise<User>{
-        console.log(followUserId)
+        // console.log(followUserId)
         return await this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { following: followUserId._id } }, {new: true});
     }
 }

@@ -1047,7 +1047,7 @@ let UserController = class UserController {
     }
     getUserByEmail(email) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log(email);
+            // console.log(email)
             return yield this.userService.getUserByEmail(email);
         });
     }
@@ -1063,21 +1063,21 @@ let UserController = class UserController {
     }
     updateUser(userId, updateUserDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('controller updates:');
-            console.log(updateUserDto.favoriteArtists);
+            // console.log('controller updates:')
+            // console.log(updateUserDto.favoriteArtists)
             return this.userService.updateUser(userId, updateUserDto);
         });
     }
     //Follow
     follow(loggedInUser, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
+            // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
             return this.userService.follow(loggedInUser._id, followUserId);
         });
     }
     deleteUser(userId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('deleteUser aangeroepen');
+            // console.log('deleteUser aangeroepen')
             return yield this.userService.deleteUserById(userId);
         });
     }
@@ -1209,8 +1209,8 @@ let UserRepository = class UserRepository {
     }
     findOneAndUpdate(userFilterQuery, user) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log(userFilterQuery);
-            console.log(user);
+            // console.log(userFilterQuery)
+            // console.log(user)
             return yield this.userModel.findOneAndUpdate(userFilterQuery, user, { new: true });
         });
     }
@@ -1221,7 +1221,7 @@ let UserRepository = class UserRepository {
     }
     follow(loggedInUserId, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log(followUserId);
+            // console.log(followUserId)
             return yield this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { following: followUserId._id } }, { new: true });
         });
     }

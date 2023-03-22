@@ -35,11 +35,11 @@
                   </li>
                 </ul>
               </div>
-              <div *ngIf="user.favoriteArtists.length != 0" class="col-6">
+              <div *ngIf="user.following.length != 0" class="col-6">
                 <ul class="list-group">
                   <li class="list-group-item list-group-item">
                     <i class="fa fa-user"></i>
-                    {{ user.following.length }}
+                    {{ user.following.length - 1}} 
                   </li>
                 </ul>
               </div>

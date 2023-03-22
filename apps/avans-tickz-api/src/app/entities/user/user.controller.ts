@@ -17,7 +17,7 @@ export class UserController{
 
     @Get('/email/:email')
     async getUserByEmail(@Param('email') email: string):Promise<User>{
-        console.log(email)
+        // console.log(email)
         return await this.userService.getUserByEmail(email);
     }
 
@@ -33,22 +33,22 @@ export class UserController{
 
     @Patch(':userId')
     async updateUser(@Param('userId') userId: Types.ObjectId, @Body() updateUserDto: UpdateUserDto): Promise<User> {
-        console.log('controller updates:')
-        console.log(updateUserDto.favoriteArtists)
+        // console.log('controller updates:')
+        // console.log(updateUserDto.favoriteArtists)
         return this.userService.updateUser(userId, updateUserDto);
     }
 
     //Follow
     @Post('/follow/:id')
     async follow(@Body() loggedInUser, @Param('id') followUserId: string): Promise<User> {
-        console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
+        // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
         return this.userService.follow(loggedInUser._id, followUserId);
     }
 
 
     @Delete(':userId')
     async deleteUser(@Param('userId') userId: string){
-        console.log('deleteUser aangeroepen')
+        // console.log('deleteUser aangeroepen')
         return await this.userService.deleteUserById(userId);
     }
 }

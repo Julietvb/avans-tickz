@@ -40,7 +40,6 @@ export class UserService {
   }
 
   follow(followUserId: Types.ObjectId, loggedInUser: User): Observable<User>{
-    console.log(`user ${loggedInUser.firstName} wants to follow someone`)
     return this.httpClient.post<User>(`http://localhost:3333/api/users/follow/${followUserId}`, loggedInUser) as Observable<User>;  
     // return this.httpClient.patch(`http://localhost:3333/api/users/follow/${_id}`, user._id) as Observable<User>;
   }
