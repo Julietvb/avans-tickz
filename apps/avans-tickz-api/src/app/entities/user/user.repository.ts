@@ -39,4 +39,8 @@ export class UserRepository{
         // console.log(followUserId)
         return await this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { following: followUserId._id } }, {new: true});
     }
+
+    async unfollow(loggedInUserId: Types.ObjectId, unFollowUserId: Types.ObjectId): Promise<User>{
+       return await this.userModel.findOneAndUpdate({ _id: loggedInUserId }, {$pull: { following : unFollowUserId }}, { new: true })
+    }
 }

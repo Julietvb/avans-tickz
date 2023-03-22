@@ -1027,7 +1027,7 @@ exports.UpdateUserDto = UpdateUserDto;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -1073,6 +1073,13 @@ let UserController = class UserController {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
             return this.userService.follow(loggedInUser._id, followUserId);
+        });
+    }
+    //Unfollow
+    unfollow(loggedInUser, followUserId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
+            return this.userService.unfollow(loggedInUser._id, followUserId);
         });
     }
     deleteUser(userId) {
@@ -1125,6 +1132,14 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [Object, String]),
     tslib_1.__metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
 ], UserController.prototype, "follow", null);
+tslib_1.__decorate([
+    (0, common_1.Post)('/unfollow/:id'),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, String]),
+    tslib_1.__metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], UserController.prototype, "unfollow", null);
 tslib_1.__decorate([
     (0, common_1.Delete)(':userId'),
     tslib_1.__param(0, (0, common_1.Param)('userId')),
@@ -1223,6 +1238,11 @@ let UserRepository = class UserRepository {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             // console.log(followUserId)
             return yield this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { following: followUserId._id } }, { new: true });
+        });
+    }
+    unfollow(loggedInUserId, unFollowUserId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return yield this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $pull: { following: unFollowUserId } }, { new: true });
         });
     }
 };
@@ -1352,6 +1372,11 @@ let UserService = class UserService {
     follow(loggedInUserId, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             return this.userRepository.follow(loggedInUserId, new mongoose_1.Types.ObjectId(followUserId));
+        });
+    }
+    unfollow(loggedInUserId, unFollowUserId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.userRepository.unfollow(loggedInUserId, new mongoose_1.Types.ObjectId(unFollowUserId));
         });
     }
 };

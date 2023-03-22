@@ -68,4 +68,8 @@ export class UserService {
   async follow(loggedInUserId: Types.ObjectId, followUserId: string ): Promise<User> {
     return this.userRepository.follow(loggedInUserId, new Types.ObjectId(followUserId));
   }
+
+  async unfollow(loggedInUserId: Types.ObjectId, unFollowUserId: string): Promise<User> {
+    return this.userRepository.unfollow(loggedInUserId, new Types.ObjectId(unFollowUserId));
+  }
 }

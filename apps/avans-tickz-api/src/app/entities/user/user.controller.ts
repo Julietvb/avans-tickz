@@ -45,6 +45,13 @@ export class UserController{
         return this.userService.follow(loggedInUser._id, followUserId);
     }
 
+    //Unfollow
+    @Post('/unfollow/:id')
+    async unfollow(@Body() loggedInUser, @Param('id') followUserId: string): Promise<User> {
+        // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
+        return this.userService.unfollow(loggedInUser._id, followUserId);
+    }
+
 
     @Delete(':userId')
     async deleteUser(@Param('userId') userId: string){

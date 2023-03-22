@@ -89,7 +89,7 @@
                   <div class="font-weight-600 mb-3 text-muted mt-n2">{{currentUser.emailAdres}}</div>
                   <p>{{currentUser.birthDate | date: 'dd-MM-yyyy'}}</p>
                   <button class="btn" (click)="follow(currentUser)" *ngIf="!isFollowing"> <i class="fa fa-user-plus"></i> Follow user</button>
-                  <button class="btn" *ngIf="isFollowing"> <i class="fa fa-user-plus"></i> Unfollow user</button>
+                  <button class="btn" (click)="unfollow(currentUser)" *ngIf="isFollowing"> <i class="fa fa-user-plus"></i> Unfollow user</button>
                   <hr class="mt-4 mb-4" />
               </div>
           </div>

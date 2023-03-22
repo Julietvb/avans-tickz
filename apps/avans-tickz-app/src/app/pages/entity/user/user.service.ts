@@ -44,6 +44,10 @@ export class UserService {
     // return this.httpClient.patch(`http://localhost:3333/api/users/follow/${_id}`, user._id) as Observable<User>;
   }
 
+  unfollow(unFollowUserId: Types.ObjectId, loggedInUser: User): Observable<User> {
+    return this.httpClient.post<User>(`http://localhost:3333/api/users/unfollow/${unFollowUserId}`, loggedInUser) as Observable<User>;
+  }
+
   // private handleError(error: HttpErrorResponse): Observable<any> {
   //   console.log(error);
   //   // return an error observable with a user-facing error message

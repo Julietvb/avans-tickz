@@ -68,4 +68,12 @@ export class DetailComponent implements OnInit {
       this.isFollowing = true;
     })
   }
+
+  unfollow(user: User){
+    this.userService.unfollow(user._id, this.loggedInUser).subscribe((user) => {
+      console.log(user);
+      this.authService.saveUserToLocalStorage(user)
+      this.isFollowing = false;
+    })
+  }
 }
