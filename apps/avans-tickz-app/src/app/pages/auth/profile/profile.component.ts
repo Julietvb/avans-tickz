@@ -6,6 +6,7 @@ import { AuthService } from '../auth.service';
 import { Types } from 'mongoose'
 import { Ticket } from '../../entity/ticket/ticket.model';
 import { ConcertService } from '../../entity/concert/concert.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'avans-tickz-profile',
@@ -19,7 +20,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private userService: UserService,
-    private concertService: ConcertService
+    private concertService: ConcertService,
+    private toastr: ToastrService
   ) {
     this.authService
       .getUserFromLocalStorage()
@@ -49,8 +51,19 @@ export class ProfileComponent implements OnInit {
       }
       this.userService
         .updateUser(this.currentUser._id, this.currentUser)
-        .subscribe((updatedUser) =>
-          this.authService.saveUserToLocalStorage(updatedUser)
+        .subscribe((updatedUser) =>{
+          if (updatedUser != user) {
+            this.toastr.success(
+              'Artist has been removed from your favorites',
+              'Removed'
+            );
+          } else {
+            this.toastr.error(
+              'Something went wrong',
+              'Artist was not removed from your favorites'
+            );
+          }
+          this.authService.saveUserToLocalStorage(updatedUser)}
         );
     });
   }

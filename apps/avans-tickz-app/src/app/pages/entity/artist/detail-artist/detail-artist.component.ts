@@ -7,6 +7,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../user/user.model';
 import { UserService } from '../../user/user.service';
 import { switchMap } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'avans-tickz-detail-artist',
@@ -23,7 +24,8 @@ export class DetailArtistComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
-    private userService: UserService
+    private userService: UserService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -60,6 +62,17 @@ export class DetailArtistComponent implements OnInit {
           this.userService
             .updateUser(this.currentUser._id, this.currentUser)
             .subscribe((updatedUser) => {
+              if (updatedUser != user) {
+                this.toastr.success(
+                  'Artist has been added to your favorites',
+                  'Favorited!'
+                );
+              } else {
+                this.toastr.error(
+                  'Artist was not added to your favorites',
+                  'Something went wrong'
+                );
+              }
               this.authService.saveUserToLocalStorage(updatedUser);
               this.router.navigate([`/profile`]);
             });
@@ -80,6 +93,17 @@ export class DetailArtistComponent implements OnInit {
         this.userService
           .updateUser(this.currentUser._id, this.currentUser)
           .subscribe((updatedUser) => {
+            if (updatedUser != user) {
+              this.toastr.success(
+                'Removed',
+                'Artist has been removed from your favorites'
+              );
+            } else {
+              this.toastr.error(
+                'Artist was not removed from your favorites',
+                'Something went wrong'
+              );
+            }
             this.authService.saveUserToLocalStorage(updatedUser);
             this.router.navigate([`/profile`]);
           });
