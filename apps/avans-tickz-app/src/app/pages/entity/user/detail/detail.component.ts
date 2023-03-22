@@ -14,7 +14,8 @@ import { AuthService } from '../../../auth/auth.service';
   styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-  userId = new Types.ObjectId(this.route.snapshot.paramMap.get('userId')!);
+  // userId = new Types.ObjectId(this.route.snapshot.paramMap.get('userId')!);
+  userId!: Types.ObjectId;
   currentUser!: User;
   tabSelected!: string;
   favoriteArtist!: boolean;
@@ -34,6 +35,10 @@ export class DetailComponent implements OnInit {
     this.followingList = new Array<User>()
 
     console.log('Detail page aangeroepen');
+    this.route.params.subscribe(params => {
+    this.userId = new Types.ObjectId(params['userId']);
+    this.followingList.length = 0;
+    
     this.userService.getUserById(this.userId).subscribe((user) => {
       this.currentUser = user;
       this.currentUser.following.forEach(id => {
@@ -49,6 +54,7 @@ export class DetailComponent implements OnInit {
       });
     });
     this.tabSelected = 'favoriteArtists'
+  })
   }
 
   tabChange(tab: string){

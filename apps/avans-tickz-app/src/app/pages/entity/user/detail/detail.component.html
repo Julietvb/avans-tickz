@@ -100,12 +100,13 @@
                       <div class="tab-content p-0">
                           <div class="tab-pane fade active show" id="favoriteArtists">
                               <div class="list-group" *ngFor="let artist of currentUser.favoriteArtists">
-                                  <div class="list-group-item d-flex align-items-center">
+                                  <div class="list-group-item d-flex align-items-center" [routerLink]="['../../artists/', artist._id]">
                                       <img src="{{artist.artistImage}}" alt="" width="50px" class="rounded-sm ml-n2 me-3" />
                                       <div class="flex-fill pl-3 pr-3">
-                                          <div><a href="#" class="text-dark font-weight-600">{{artist.name}}</a></div>
+                                          <div><a class="text-dark font-weight-600">{{artist.name}}</a></div>
                                           <div class="text-muted fs-13px">{{artist.genre}}</div>
                                       </div>
+                                      <a [routerLink]="['../../artists/', artist._id]" class="btn btn-outline-primary">View artist</a>
                                   </div>
                               </div>
                               <div class="text-center p-3">
@@ -125,10 +126,10 @@
                                 <div class="list-group-item d-flex align-items-center" *ngIf="followUser != undefined">
                                   <i class="fa fa-user me-3"></i>
                                     <div class="flex-fill pl-3 pr-3">
-                                        <div><a href="#" class="text-dark font-weight-600">{{followUser.firstName}} {{followUser.lastName}}</a></div>
+                                        <div><a class="text-dark font-weight-600">{{followUser.firstName}} {{followUser.lastName}}</a></div>
                                         <!-- <div class="text-muted fs-13px">{{artist.genre}}</div> -->
                                     </div>
-                                    <a href="#" class="btn btn-outline-primary">View profile</a>
+                                    <a [routerLink]="['../', followUser._id]" class="btn btn-outline-primary">View profile</a>
                                 </div>
                             </div>
                             <div class="text-center p-3">
