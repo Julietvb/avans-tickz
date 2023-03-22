@@ -47,7 +47,8 @@ export class ConcertService {
       ticketPrice: concert.ticketPrice,
       ticketType: concert.ticketType,
       venue: concert.venue,
-      creatorId: concert.creatorId
+      creatorId: concert.creatorId,
+      artist: concert.artist
     }) as Observable<Concert>;
   }
 

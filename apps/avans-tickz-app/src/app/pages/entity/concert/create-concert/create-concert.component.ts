@@ -35,11 +35,12 @@ export class CreateConcertComponent implements OnInit {
   }
 
   createConcert(concert: Concert): void{
-    if (this.venueSelected) {
+    if (this.venueSelected && this.artistSelected) {
       this.authService.getUserFromLocalStorage().subscribe((user) => this.creatorId = user._id)
 
       console.log(concert);
       concert.venue = this.venue;
+      concert.artist = this.artist;
       concert.creatorId = this.creatorId;
 
       this.concertService.createConcert(concert).subscribe();
