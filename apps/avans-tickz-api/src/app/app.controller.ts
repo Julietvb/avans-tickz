@@ -22,7 +22,8 @@ export class AppController {
   }
   
   @Get()
-  getData() {
-    return this.appService.getData();
+  async getData(): Promise<string> {
+    const greeting = await this.appService.getData();
+    return greeting;
   }
 }

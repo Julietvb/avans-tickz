@@ -6,7 +6,7 @@
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b;
+var _a, _b, _c;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -29,7 +29,10 @@ let AppController = class AppController {
         return req.user;
     }
     getData() {
-        return this.appService.getData();
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const greeting = yield this.appService.getData();
+            return greeting;
+        });
     }
 };
 tslib_1.__decorate([
@@ -52,7 +55,7 @@ tslib_1.__decorate([
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", void 0)
+    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
 ], AppController.prototype, "getData", null);
 AppController = tslib_1.__decorate([
     (0, common_1.Controller)(),
@@ -79,11 +82,20 @@ const concert_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/ent
 const venue_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.module.ts");
 const auth_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.module.ts");
 const artist_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.module.ts");
+const neo4j_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.module.ts");
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/avansTickz'), user_module_1.UserModule, concert_module_1.ConcertModule, venue_module_1.VenueModule, artist_module_1.ArtistModule, auth_module_1.AuthModule],
+        imports: [mongoose_1.MongooseModule.forRoot('mongodb://127.0.0.1:27017/avansTickz'),
+            neo4j_module_1.Neo4jModule.forRoot({
+                scheme: 'neo4j',
+                host: 'localhost',
+                port: 7687,
+                username: 'neo4j',
+                password: 'neo'
+            }),
+            user_module_1.UserModule, concert_module_1.ConcertModule, venue_module_1.VenueModule, artist_module_1.ArtistModule, auth_module_1.AuthModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
@@ -97,17 +109,30 @@ exports.AppModule = AppModule;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
+var _a;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
+const neo4j_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts");
 let AppService = class AppService {
+    /**
+     *
+     */
+    constructor(neo4jService) {
+        this.neo4jService = neo4jService;
+    }
     getData() {
-        return { message: 'Welcome to avans-tickz-api!' };
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const result = yield this.neo4jService.read('MATCH(n) RETURN count(n) AS count', {});
+            const count = result.records[0].get('count');
+            return `Hello Neo4j user! There are ${count} nodes in the database`;
+        });
     }
 };
 AppService = tslib_1.__decorate([
-    (0, common_1.Injectable)()
+    (0, common_1.Injectable)(),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof neo4j_service_1.Neo4jService !== "undefined" && neo4j_service_1.Neo4jService) === "function" ? _a : Object])
 ], AppService);
 exports.AppService = AppService;
 
@@ -961,6 +986,142 @@ exports.UpdateConcertDto = UpdateConcertDto;
 
 /***/ }),
 
+/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j-config.interface.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.constants.ts":
+/***/ ((__unused_webpack_module, exports) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.NEO4J_DRIVER = exports.NEO4J_CONFIG = void 0;
+exports.NEO4J_CONFIG = 'NEO4J_CONFIG';
+exports.NEO4J_DRIVER = 'NEO4J_DRIVER';
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.module.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var Neo4jModule_1;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Neo4jModule = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const neo4j_constants_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.constants.ts");
+const neo4j_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts");
+const neo4j_util_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.util.ts");
+let Neo4jModule = Neo4jModule_1 = class Neo4jModule {
+    static forRoot(config) {
+        return {
+            module: Neo4jModule_1,
+            providers: [
+                neo4j_service_1.Neo4jService,
+                {
+                    provide: neo4j_constants_1.NEO4J_CONFIG,
+                    useValue: config
+                },
+                {
+                    provide: neo4j_constants_1.NEO4J_DRIVER,
+                    inject: [neo4j_constants_1.NEO4J_CONFIG],
+                    useFactory: (config) => tslib_1.__awaiter(this, void 0, void 0, function* () { return (0, neo4j_util_1.createDriver)(config); }),
+                }
+            ],
+            exports: [
+                neo4j_service_1.Neo4jService,
+            ]
+        };
+    }
+};
+Neo4jModule = Neo4jModule_1 = tslib_1.__decorate([
+    (0, common_1.Module)({})
+], Neo4jModule);
+exports.Neo4jModule = Neo4jModule;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+var _a, _b;
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.Neo4jService = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const common_1 = __webpack_require__("@nestjs/common");
+const neo4j_driver_1 = __webpack_require__("neo4j-driver");
+const neo4j_config_interface_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j-config.interface.ts");
+const neo4j_constants_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.constants.ts");
+let Neo4jService = class Neo4jService {
+    constructor(config, driver) {
+        this.config = config;
+        this.driver = driver;
+    }
+    getDriver() {
+        return this.driver;
+    }
+    getConfig() {
+        return this.config;
+    }
+    getReadSession(database) {
+        return this.driver.session({
+            database: database || this.config.database,
+            defaultAccessMode: neo4j_driver_1.default.session.READ
+        });
+    }
+    getWriteSession(database) {
+        return this.driver.session({
+            database: database || this.config.database,
+            defaultAccessMode: neo4j_driver_1.default.session.READ
+        });
+    }
+    read(cypher, params, database) {
+        const session = this.getReadSession(database);
+        return session.run(cypher, params);
+    }
+    write(cypher, params, database) {
+        const session = this.getWriteSession(database);
+        return session.run(cypher, params);
+    }
+};
+Neo4jService = tslib_1.__decorate([
+    (0, common_1.Injectable)(),
+    tslib_1.__param(0, (0, common_1.Inject)(neo4j_constants_1.NEO4J_CONFIG)),
+    tslib_1.__param(1, (0, common_1.Inject)(neo4j_constants_1.NEO4J_DRIVER)),
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof neo4j_config_interface_1.Neo4jConfig !== "undefined" && neo4j_config_interface_1.Neo4jConfig) === "function" ? _a : Object, typeof (_b = typeof neo4j_driver_1.Driver !== "undefined" && neo4j_driver_1.Driver) === "function" ? _b : Object])
+], Neo4jService);
+exports.Neo4jService = Neo4jService;
+
+
+/***/ }),
+
+/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.util.ts":
+/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.createDriver = void 0;
+const tslib_1 = __webpack_require__("tslib");
+const neo4j_driver_1 = __webpack_require__("neo4j-driver");
+const createDriver = (config) => tslib_1.__awaiter(void 0, void 0, void 0, function* () {
+    const driver = neo4j_driver_1.default.driver(`${config.scheme}://${config.host}:${config.port}`, neo4j_driver_1.default.auth.basic(config.username, config.password));
+    yield driver.verifyConnectivity();
+    return driver;
+});
+exports.createDriver = createDriver;
+
+
+/***/ }),
+
 /***/ "./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
@@ -1691,6 +1852,13 @@ module.exports = require("@nestjs/passport");
 /***/ ((module) => {
 
 module.exports = require("mongoose");
+
+/***/ }),
+
+/***/ "neo4j-driver":
+/***/ ((module) => {
+
+module.exports = require("neo4j-driver");
 
 /***/ }),
 
