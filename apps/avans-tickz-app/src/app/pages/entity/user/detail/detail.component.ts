@@ -64,16 +64,19 @@ export class DetailComponent implements OnInit {
   follow(user: User){
     console.log(user._id.toString())
     this.userService.follow(user._id, this.loggedInUser).subscribe((user) => {
-      this.authService.saveUserToLocalStorage(user)
-      this.isFollowing = true;
+      if (user) {
+        this.authService.saveUserToLocalStorage(user)
+        this.isFollowing = true;
+      }
     })
   }
 
   unfollow(user: User){
     this.userService.unfollow(user._id, this.loggedInUser).subscribe((user) => {
-      console.log(user);
-      this.authService.saveUserToLocalStorage(user)
-      this.isFollowing = false;
+      if (user) {
+        this.authService.saveUserToLocalStorage(user)
+        this.isFollowing = false;
+      }
     })
   }
 }

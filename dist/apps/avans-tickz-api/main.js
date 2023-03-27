@@ -1401,7 +1401,9 @@ let UserRepository = class UserRepository {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             // console.log(userFilterQuery)
             // console.log(user)
-            return yield this.userModel.findOneAndUpdate(userFilterQuery, user, { new: true });
+            return yield this.userModel.findOneAndUpdate(userFilterQuery, user, {
+                new: true,
+            });
         });
     }
     deleteById(userId) {
@@ -1411,13 +1413,20 @@ let UserRepository = class UserRepository {
     }
     follow(loggedInUserId, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            // console.log(followUserId)
-            return yield this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { following: followUserId._id } }, { new: true });
+            yield this.neo4jService.write(`MATCH (follower:User {id: '${loggedInUserId}'})
+      MATCH (following:User {id: '${followUserId}'})
+      MERGE (follower)-[:FOLLOWS]->(following)`);
+            const updatedUser = this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { following: followUserId._id } }, { new: true });
+            return updatedUser;
         });
     }
     unfollow(loggedInUserId, unFollowUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            return yield this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $pull: { following: unFollowUserId } }, { new: true });
+            yield this.neo4jService.write(`MATCH (a)-[r:FOLLOWS]->(b)
+      WHERE a.id = '${loggedInUserId}' AND b.id = '${unFollowUserId}'
+      DELETE r`);
+            const updatedUser = this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $pull: { following: unFollowUserId } }, { new: true });
+            return updatedUser;
         });
     }
 };
