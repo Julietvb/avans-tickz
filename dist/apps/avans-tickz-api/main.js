@@ -1199,7 +1199,7 @@ exports.UpdateUserDto = UpdateUserDto;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -1243,21 +1243,23 @@ let UserController = class UserController {
     //Favorite
     addToFavorite(loggedInUser, artistId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
             return this.userService.addToFavorite(loggedInUser._id, artistId);
+        });
+    }
+    removeFromFavorite(loggedInUser, artistId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.userService.removeFromFavorite(loggedInUser._id, artistId);
         });
     }
     //Follow
     follow(loggedInUser, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
             return this.userService.follow(loggedInUser._id, followUserId);
         });
     }
     //Unfollow
     unfollow(loggedInUser, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
             return this.userService.unfollow(loggedInUser._id, followUserId);
         });
     }
@@ -1312,12 +1314,20 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
 ], UserController.prototype, "addToFavorite", null);
 tslib_1.__decorate([
-    (0, common_1.Post)('/follow/:id'),
+    (0, common_1.Post)('/unfavorite/:id'),
     tslib_1.__param(0, (0, common_1.Body)()),
     tslib_1.__param(1, (0, common_1.Param)('id')),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [Object, String]),
     tslib_1.__metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+], UserController.prototype, "removeFromFavorite", null);
+tslib_1.__decorate([
+    (0, common_1.Post)('/follow/:id'),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, String]),
+    tslib_1.__metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
 ], UserController.prototype, "follow", null);
 tslib_1.__decorate([
     (0, common_1.Post)('/unfollow/:id'),
@@ -1325,7 +1335,7 @@ tslib_1.__decorate([
     tslib_1.__param(1, (0, common_1.Param)('id')),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [Object, String]),
-    tslib_1.__metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
+    tslib_1.__metadata("design:returntype", typeof (_o = typeof Promise !== "undefined" && Promise) === "function" ? _o : Object)
 ], UserController.prototype, "unfollow", null);
 tslib_1.__decorate([
     (0, common_1.Delete)(':userId'),
@@ -1443,6 +1453,15 @@ let UserRepository = class UserRepository {
       MATCH (artist:Artist {id: '${artistId}'})
       MERGE (follower)-[:LIKES]->(artist)`);
             const updatedUser = this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { favoriteArtists: artistId._id } }, { new: true });
+            return updatedUser;
+        });
+    }
+    removeFromFavorite(loggedInUserId, artistId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            yield this.neo4jService.write(`MATCH (a)-[r:LIKES]->(b)
+      WHERE a.id = '${loggedInUserId}' AND b.id = '${artistId}'
+      DELETE r`);
+            const updatedUser = this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $pull: { favoriteArtists: artistId } }, { new: true });
             return updatedUser;
         });
     }
@@ -1591,6 +1610,11 @@ let UserService = class UserService {
     addToFavorite(loggedInUserId, artistId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             return this.userRepository.addToFavorite(loggedInUserId, new mongoose_1.Types.ObjectId(artistId));
+        });
+    }
+    removeFromFavorite(loggedInUserId, artistId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.userRepository.removeFromFavorite(loggedInUserId, new mongoose_1.Types.ObjectId(artistId));
         });
     }
     follow(loggedInUserId, followUserId) {

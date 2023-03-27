@@ -41,12 +41,15 @@ export class UserService {
 
   addToFavoriteArtist(artistId: Types.ObjectId, loggedInUser: User): Observable<User>{
     return this.httpClient.post<User>(`http://localhost:3333/api/users/favorite/${artistId}`, loggedInUser) as Observable<User>;  
-    // return this.httpClient.patch(`http://localhost:3333/api/users/follow/${_id}`, user._id) as Observable<User>;
   }
+
+  removeFromFavoriteArtist(artistId: Types.ObjectId, loggedInUser: User): Observable<User>{
+    return this.httpClient.post<User>(`http://localhost:3333/api/users/unfavorite/${artistId}`, loggedInUser) as Observable<User>;  
+  }
+
 
   follow(followUserId: Types.ObjectId, loggedInUser: User): Observable<User>{
     return this.httpClient.post<User>(`http://localhost:3333/api/users/follow/${followUserId}`, loggedInUser) as Observable<User>;  
-    // return this.httpClient.patch(`http://localhost:3333/api/users/follow/${_id}`, user._id) as Observable<User>;
   }
 
   unfollow(unFollowUserId: Types.ObjectId, loggedInUser: User): Observable<User> {

@@ -39,12 +39,12 @@ export class DetailArtistComponent implements OnInit {
       )
       .subscribe((artist) => {
         this.artist = artist;
-        console.log(artist);
+        // console.log(artist);
 
         this.authService.getUserFromLocalStorage().subscribe((user) => {
           this.currentUser = user;
           for (let favoriteArtist of user.favoriteArtists) {
-            if (favoriteArtist._id == artist._id) {
+            if (favoriteArtist == artist._id) {
               this.favoriteArtist = true;
               break;
             }
@@ -59,20 +59,20 @@ export class DetailArtistComponent implements OnInit {
         this.currentUser = user;
         this.artistService.getArtistById(_id).subscribe((artist) => {
           this.userService
-            .addToFavoriteArtist(artist._id, this.currentUser)
+            .addToFavoriteArtist(_id, this.currentUser)
             .subscribe((updatedUser) => {
               if (updatedUser != user) {
                 this.toastr.success(
                   'Artist has been added to your favorites',
                   'Favorited!'
                 );
+                this.authService.saveUserToLocalStorage(updatedUser);
               } else {
                 this.toastr.error(
                   'Artist was not added to your favorites',
                   'Something went wrong'
                 );
               }
-              this.authService.saveUserToLocalStorage(updatedUser);
               this.router.navigate([`/profile`]);
             });
         });
@@ -90,20 +90,20 @@ export class DetailArtistComponent implements OnInit {
           }
         }
         this.userService
-          .updateUser(this.currentUser._id, this.currentUser)
+          .removeFromFavoriteArtist(_id, this.currentUser)
           .subscribe((updatedUser) => {
             if (updatedUser != user) {
               this.toastr.success(
                 'Removed',
                 'Artist has been removed from your favorites'
               );
+              this.authService.saveUserToLocalStorage(updatedUser);
             } else {
               this.toastr.error(
                 'Artist was not removed from your favorites',
                 'Something went wrong'
               );
             }
-            this.authService.saveUserToLocalStorage(updatedUser);
             this.router.navigate([`/profile`]);
           });
       });

@@ -62,8 +62,15 @@ export class UserController {
     @Body() loggedInUser,
     @Param('id') artistId: string
   ): Promise<User> {
-    // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
     return this.userService.addToFavorite(loggedInUser._id, artistId);
+  }
+
+  @Post('/unfavorite/:id')
+  async removeFromFavorite(
+    @Body() loggedInUser,
+    @Param('id') artistId: string
+  ): Promise<User> {
+    return this.userService.removeFromFavorite(loggedInUser._id, artistId);
   }
 
   //Follow
@@ -72,7 +79,6 @@ export class UserController {
     @Body() loggedInUser,
     @Param('id') followUserId: string
   ): Promise<User> {
-    // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
     return this.userService.follow(loggedInUser._id, followUserId);
   }
 
@@ -82,7 +88,6 @@ export class UserController {
     @Body() loggedInUser,
     @Param('id') followUserId: string
   ): Promise<User> {
-    // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
     return this.userService.unfollow(loggedInUser._id, followUserId);
   }
 
