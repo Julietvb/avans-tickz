@@ -30,5 +30,7 @@ export class NavComponent implements OnInit {
 
   logout(): void {
     this.authService.logout()
+    this.router.navigateByUrl('/users', {skipLocationChange: true}).then(()=>
+    this.router.navigate(['/']));
   }
 }

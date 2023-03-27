@@ -14,6 +14,7 @@ import { Types } from 'mongoose';
 import { UserService } from '../entity/user/user.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { Artist } from '../entity/artist/artist.model';
 
 @Injectable({
   providedIn: 'root',
@@ -147,8 +148,11 @@ export class AuthService {
     };
   }
 
+  getReccommendations() : Observable<Artist[]>{
+    return this.httpClient.get(`http://localhost:3333/api/reccommendations`, this.getHttpOptions()) as Observable<Artist[]>
+  }
+
   logout(): void {
-    this.router.navigate(['/']);
     localStorage.removeItem(this.currentUser);
     this.currentUser$.next(undefined);
 
