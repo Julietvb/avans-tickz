@@ -28,20 +28,10 @@ export class HomeComponent implements OnInit {
       this.loggedInUser = user;
 
       this.authService.getReccommendations().subscribe((recs) => {
-        recs.forEach((rec) => {
-          this.artistService
-            .getArtistById(new Types.ObjectId(rec))
-            .subscribe((artist) => {
-              this.reccommendations.push(artist);
-            });
-        });
-        console.log(this.reccommendations)
+        this.reccommendations = recs;
       });
 
       this.artistService.getAllArtists().subscribe((artists) => {
-        if (artists.length > 3) {
-          artists.splice(artists.length-2, 2)
-        }
         artists.forEach(artist => {
           user.favoriteArtists.forEach(favoriteArtist => {
             if (artist._id == favoriteArtist) {
@@ -49,6 +39,10 @@ export class HomeComponent implements OnInit {
             }
           })
         });
+      
+        if (artists.length > 3) {
+          artists.splice(3)
+        }
         this.randomArtists = artists
       })  
     });

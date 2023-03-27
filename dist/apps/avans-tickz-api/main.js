@@ -6,7 +6,7 @@
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -16,10 +16,12 @@ const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/
 const jwt_auth_guard_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/jwt-auth.guard.ts");
 const local_auth_guard_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/local-auth.guard.ts");
 const mongoose_1 = __webpack_require__("mongoose");
+const artist_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.service.ts");
 let AppController = class AppController {
-    constructor(appService, authService) {
+    constructor(appService, authService, artistService) {
         this.appService = appService;
         this.authService = authService;
+        this.artistService = artistService;
     }
     login(req) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
@@ -30,7 +32,15 @@ let AppController = class AppController {
         return req.user;
     }
     getReccommendations(req) {
-        return this.appService.getReccommendations(new mongoose_1.Types.ObjectId(req.user._id));
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const results = new Array();
+            const recs = yield this.appService.getReccommendations(new mongoose_1.Types.ObjectId(req.user._id));
+            for (const rec of recs) {
+                const artist = yield this.artistService.getArtistById(rec);
+                results.push(artist);
+            }
+            return results;
+        });
     }
     getData() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
@@ -61,17 +71,17 @@ tslib_1.__decorate([
     tslib_1.__param(0, (0, common_1.Request)()),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [Object]),
-    tslib_1.__metadata("design:returntype", void 0)
+    tslib_1.__metadata("design:returntype", Promise)
 ], AppController.prototype, "getReccommendations", null);
 tslib_1.__decorate([
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", []),
-    tslib_1.__metadata("design:returntype", typeof (_c = typeof Promise !== "undefined" && Promise) === "function" ? _c : Object)
+    tslib_1.__metadata("design:returntype", typeof (_d = typeof Promise !== "undefined" && Promise) === "function" ? _d : Object)
 ], AppController.prototype, "getData", null);
 AppController = tslib_1.__decorate([
     (0, common_1.Controller)(),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _a : Object, typeof (_b = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" ? _b : Object])
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof app_service_1.AppService !== "undefined" && app_service_1.AppService) === "function" ? _a : Object, typeof (_b = typeof auth_service_1.AuthService !== "undefined" && auth_service_1.AuthService) === "function" ? _b : Object, typeof (_c = typeof artist_service_1.ArtistService !== "undefined" && artist_service_1.ArtistService) === "function" ? _c : Object])
 ], AppController);
 exports.AppController = AppController;
 
@@ -481,7 +491,7 @@ ArtistModule = tslib_1.__decorate([
             }),],
         controllers: [artist_controller_1.ArtistController],
         providers: [artist_service_1.ArtistService, artist_repository_1.ArtistRepository],
-        exports: [artist_repository_1.ArtistRepository]
+        exports: [artist_service_1.ArtistService]
     })
 ], ArtistModule);
 exports.ArtistModule = ArtistModule;

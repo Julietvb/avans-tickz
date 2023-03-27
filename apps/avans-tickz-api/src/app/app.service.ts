@@ -19,7 +19,7 @@ export class AppService {
 
   async getReccommendations(
     loggedInUserId: Types.ObjectId
-  ): Promise<any> {
+  ): Promise<string[]> {
     const recs = await this.neo4jService.read(
       `MATCH (me:User {id: '${loggedInUserId}'})-[:FOLLOWS]->(following:User)-[:LIKES]->(artist:Artist)
       WHERE NOT EXISTS((:User {id: '${loggedInUserId}'})-[:LIKES]->(artist))
