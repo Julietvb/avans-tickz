@@ -3,10 +3,12 @@ import { InjectModel } from "@nestjs/mongoose";
 import { FilterQuery, Model } from "mongoose";
 import { User, UserDocument } from "./user.schema";
 import {Types} from "mongoose";
+import { Neo4jService } from "../neo4j/neo4j.service";
 
 @Injectable()
 export class UserRepository{
-    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {}
+    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>,
+         private readonly neo4jService: Neo4jService) {}
 
     async findById(userId: string): Promise<User> {
         return await this.userModel.findOne({_id: new Types.ObjectId(userId)})
@@ -21,8 +23,13 @@ export class UserRepository{
     }
 
     async create(user: User): Promise<User> {
-        const newUser = new this.userModel(user);
-        return await newUser.save()
+        const newUser = await new this.userModel(user).save();
+        // const newUser = this.userModel.create(user);
+
+        const userNeo = await this.neo4jService.write(`CREATE (:User {id: '${newUser._id}'})`)
+        //     const categoryNeo = await this.neo4jService.write(MERGE (:Category {name: "${ticketdb.category.name}"}))
+        //     const relationNeo = await this.neo4jService.write(MATCH (t:Ticket {id: "${ticketdb.id}"}), (c:Category {name: "${ticketdb.category.name}"}) CREATE (t)-[:BELONGS_TO]->(c))
+        return newUser
     }
 
     async findOneAndUpdate(userFilterQuery: FilterQuery<User>, user: Partial<User>): Promise<User> {

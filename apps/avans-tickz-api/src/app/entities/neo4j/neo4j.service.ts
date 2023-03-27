@@ -28,16 +28,16 @@ export class Neo4jService {
     getWriteSession(database?: string){
         return this.driver.session({
             database: database || this.config.database,
-            defaultAccessMode: neo4j.session.READ
+            defaultAccessMode: neo4j.session.WRITE
         })
     }
 
-    read(cypher: string, params: Record<string, any>, database?: string): Result {
+    read(cypher: string, params?: Record<string, any>, database?: string): Result {
         const session = this.getReadSession(database)
         return session.run(cypher, params)
     }
 
-    write(cypher: string, params: Record<string, any>, database?: string): Result {
+    write(cypher: string, params?: Record<string, any>, database?: string): Result {
         const session = this.getWriteSession(database)
         return session.run(cypher, params)
     }

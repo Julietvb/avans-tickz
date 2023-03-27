@@ -1081,7 +1081,7 @@ let Neo4jService = class Neo4jService {
     getWriteSession(database) {
         return this.driver.session({
             database: database || this.config.database,
-            defaultAccessMode: neo4j_driver_1.default.session.READ
+            defaultAccessMode: neo4j_driver_1.default.session.WRITE
         });
     }
     read(cypher, params, database) {
@@ -1326,6 +1326,7 @@ exports.UserModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const neo4j_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.module.ts");
 const user_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.controller.ts");
 const user_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.repository.ts");
 const user_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.schema.ts");
@@ -1334,7 +1335,14 @@ let UserModule = class UserModule {
 };
 UserModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }])],
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: user_schema_1.User.name, schema: user_schema_1.UserSchema }]),
+            neo4j_module_1.Neo4jModule.forRoot({
+                scheme: 'neo4j',
+                host: 'localhost',
+                port: 7687,
+                username: 'neo4j',
+                password: 'neo'
+            }),],
         controllers: [user_controller_1.UserController],
         providers: [user_service_1.UserService, user_repository_1.UserRepository],
         exports: [user_service_1.UserService]
@@ -1349,7 +1357,7 @@ exports.UserModule = UserModule;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserRepository = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -1358,9 +1366,11 @@ const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
 const user_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.schema.ts");
 const mongoose_3 = __webpack_require__("mongoose");
+const neo4j_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts");
 let UserRepository = class UserRepository {
-    constructor(userModel) {
+    constructor(userModel, neo4jService) {
         this.userModel = userModel;
+        this.neo4jService = neo4jService;
     }
     findById(userId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
@@ -1379,8 +1389,12 @@ let UserRepository = class UserRepository {
     }
     create(user) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            const newUser = new this.userModel(user);
-            return yield newUser.save();
+            const newUser = yield new this.userModel(user).save();
+            // const newUser = this.userModel.create(user);
+            const userNeo = yield this.neo4jService.write(`CREATE (:User {id: '${newUser._id}'})`);
+            //     const categoryNeo = await this.neo4jService.write(MERGE (:Category {name: "${ticketdb.category.name}"}))
+            //     const relationNeo = await this.neo4jService.write(MATCH (t:Ticket {id: "${ticketdb.id}"}), (c:Category {name: "${ticketdb.category.name}"}) CREATE (t)-[:BELONGS_TO]->(c))
+            return newUser;
         });
     }
     findOneAndUpdate(userFilterQuery, user) {
@@ -1410,7 +1424,7 @@ let UserRepository = class UserRepository {
 UserRepository = tslib_1.__decorate([
     (0, common_1.Injectable)(),
     tslib_1.__param(0, (0, mongoose_1.InjectModel)(user_schema_1.User.name)),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object])
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object, typeof (_b = typeof neo4j_service_1.Neo4jService !== "undefined" && neo4j_service_1.Neo4jService) === "function" ? _b : Object])
 ], UserRepository);
 exports.UserRepository = UserRepository;
 
