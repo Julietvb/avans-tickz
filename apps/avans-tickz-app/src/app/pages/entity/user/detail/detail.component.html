@@ -99,7 +99,7 @@
                   <div class="col-xl-12">
                       <div class="tab-content p-0">
                           <div class="tab-pane fade active show" id="favoriteArtists">
-                              <div class="list-group" *ngFor="let artist of currentUser.favoriteArtists">
+                              <div class="list-group" *ngFor="let artist of favoriteArtists">
                                   <div class="list-group-item d-flex align-items-center" [routerLink]="['../../artists/', artist._id]">
                                       <img src="{{artist.artistImage}}" alt="" width="50px" class="rounded-sm ml-n2 me-3" />
                                       <div class="flex-fill pl-3 pr-3">

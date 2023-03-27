@@ -9,7 +9,7 @@ export interface User {
     birthDate: Date;
     emailAdres: string;
     password: string; 
-    favoriteArtists: Artist[];
+    favoriteArtists: Types.ObjectId[];
     myTickets: Ticket[];
     following: Types.ObjectId[];
     access_token: '';

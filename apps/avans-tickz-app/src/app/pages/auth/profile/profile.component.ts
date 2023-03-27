@@ -7,6 +7,8 @@ import { Types } from 'mongoose'
 import { Ticket } from '../../entity/ticket/ticket.model';
 import { ConcertService } from '../../entity/concert/concert.service';
 import { ToastrService } from 'ngx-toastr';
+import { ArtistService } from '../../entity/artist/artist.service';
+import { Artist } from '../../entity/artist/artist.model';
 
 @Component({
   selector: 'avans-tickz-profile',
@@ -16,12 +18,14 @@ import { ToastrService } from 'ngx-toastr';
 export class ProfileComponent implements OnInit {
   currentUser!: User;
   tickets!: Ticket[];
+  favoriteArtists!: Artist[]
 
   constructor(
     private authService: AuthService,
     private userService: UserService,
     private concertService: ConcertService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private artistService: ArtistService
   ) {
     this.authService
       .getUserFromLocalStorage()
@@ -29,6 +33,8 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.favoriteArtists = new Array<Artist>()
+    
     this.userService.getUserById(this.currentUser._id).subscribe((user) => {
       this.currentUser = user;
 
@@ -36,6 +42,13 @@ export class ProfileComponent implements OnInit {
         this.concertService.getConcertByName(ticket.concertName).subscribe((concert) => {
         ticket.concert = concert})
         this.tickets = this.currentUser.myTickets
+      });
+
+      console.log(this.currentUser.favoriteArtists)
+      this.currentUser.favoriteArtists.forEach(artistId => {
+        this.artistService.getArtistById(artistId).subscribe((favoriteArtist) => {
+          this.favoriteArtists.push(favoriteArtist)
+        })
       });
 
     });

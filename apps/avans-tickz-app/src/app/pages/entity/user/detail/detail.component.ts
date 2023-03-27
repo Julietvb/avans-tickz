@@ -7,6 +7,7 @@ import { Types } from 'mongoose';
 import { Observable } from 'rxjs';
 import { ArtistService } from '../../artist/artist.service';
 import { AuthService } from '../../../auth/auth.service';
+import { Artist } from '../../artist/artist.model';
 
 @Component({
   selector: 'avans-tickz-detail',
@@ -22,6 +23,7 @@ export class DetailComponent implements OnInit {
   loggedInUser!: User;
   followingList!: User[];
   isFollowing!: boolean;
+  favoriteArtists!: Artist[]
   
   constructor(
     private route: ActivatedRoute,
@@ -33,6 +35,7 @@ export class DetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.followingList = new Array<User>()
+    this.favoriteArtists = new Array<Artist>()
 
     console.log('Detail page aangeroepen');
     this.route.params.subscribe(params => {
@@ -52,6 +55,12 @@ export class DetailComponent implements OnInit {
         this.loggedInUser = localUser;
         this.isFollowing = localUser.following.includes(user._id);
       });
+      this.currentUser.favoriteArtists.forEach(artistId => {
+        this.artistService.getArtistById(artistId).subscribe((favoriteArtist) => {
+          this.favoriteArtists.push(favoriteArtist)
+        })
+      });
+
     });
     this.tabSelected = 'favoriteArtists'
   })
