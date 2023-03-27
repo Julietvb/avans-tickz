@@ -61,12 +61,12 @@ export class CreateConcertComponent implements OnInit {
       this.concertService.createConcert(concert).subscribe((concert) => {
         if (concert != undefined) {
           this.toastr.success(
-            'You can now find and edit your artist in the overview.',
-            'Artist succesfully created'
+            'You can now find and edit your concert in the overview.',
+            'Concert succesfully created'
           );
         } else {
           this.toastr.error(
-            'Artist was not succesfully created',
+            'Concert was not succesfully created',
             'Something went wrong'
           );
         }
