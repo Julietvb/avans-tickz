@@ -1,9 +1,11 @@
-import { Controller, Get, Request, Post, UseGuards } from '@nestjs/common';
+import { Controller, Get, Request, Post, UseGuards, Param } from '@nestjs/common';
 import { AsyncLocalStorage } from 'async_hooks';
 import { AppService } from './app.service';
 import { AuthService } from './auth/auth.service';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { LocalAuthGuard } from './auth/local-auth.guard';
+import { Types } from 'mongoose';
+
 
 @Controller()
 export class AppController {
@@ -19,6 +21,12 @@ export class AppController {
   @Get('profile')
   getProfile(@Request() req){
     return req.user;
+  }
+
+  @UseGuards(JwtAuthGuard)
+  @Get('reccommendations')
+  getReccommendations(@Request() req){
+    return this.appService.getReccommendations(new Types.ObjectId(req.user._id));
   }
   
   @Get()

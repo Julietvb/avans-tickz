@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
     this.authService.login(email, password).subscribe((user) => {
       if (user) {
         this.toastr.success('You are now logged in', 'Log in successful');
-        this.router.navigate([`/`]);
+        this.router.navigate(['/concerts']);
       } else {
         this.toastr.error(
           'You are not successfully logged in',
@@ -38,5 +38,6 @@ export class LoginComponent implements OnInit {
         this.validLogin = false;
       }
     });
+
   }
 }

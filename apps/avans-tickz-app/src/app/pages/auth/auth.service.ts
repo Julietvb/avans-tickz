@@ -147,8 +147,11 @@ export class AuthService {
     };
   }
 
+  getReccommendations() : Observable<string[]>{
+    return this.httpClient.get(`http://localhost:3333/api/reccommendations`, this.getHttpOptions()) as Observable<string[]>
+  }
+
   logout(): void {
-    this.router.navigate(['/']);
     localStorage.removeItem(this.currentUser);
     this.currentUser$.next(undefined);
 

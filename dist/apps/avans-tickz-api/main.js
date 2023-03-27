@@ -15,6 +15,7 @@ const app_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app.se
 const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.service.ts");
 const jwt_auth_guard_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/jwt-auth.guard.ts");
 const local_auth_guard_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/local-auth.guard.ts");
+const mongoose_1 = __webpack_require__("mongoose");
 let AppController = class AppController {
     constructor(appService, authService) {
         this.appService = appService;
@@ -27,6 +28,9 @@ let AppController = class AppController {
     }
     getProfile(req) {
         return req.user;
+    }
+    getReccommendations(req) {
+        return this.appService.getReccommendations(new mongoose_1.Types.ObjectId(req.user._id));
     }
     getData() {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
@@ -51,6 +55,14 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:paramtypes", [Object]),
     tslib_1.__metadata("design:returntype", void 0)
 ], AppController.prototype, "getProfile", null);
+tslib_1.__decorate([
+    (0, common_1.UseGuards)(jwt_auth_guard_1.JwtAuthGuard),
+    (0, common_1.Get)('reccommendations'),
+    tslib_1.__param(0, (0, common_1.Request)()),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object]),
+    tslib_1.__metadata("design:returntype", void 0)
+], AppController.prototype, "getReccommendations", null);
 tslib_1.__decorate([
     (0, common_1.Get)(),
     tslib_1.__metadata("design:type", Function),
@@ -127,6 +139,15 @@ let AppService = class AppService {
             const result = yield this.neo4jService.read('MATCH(n) RETURN count(n) AS count', {});
             const count = result.records[0].get('count');
             return `Hello Neo4j user! There are ${count} nodes in the database`;
+        });
+    }
+    getReccommendations(loggedInUserId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            const recs = yield this.neo4jService.read(`MATCH (me:User {id: '${loggedInUserId}'})-[:FOLLOWS]->(following:User)-[:LIKES]->(artist:Artist)
+      WHERE NOT EXISTS((:User {id: '${loggedInUserId}'})-[:LIKES]->(artist))
+      RETURN DISTINCT artist.id`);
+            const ids = recs.records.map(record => record.get("artist.id"));
+            return ids;
         });
     }
 };
