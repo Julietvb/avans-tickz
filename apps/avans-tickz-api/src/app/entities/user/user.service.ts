@@ -65,6 +65,10 @@ export class UserService {
     return this.userRepository.deleteById(userId);
   }
 
+  async addToFavorite(loggedInUserId: Types.ObjectId, artistId: string): Promise<User> {
+    return this.userRepository.addToFavorite(loggedInUserId, new Types.ObjectId(artistId));
+  }
+
   async follow(loggedInUserId: Types.ObjectId, followUserId: string ): Promise<User> {
     return this.userRepository.follow(loggedInUserId, new Types.ObjectId(followUserId));
   }

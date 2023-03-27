@@ -441,6 +441,7 @@ exports.ArtistModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
+const neo4j_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.module.ts");
 const artist_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.controller.ts");
 const artist_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.repository.ts");
 const artist_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts");
@@ -449,7 +450,14 @@ let ArtistModule = class ArtistModule {
 };
 ArtistModule = tslib_1.__decorate([
     (0, common_1.Module)({
-        imports: [mongoose_1.MongooseModule.forFeature([{ name: artist_schema_1.Artist.name, schema: artist_schema_1.ArtistSchema }])],
+        imports: [mongoose_1.MongooseModule.forFeature([{ name: artist_schema_1.Artist.name, schema: artist_schema_1.ArtistSchema }]),
+            neo4j_module_1.Neo4jModule.forRoot({
+                scheme: 'neo4j',
+                host: 'localhost',
+                port: 7687,
+                username: 'neo4j',
+                password: 'neo'
+            }),],
         controllers: [artist_controller_1.ArtistController],
         providers: [artist_service_1.ArtistService, artist_repository_1.ArtistRepository],
         exports: [artist_repository_1.ArtistRepository]
@@ -464,7 +472,7 @@ exports.ArtistModule = ArtistModule;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a;
+var _a, _b;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ArtistRepository = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -473,9 +481,11 @@ const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
 const artist_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts");
 const mongoose_3 = __webpack_require__("mongoose");
+const neo4j_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts");
 let ArtistRepository = class ArtistRepository {
-    constructor(artistModel) {
+    constructor(artistModel, neo4jService) {
         this.artistModel = artistModel;
+        this.neo4jService = neo4jService;
     }
     findById(artistId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
@@ -489,8 +499,9 @@ let ArtistRepository = class ArtistRepository {
     }
     create(artist) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            const newArtist = new this.artistModel(artist);
-            return yield newArtist.save();
+            const newArtist = yield new this.artistModel(artist).save();
+            const artistNeo = yield this.neo4jService.write(`CREATE (:Artist {id: '${newArtist._id}'})`);
+            return newArtist;
         });
     }
     findOneAndUpdate(artistFilterQuery, artist) {
@@ -507,7 +518,7 @@ let ArtistRepository = class ArtistRepository {
 ArtistRepository = tslib_1.__decorate([
     (0, common_1.Injectable)(),
     tslib_1.__param(0, (0, mongoose_1.InjectModel)(artist_schema_1.Artist.name)),
-    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object])
+    tslib_1.__metadata("design:paramtypes", [typeof (_a = typeof mongoose_2.Model !== "undefined" && mongoose_2.Model) === "function" ? _a : Object, typeof (_b = typeof neo4j_service_1.Neo4jService !== "undefined" && neo4j_service_1.Neo4jService) === "function" ? _b : Object])
 ], ArtistRepository);
 exports.ArtistRepository = ArtistRepository;
 
@@ -1188,7 +1199,7 @@ exports.UpdateUserDto = UpdateUserDto;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l;
+var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -1227,6 +1238,13 @@ let UserController = class UserController {
             // console.log('controller updates:')
             // console.log(updateUserDto.favoriteArtists)
             return this.userService.updateUser(userId, updateUserDto);
+        });
+    }
+    //Favorite
+    addToFavorite(loggedInUser, artistId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            // console.log(`User ${loggedInUser.firstName} wants to follow user with id: ${followUserId}`);
+            return this.userService.addToFavorite(loggedInUser._id, artistId);
         });
     }
     //Follow
@@ -1286,12 +1304,20 @@ tslib_1.__decorate([
     tslib_1.__metadata("design:returntype", typeof (_j = typeof Promise !== "undefined" && Promise) === "function" ? _j : Object)
 ], UserController.prototype, "updateUser", null);
 tslib_1.__decorate([
-    (0, common_1.Post)('/follow/:id'),
+    (0, common_1.Post)('/favorite/:id'),
     tslib_1.__param(0, (0, common_1.Body)()),
     tslib_1.__param(1, (0, common_1.Param)('id')),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [Object, String]),
     tslib_1.__metadata("design:returntype", typeof (_k = typeof Promise !== "undefined" && Promise) === "function" ? _k : Object)
+], UserController.prototype, "addToFavorite", null);
+tslib_1.__decorate([
+    (0, common_1.Post)('/follow/:id'),
+    tslib_1.__param(0, (0, common_1.Body)()),
+    tslib_1.__param(1, (0, common_1.Param)('id')),
+    tslib_1.__metadata("design:type", Function),
+    tslib_1.__metadata("design:paramtypes", [Object, String]),
+    tslib_1.__metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
 ], UserController.prototype, "follow", null);
 tslib_1.__decorate([
     (0, common_1.Post)('/unfollow/:id'),
@@ -1299,7 +1325,7 @@ tslib_1.__decorate([
     tslib_1.__param(1, (0, common_1.Param)('id')),
     tslib_1.__metadata("design:type", Function),
     tslib_1.__metadata("design:paramtypes", [Object, String]),
-    tslib_1.__metadata("design:returntype", typeof (_l = typeof Promise !== "undefined" && Promise) === "function" ? _l : Object)
+    tslib_1.__metadata("design:returntype", typeof (_m = typeof Promise !== "undefined" && Promise) === "function" ? _m : Object)
 ], UserController.prototype, "unfollow", null);
 tslib_1.__decorate([
     (0, common_1.Delete)(':userId'),
@@ -1409,6 +1435,15 @@ let UserRepository = class UserRepository {
     deleteById(userId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
             return yield this.userModel.deleteOne({ _id: new mongoose_3.Types.ObjectId(userId) });
+        });
+    }
+    addToFavorite(loggedInUserId, artistId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            yield this.neo4jService.write(`MATCH (follower:User {id: '${loggedInUserId}'})
+      MATCH (artist:Artist {id: '${artistId}'})
+      MERGE (follower)-[:LIKES]->(artist)`);
+            const updatedUser = this.userModel.findOneAndUpdate({ _id: loggedInUserId }, { $push: { favoriteArtists: artistId._id } }, { new: true });
+            return updatedUser;
         });
     }
     follow(loggedInUserId, followUserId) {
@@ -1552,6 +1587,11 @@ let UserService = class UserService {
     }
     deleteUserById(userId) {
         return this.userRepository.deleteById(userId);
+    }
+    addToFavorite(loggedInUserId, artistId) {
+        return tslib_1.__awaiter(this, void 0, void 0, function* () {
+            return this.userRepository.addToFavorite(loggedInUserId, new mongoose_1.Types.ObjectId(artistId));
+        });
     }
     follow(loggedInUserId, followUserId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {

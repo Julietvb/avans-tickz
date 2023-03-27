@@ -58,9 +58,8 @@ export class DetailArtistComponent implements OnInit {
       this.userService.getUserById(this.currentUser._id).subscribe((user) => {
         this.currentUser = user;
         this.artistService.getArtistById(_id).subscribe((artist) => {
-          this.currentUser.favoriteArtists.push(artist);
           this.userService
-            .updateUser(this.currentUser._id, this.currentUser)
+            .addToFavoriteArtist(artist._id, this.currentUser)
             .subscribe((updatedUser) => {
               if (updatedUser != user) {
                 this.toastr.success(

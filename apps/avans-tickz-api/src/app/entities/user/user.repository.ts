@@ -52,6 +52,26 @@ export class UserRepository {
     return await this.userModel.deleteOne({ _id: new Types.ObjectId(userId) });
   }
 
+  async addToFavorite(
+    loggedInUserId: Types.ObjectId,
+    artistId: Types.ObjectId
+  ): Promise<User> {
+
+    await this.neo4jService.write(
+      `MATCH (follower:User {id: '${loggedInUserId}'})
+      MATCH (artist:Artist {id: '${artistId}'})
+      MERGE (follower)-[:LIKES]->(artist)`
+    );
+
+    const updatedUser = this.userModel.findOneAndUpdate(
+      { _id: loggedInUserId },
+      { $push: { favoriteArtists: artistId._id } },
+      { new: true }
+    );
+
+    return updatedUser;
+  }
+
   async follow(
     loggedInUserId: Types.ObjectId,
     followUserId: Types.ObjectId
