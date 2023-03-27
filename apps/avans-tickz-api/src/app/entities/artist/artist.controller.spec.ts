@@ -9,6 +9,16 @@ describe('ArtistController', () => {
   let controller: ArtistController;
   let service: ArtistService;
 
+  const artist = {
+    name: 'John Doe',
+    birthDate: new Date('1990-01-01'),
+    genre: 'Rock',
+    description: 'A talented musician',
+    artistImage: 'https://example.com/john-doe.jpg',
+    artistHeader: 'https://example.com/john-doe-header.jpg',
+    creatorId: new Types.ObjectId(),
+  }
+
   beforeAll(async () => {
     app = await Test.createTestingModule({
       controllers: [ArtistController],
@@ -33,15 +43,7 @@ describe('ArtistController', () => {
   describe('getAllArtists', () => {
     it('should call getAll on the service', async () => {
       const exampleArtists: Artist[] = [
-        {
-          name: 'John Doe',
-          birthDate: new Date('1990-01-01'),
-          genre: 'Rock',
-          description: 'A talented musician',
-          artistImage: 'https://example.com/john-doe.jpg',
-          artistHeader: 'https://example.com/john-doe-header.jpg',
-          creatorId: new Types.ObjectId(),
-        },
+        artist,
         {
           name: 'Jane Doe',
           birthDate: new Date('1999-01-12'),
@@ -112,19 +114,10 @@ describe('ArtistController', () => {
 
   describe('getArtistById', () => {
     it('should call getById on the service', async () => {
-      const exampleArtist: Artist = {
-        name: 'John Doe',
-        birthDate: new Date('1990-01-01'),
-        genre: 'Rock',
-        description: 'A talented musician',
-        artistImage: 'https://example.com/john-doe.jpg',
-        artistHeader: 'https://example.com/john-doe-header.jpg',
-        creatorId: new Types.ObjectId(),
-      };
 
       const getArtistById = jest
         .spyOn(service, 'getArtistById')
-        .mockImplementation(async () => exampleArtist);
+        .mockImplementation(async () => artist);
 
       const artistId = '639a6d184362b5279e5094a0';
 
@@ -132,73 +125,57 @@ describe('ArtistController', () => {
 
       expect(getArtistById).toBeCalledTimes(1);
 
-      expect(result).toHaveProperty('name', exampleArtist.name);
-      expect(result).toHaveProperty('birthDate', exampleArtist.birthDate);
-      expect(result).toHaveProperty('genre', exampleArtist.genre);
-      expect(result).toHaveProperty('description', exampleArtist.description);
-      expect(result).toHaveProperty('artistImage', exampleArtist.artistImage);
-      expect(result).toHaveProperty('artistHeader', exampleArtist.artistHeader);
-      expect(result).toHaveProperty('creatorId', exampleArtist.creatorId);
+      expect(result).toHaveProperty('name', artist.name);
+      expect(result).toHaveProperty('birthDate', artist.birthDate);
+      expect(result).toHaveProperty('genre', artist.genre);
+      expect(result).toHaveProperty('description', artist.description);
+      expect(result).toHaveProperty('artistImage', artist.artistImage);
+      expect(result).toHaveProperty('artistHeader', artist.artistHeader);
+      expect(result).toHaveProperty('creatorId', artist.creatorId);
     });
   });
 
   describe('createArtist', () => {
     it('should create an artist', async () => {
-      const exampleArtist: Artist = {
-        name: 'John Doe',
-        birthDate: new Date('1990-01-01'),
-        genre: 'Rock',
-        description: 'A talented musician',
-        artistImage: 'https://example.com/john-doe.jpg',
-        artistHeader: 'https://example.com/john-doe-header.jpg',
-        creatorId: new Types.ObjectId(),
-      };
+
 
       const createArtist = jest
         .spyOn(service, 'createArtist')
-        .mockImplementation(async () => exampleArtist);
+        .mockImplementation(async () => artist);
 
-      const result = await controller.createArtist(exampleArtist);
+      const result = await controller.createArtist(artist);
 
       expect(createArtist).toBeCalledTimes(1);
-      expect(result).toHaveProperty('name', exampleArtist.name);
-      expect(result).toHaveProperty('birthDate', exampleArtist.birthDate);
-      expect(result).toHaveProperty('genre', exampleArtist.genre);
-      expect(result).toHaveProperty('description', exampleArtist.description);
-      expect(result).toHaveProperty('artistImage', exampleArtist.artistImage);
-      expect(result).toHaveProperty('artistHeader', exampleArtist.artistHeader);
-      expect(result).toHaveProperty('creatorId', exampleArtist.creatorId);
+      expect(result).toHaveProperty('name', artist.name);
+      expect(result).toHaveProperty('birthDate', artist.birthDate);
+      expect(result).toHaveProperty('genre', artist.genre);
+      expect(result).toHaveProperty('description', artist.description);
+      expect(result).toHaveProperty('artistImage', artist.artistImage);
+      expect(result).toHaveProperty('artistHeader', artist.artistHeader);
+      expect(result).toHaveProperty('creatorId', artist.creatorId);
     });
   });
 
   describe('updateArtist', () => {
     it('should update an artist', async () => {
-      const exampleArtist: Artist = {
-        name: 'John Doe',
-        birthDate: new Date('1990-01-01'),
-        genre: 'Rock',
-        description: 'A talented musician',
-        artistImage: 'https://example.com/john-doe.jpg',
-        artistHeader: 'https://example.com/john-doe-header.jpg',
-        creatorId: new Types.ObjectId(),
-      };
+
 
       const updateArtist = jest
         .spyOn(service, 'updateArtist')
-        .mockImplementation(async () => exampleArtist);
+        .mockImplementation(async () => artist);
 
       const artistId = new Types.ObjectId();
 
-      const result = await controller.updateArtist(artistId, exampleArtist);
+      const result = await controller.updateArtist(artistId, artist);
 
       expect(updateArtist).toBeCalledTimes(1);
-      expect(result).toHaveProperty('name', exampleArtist.name);
-      expect(result).toHaveProperty('birthDate', exampleArtist.birthDate);
-      expect(result).toHaveProperty('genre', exampleArtist.genre);
-      expect(result).toHaveProperty('description', exampleArtist.description);
-      expect(result).toHaveProperty('artistImage', exampleArtist.artistImage);
-      expect(result).toHaveProperty('artistHeader', exampleArtist.artistHeader);
-      expect(result).toHaveProperty('creatorId', exampleArtist.creatorId);
+      expect(result).toHaveProperty('name', artist.name);
+      expect(result).toHaveProperty('birthDate', artist.birthDate);
+      expect(result).toHaveProperty('genre', artist.genre);
+      expect(result).toHaveProperty('description', artist.description);
+      expect(result).toHaveProperty('artistImage', artist.artistImage);
+      expect(result).toHaveProperty('artistHeader', artist.artistHeader);
+      expect(result).toHaveProperty('creatorId', artist.creatorId);
     });
   });
 
