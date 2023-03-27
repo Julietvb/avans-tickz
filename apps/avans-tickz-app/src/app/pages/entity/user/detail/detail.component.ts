@@ -41,6 +41,7 @@ export class DetailComponent implements OnInit {
     this.route.params.subscribe(params => {
     this.userId = new Types.ObjectId(params['userId']);
     this.followingList.length = 0;
+    this.favoriteArtists.length = 0;
     
     this.userService.getUserById(this.userId).subscribe((user) => {
       this.currentUser = user;
