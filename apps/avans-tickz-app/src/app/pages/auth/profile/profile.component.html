@@ -92,6 +92,29 @@
     </tbody>
   </table>
 
+  <table
+  *ngIf="
+    currentUser.following == undefined ||
+    currentUser.following.length == 0
+  "
+  class="table mt-5"
+>
+  <thead>
+    <tr>
+      <th>Following</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        You aren't following anyone yet! Click the follow button on an
+        users detail page to follow them!
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
 <div class="row mb-3">
   <h3>My tickets</h3>
 </div>
