@@ -159,6 +159,10 @@ describe('ArtistController', () => {
   describe('updateArtist', () => {
     it('should update an artist', async () => {
 
+      const updatedArtist = {
+        name : "Updated Artist",
+        ...artist
+      }
 
       const updateArtist = jest
         .spyOn(service, 'updateArtist')

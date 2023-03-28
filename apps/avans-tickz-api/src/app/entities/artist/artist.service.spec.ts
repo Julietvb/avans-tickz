@@ -71,7 +71,7 @@ describe('ArtistService', () => {
       expect(result).toHaveProperty('artistHeader', artist.artistHeader);
       expect(result).toHaveProperty('creatorId', artist.creatorId);
 
-      expect(repository.findById).toBeCalledTimes(1);
+      expect(repository.findById).toHaveBeenCalledTimes(1);
     });
   });
 
@@ -83,7 +83,7 @@ describe('ArtistService', () => {
 
       const results = await service.getAllArtists();
 
-      expect(find).toBeCalledTimes(1);
+      expect(find).toHaveBeenCalledTimes(1);
       expect(results).toHaveLength(2);
 
       expect(results[0]).toHaveProperty('name', exampleArtists[0].name);
@@ -134,37 +134,81 @@ describe('ArtistService', () => {
     });
   });
 
-  //   describe('createArtist', () => {
-  //     it('should create a new artist', async () => {
-  //       const result = await service.createArtist(
-  //         createArtistDto.name,
-  //         createArtistDto.birthDate,
-  //         createArtistDto.genre,
-  //         createArtistDto.description,
-  //         createArtistDto.artistImage,
-  //         createArtistDto.artistHeader,
-  //         createArtistDto.creatorId
-  //       );
-  //       expect(result).toEqual(artist);
-  //       expect(repository.create).toHaveBeenCalledWith(createArtistDto);
-  //     });
-  //   });
+    describe('createArtist', () => {
+      it('should create a new artist', async () => {
 
-  //   describe('updateArtist', () => {
-  //     it('should update an artist', async () => {
-  //       const result = await service.updateArtist(artistId, updateArtistDto);
-  //       expect(result).toEqual(artist);
-  //       expect(repository.findOneAndUpdate).toHaveBeenCalledWith(
-  //         { _id: artistId },
-  //         updateArtistDto
-  //       );
-  //     });
-  //   });
+        const create = jest
+        .spyOn(repository, 'create')
+        .mockImplementation(async () => artist);
+      
+        const result = await service.createArtist(
+          artist.name,
+          artist.birthDate,
+          artist.genre,
+          artist.description,
+          artist.artistImage,
+          artist.artistHeader,
+          artist.creatorId
+        );
 
-  //   describe('deleteArtistById', () => {
-  //     it('should delete an artist', async () => {
-  //       await service.deleteArtistById(artistId);
-  //       expect(repository.deleteById).toHaveBeenCalledWith(artistId);
-  //     });
-  //   });
+        expect(result).toEqual(artist);
+        expect(result).toHaveProperty('name', artist.name);
+        expect(result).toHaveProperty('birthDate', artist.birthDate);
+        expect(result).toHaveProperty('genre', artist.genre);
+        expect(result).toHaveProperty('description', artist.description);
+        expect(result).toHaveProperty('artistImage', artist.artistImage);
+        expect(result).toHaveProperty('artistHeader', artist.artistHeader);
+        expect(result).toHaveProperty('creatorId', artist.creatorId);
+
+        expect(create).toHaveBeenCalledWith(artist);
+        expect(create).toHaveBeenCalledTimes(1);
+
+      });
+    });
+
+    describe('updateArtist', () => {
+      it('should update an artist', async () => {
+        const updatedArtist = {
+            name : "Updated Artist",
+            ...artist
+        }
+
+        const findOneAndUpdate = jest
+        .spyOn(repository, 'findOneAndUpdate')
+        .mockImplementation(async () => artist);
+
+        const result = await service.updateArtist(artistId, updatedArtist);
+
+        expect(result).toEqual(updatedArtist);
+        expect(findOneAndUpdate).toHaveBeenCalledWith(
+          { _id: artistId },
+          updatedArtist
+        );
+        expect(findOneAndUpdate).toHaveBeenCalledTimes(1);
+
+        expect(result).toHaveProperty('name', updatedArtist.name);
+        expect(result).toHaveProperty('birthDate', artist.birthDate);
+        expect(result).toHaveProperty('genre', artist.genre);
+        expect(result).toHaveProperty('description', artist.description);
+        expect(result).toHaveProperty('artistImage', artist.artistImage);
+        expect(result).toHaveProperty('artistHeader', artist.artistHeader);
+        expect(result).toHaveProperty('creatorId', artist.creatorId);
+      });
+    });
+
+    describe('deleteArtistById', () => {
+      it('should delete an artist', async () => {
+        
+        const deleteById = jest
+        .spyOn(repository, 'deleteById');
+
+        const result = await service.deleteArtistById(artistId.toString());
+
+        expect(deleteById).toHaveBeenCalledTimes(1);
+        expect(deleteById).toHaveBeenCalledWith(artistId.toString());
+        
+        expect(result).toBeUndefined()
+
+      });
+    });
 });
