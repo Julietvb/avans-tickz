@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
   login(email: string, password: string): void {
     this.authService.login(email, password).subscribe((user) => {
       if (user) {
+        this.authService.saveUserToLocalStorage(user)
         this.toastr.success('You are now logged in', 'Log in successful');
-        this.router.navigate(['/concerts']);
+        this.router.navigate(['/']);
       } else {
         this.toastr.error(
           'You are not successfully logged in',

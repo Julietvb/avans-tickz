@@ -310,16 +310,16 @@
         class="col-lg-4 col-md-6 col-sm-12 text-right"
         *ngFor="let ticket of tickets"
       >
-        <div class="ticket">
+        <div class="ticket" *ngIf="ticket.concert != undefined">
           <div
             class="ticket-head text-center"
             style="background-image: url({{ticket.concert.venue.venueImage}})"
           >
             <div class="layer"></div>
-            <div class="from-to">{{ ticket.concert.title }}</div>
+            <div class="title">{{ ticket.concert.title }}</div>
           </div>
           <div class="ticket-body">
-            <div class="passenger">
+            <div class="artist">
               <p>Artist</p>
               <h4>{{ ticket.concert.artist.name }}</h4>
             </div>
@@ -344,11 +344,32 @@
             </div>
           </div>
         </div>
+        <div class="ticket" *ngIf="ticket.concert == undefined">
+          <div
+            class="ticket-head text-center"
+            style="background-color: red;"
+          >
+            <div class="layer"></div>
+            <div class="title">{{ ticket.concertName }}</div>
+          </div>
+          <div class="ticket-body">
+            <div class="artist">
+              <h4 style="color: red">Dit concert is geannuleerd.</h4> 
+              Informeer bij de organisator voor meer informatie.
+            </div>
+          </div>
+          <div class="footer">
+            <div class="disclaimer">
+              Disclaimer: Gekochte tickets mogen niet doorverkocht worden,
+              indien er vermoede is van fraude wordt het ticket geannuleerd.
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="row" *ngIf="tickets.length == 0">
+    <div class="ticket-row row" *ngIf="tickets.length == 0">
       <p>
-        You do not have any tickets to upcoming concerts! Explore te current <a routerLink="../concerts">concerts</a> and buy your tickets!
+        You do not have any tickets to upcoming concerts! Explore the current <a routerLink="../concerts">concerts</a> and buy your tickets!
       </p>
     </div>
   </div>

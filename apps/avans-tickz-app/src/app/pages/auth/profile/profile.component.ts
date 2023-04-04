@@ -39,6 +39,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.favoriteArtists = new Array<Artist>();
     this.followingUsers = new Array<User>();
+    this.tickets = new Array<Ticket>();
 
     this.tabSelected = "favoriteArtists"
 
@@ -49,7 +50,9 @@ export class ProfileComponent implements OnInit {
         this.concertService
           .getConcertByName(ticket.concertName)
           .subscribe((concert) => {
-            ticket.concert = concert;
+            if (concert != undefined) {
+              ticket.concert = concert;
+            }
           });
         this.tickets = this.currentUser.myTickets;
       });
