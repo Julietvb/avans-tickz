@@ -29,6 +29,7 @@ export class DetailArtistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+
     this.route.paramMap
       .pipe(
         switchMap((params: ParamMap) =>
@@ -43,12 +44,15 @@ export class DetailArtistComponent implements OnInit {
 
         this.authService.getUserFromLocalStorage().subscribe((user) => {
           this.currentUser = user;
+          this.favoriteArtist = false;
           for (let favoriteArtist of user.favoriteArtists) {
             if (favoriteArtist == artist._id) {
               this.favoriteArtist = true;
               break;
             }
           }
+          console.log(this.favoriteArtist)
+
         });
       });
   }
