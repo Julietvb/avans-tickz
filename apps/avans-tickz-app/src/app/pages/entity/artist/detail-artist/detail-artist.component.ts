@@ -6,7 +6,7 @@ import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../user/user.model';
 import { UserService } from '../../user/user.service';
-import { switchMap } from 'rxjs';
+import { single, switchMap } from 'rxjs';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -18,6 +18,8 @@ export class DetailArtistComponent implements OnInit {
   artist!: Artist;
   currentUser!: User;
   favoriteArtist!: boolean;
+  relatedArtists!: Artist[];
+  artistId!: Types.ObjectId;
 
   constructor(
     private artistService: ArtistService,
@@ -29,28 +31,46 @@ export class DetailArtistComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.route.paramMap
-      .pipe(
-        switchMap((params: ParamMap) =>
-          this.artistService.getArtistById(
-            new Types.ObjectId(params.get('artistId')!)
-          )
-        )
-      )
-      .subscribe((artist) => {
-        this.artist = artist;
-        // console.log(artist);
+    this.relatedArtists = new Array<Artist>();
 
-        this.authService.getUserFromLocalStorage().subscribe((user) => {
-          this.currentUser = user;
-          for (let favoriteArtist of user.favoriteArtists) {
-            if (favoriteArtist == artist._id) {
-              this.favoriteArtist = true;
-              break;
+    this.route.params.subscribe((params) => {
+      this.artistId = new Types.ObjectId(params['artistId']);
+      this.relatedArtists.length = 0;
+
+      this.artistService
+        .getArtistById(new Types.ObjectId(this.artistId))
+        .subscribe((artist) => {
+          this.artist = artist;
+          // console.log(artist);
+          let artistGenres = artist.genre.split(', ');
+
+          this.artistService.getAllArtists().subscribe((artistsArray) => {
+            for (let singleArtist of artistsArray) {
+              let genres = singleArtist.genre.split(', ');
+              for (let genre of genres) {
+                for (let artistGenre of artistGenres) {
+                  if (genre == artistGenre && artist._id != singleArtist._id) {
+                    this.relatedArtists.push(singleArtist);
+                    break;
+                  }
+                }
+              }
             }
-          }
+          });
+
+          console.log(this.relatedArtists);
+
+          this.authService.getUserFromLocalStorage().subscribe((user) => {
+            this.currentUser = user;
+            for (let favoriteArtist of user.favoriteArtists) {
+              if (favoriteArtist == artist._id) {
+                this.favoriteArtist = true;
+                break;
+              }
+            }
+          });
         });
-      });
+    });
   }
 
   addToFavorites(_id: Types.ObjectId) {
