@@ -3,9 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
+    "ng": "nx",
     "start": "nx serve",
     "build": "nx build",
-    "test": "nx test"
+    "build:avans-tickz-app": "nx run avans-tickz-app:build:production",
+    "build:avans-tickz-api": "nx run avans-tickz-api:build:production",
+    "test-avans-tickz-api": "nx test avans-tickz-api"
   },
   "private": true,
   "dependencies": {
