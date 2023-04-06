@@ -35,7 +35,7 @@
     "mongodb-memory-server": "^8.12.2",
     "mongoose": "^7.0.3",
     "neo4j-driver": "^5.7.0",
-    "ng-bootstrap": "^1.6.3",
+    "ng-bootstrap": "^0.46.0",
     "ngx-toastr": "^16.1.0",
     "npm-check-updates": "^16.10.2",
     "passport": "^0.6.0",
