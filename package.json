@@ -10,6 +10,11 @@
     "build:avans-tickz-api": "nx run avans-tickz-api:build:production",
     "test-avans-tickz-api": "nx test avans-tickz-api"
   },
+  
+    "engines": {
+      "node": "^18.15.0"
+    }
+  ,
   "private": true,
   "dependencies": {
     "@angular/animations": "~15.2.5",
