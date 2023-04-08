@@ -870,7 +870,7 @@ exports.ConcertRepository = ConcertRepository;
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConcertSchema = exports.Concert = void 0;
 const tslib_1 = __webpack_require__("tslib");
@@ -895,11 +895,11 @@ tslib_1.__decorate([
 ], Concert.prototype, "time", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_b = typeof Number !== "undefined" && Number) === "function" ? _b : Object)
+    tslib_1.__metadata("design:type", Number)
 ], Concert.prototype, "amountOfTickets", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'Artist' }),
-    tslib_1.__metadata("design:type", typeof (_c = typeof artist_schema_1.Artist !== "undefined" && artist_schema_1.Artist) === "function" ? _c : Object)
+    tslib_1.__metadata("design:type", typeof (_b = typeof artist_schema_1.Artist !== "undefined" && artist_schema_1.Artist) === "function" ? _b : Object)
 ], Concert.prototype, "artist", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)([ticket_schema_1.Ticket]),
@@ -907,11 +907,11 @@ tslib_1.__decorate([
 ], Concert.prototype, "tickets", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)({ type: mongoose_2.Types.ObjectId, ref: 'Venue' }),
-    tslib_1.__metadata("design:type", typeof (_d = typeof venue_schema_1.Venue !== "undefined" && venue_schema_1.Venue) === "function" ? _d : Object)
+    tslib_1.__metadata("design:type", typeof (_c = typeof venue_schema_1.Venue !== "undefined" && venue_schema_1.Venue) === "function" ? _c : Object)
 ], Concert.prototype, "venue", void 0);
 tslib_1.__decorate([
     (0, mongoose_1.Prop)(),
-    tslib_1.__metadata("design:type", typeof (_e = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _e : Object)
+    tslib_1.__metadata("design:type", typeof (_d = typeof mongoose_2.Types !== "undefined" && mongoose_2.Types.ObjectId) === "function" ? _d : Object)
 ], Concert.prototype, "creatorId", void 0);
 Concert = tslib_1.__decorate([
     (0, mongoose_1.Schema)()
