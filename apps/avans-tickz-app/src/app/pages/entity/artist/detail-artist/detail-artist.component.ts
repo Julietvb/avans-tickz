@@ -58,7 +58,7 @@ export class DetailArtistComponent implements OnInit {
             }
           });
 
-          console.log(this.relatedArtists);
+          // console.log(this.relatedArtists);
 
           this.authService.getUserFromLocalStorage().subscribe((user) => {
             this.currentUser = user;
@@ -82,11 +82,11 @@ export class DetailArtistComponent implements OnInit {
             .addToFavoriteArtist(_id, this.currentUser)
             .subscribe((updatedUser) => {
               if (updatedUser != user) {
+                this.authService.saveUserToLocalStorage(updatedUser);
                 this.toastr.success(
                   'Artist has been added to your favorites',
-                  'Favorited!'
+                  'Favvorited!'
                 );
-                this.authService.saveUserToLocalStorage(updatedUser);
               } else {
                 this.toastr.error(
                   'Artist was not added to your favorites',

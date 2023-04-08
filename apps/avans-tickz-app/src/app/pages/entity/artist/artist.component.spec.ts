@@ -27,19 +27,17 @@ describe('ArtistComponent', () => {
     artistHeader: 'https://example.com/john-doe-header.jpg',
     creatorId: new Types.ObjectId(),
   };
-  const exampleArtists: Artist[] = [
-    artist,
-    {
-      _id: new Types.ObjectId('63913b615640812705d69976'),
-      name: 'Jane Doe',
-      birthDate: new Date('1999-01-12'),
-      genre: 'Classic',
-      description: 'A talented musician',
-      artistImage: 'https://example.com/jane-doe.jpg',
-      artistHeader: 'https://example.com/jane-doe-header.jpg',
-      creatorId: new Types.ObjectId(),
-    },
-  ];
+  const artist2: Artist = {
+    _id: new Types.ObjectId('63913b615640812705d69976'),
+    name: 'Jane Doe',
+    birthDate: new Date('1999-01-12'),
+    genre: 'Classic',
+    description: 'A talented musician',
+    artistImage: 'https://example.com/jane-doe.jpg',
+    artistHeader: 'https://example.com/jane-doe-header.jpg',
+    creatorId: new Types.ObjectId(),
+  };
+  const exampleArtists: Artist[] = [artist, artist2];
 
   const exampleUser: User = {
     _id: new Types.ObjectId('6391333037ceb01d296c5982'),
@@ -54,20 +52,6 @@ describe('ArtistComponent', () => {
     access_token: '',
   };
 
-  let accesToken: '' = '';
-  const wrongUser = {
-    _id: new Types.ObjectId(undefined),
-    firstName: '',
-    lastName: '',
-    birthDate: new Date(),
-    emailAdres: '',
-    password: '',
-    favoriteArtists: [],
-    following: [],
-    myTickets: [],
-    access_token: accesToken,
-  };
-
   beforeEach(async () => {
     artistServiceMock = {
       getAllArtists: jest.fn().mockReturnValue(of(exampleArtists)),
@@ -76,7 +60,7 @@ describe('ArtistComponent', () => {
     authServiceMock = {
       getUserFromLocalStorage: jest.fn().mockReturnValue(of(exampleUser)),
       logout: jest.fn().mockReturnValue(undefined),
-      currentUser$ : new BehaviorSubject<User | undefined>(undefined)
+      currentUser$: new BehaviorSubject<User | undefined>(undefined),
     } as unknown as jest.Mocked<AuthService>;
 
     userServiceMock = {
@@ -137,7 +121,7 @@ describe('ArtistComponent', () => {
     authServiceMock.logout.mockReturnValue(undefined);
     component.ngOnInit();
 
-    expect(authServiceMock.currentUser$.value).toBeUndefined()
+    expect(authServiceMock.currentUser$.value).toBeUndefined();
   });
 
   it('should set currentUser if user is authenticated', () => {
@@ -156,7 +140,9 @@ describe('ArtistComponent', () => {
     );
     expect(component.currentUser.following).toEqual(exampleUser.following);
     expect(component.currentUser.myTickets).toEqual(exampleUser.myTickets);
-    expect(component.currentUser.access_token).toEqual(exampleUser.access_token);
+    expect(component.currentUser.access_token).toEqual(
+      exampleUser.access_token
+    );
   });
 
   it('should set userAuthenticated to true if user is authenticated', () => {
@@ -176,6 +162,8 @@ describe('ArtistComponent', () => {
     );
     expect(component.currentUser.following).toEqual(exampleUser.following);
     expect(component.currentUser.myTickets).toEqual(exampleUser.myTickets);
-    expect(component.currentUser.access_token).toEqual(exampleUser.access_token);
+    expect(component.currentUser.access_token).toEqual(
+      exampleUser.access_token
+    );
   });
 });
