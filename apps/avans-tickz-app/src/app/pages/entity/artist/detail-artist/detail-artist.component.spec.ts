@@ -1,6 +1,11 @@
 import { HttpClient, HttpHandler } from '@angular/common/http';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+  fakeAsync,
+  tick,
+} from '@angular/core/testing';
 import { ActivatedRoute, convertToParamMap } from '@angular/router';
 import { BehaviorSubject, of } from 'rxjs';
 import 'fast-text-encoding';
@@ -94,7 +99,7 @@ describe('DetailArtistComponent', () => {
     authServiceMock = {
       getUserFromLocalStorage: jest.fn().mockReturnValue(of(exampleUser)),
       saveUserToLocalStorage: jest.fn().mockReturnValue(of(exampleUserUpdated)),
-      currentUser$: new BehaviorSubject<User | undefined>(undefined)
+      currentUser$: new BehaviorSubject<User | undefined>(undefined),
     } as unknown as jest.Mocked<AuthService>;
 
     userServiceMock = {
@@ -138,88 +143,97 @@ describe('DetailArtistComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('Should call getArtistById', (done) => {
-    component.ngOnInit();
+  describe('Get artist', () => {
+    it('Should call getArtistById', (done) => {
+      component.ngOnInit();
 
-    expect(artistServiceMock.getArtistById).toHaveBeenCalledWith(artist._id);
+      expect(artistServiceMock.getArtistById).toHaveBeenCalledWith(artist._id);
 
-    expect(component.artistId).toEqual(artist._id);
-    expect(component.artist).toEqual(artist);
+      expect(component.artistId).toEqual(artist._id);
+      expect(component.artist).toEqual(artist);
 
-    expect(component.artist._id).toEqual(artist._id);
-    expect(component.artist.name).toEqual(artist.name);
-    expect(component.artist.genre).toEqual(artist.genre);
-    expect(component.artist.birthDate).toEqual(artist.birthDate);
-    expect(component.artist.description).toEqual(artist.description);
-    expect(component.artist.artistImage).toEqual(artist.artistImage);
-    expect(component.artist.artistHeader).toEqual(artist.artistHeader);
-    expect(component.artist.creatorId).toEqual(artist.creatorId);
+      expect(component.artist._id).toEqual(artist._id);
+      expect(component.artist.name).toEqual(artist.name);
+      expect(component.artist.genre).toEqual(artist.genre);
+      expect(component.artist.birthDate).toEqual(artist.birthDate);
+      expect(component.artist.description).toEqual(artist.description);
+      expect(component.artist.artistImage).toEqual(artist.artistImage);
+      expect(component.artist.artistHeader).toEqual(artist.artistHeader);
+      expect(component.artist.creatorId).toEqual(artist.creatorId);
 
-    expect(artistServiceMock.getArtistById).toBeCalled();
-    expect(artistServiceMock.getArtistById).toBeTruthy();
-    done();
+      expect(artistServiceMock.getArtistById).toBeCalled();
+      expect(artistServiceMock.getArtistById).toBeTruthy();
+      done();
+    });
+  });
+  
+  describe('Set related artists', () => {
+    it('should set the related artists based on the genre', () => {
+      expect(artistServiceMock.getAllArtists).toBeCalled();
+      expect(component.relatedArtists).toEqual([relatedArtist]);
+      expect(component.relatedArtists[0]._id).toEqual(relatedArtist._id);
+      expect(component.relatedArtists[0].name).toEqual(relatedArtist.name);
+      expect(component.relatedArtists[0].genre).toEqual(relatedArtist.genre);
+      expect(component.relatedArtists[0].birthDate).toEqual(
+        relatedArtist.birthDate
+      );
+      expect(component.relatedArtists[0].description).toEqual(
+        relatedArtist.description
+      );
+      expect(component.relatedArtists[0].artistImage).toEqual(
+        relatedArtist.artistImage
+      );
+      expect(component.relatedArtists[0].artistHeader).toEqual(
+        relatedArtist.artistHeader
+      );
+      expect(component.relatedArtists[0].creatorId).toEqual(
+        relatedArtist.creatorId
+      );
+    });
   });
 
-  it('should set the related artists based on the genre', () => {
+  describe('Add to favorites', () => {
+    it('should add artist to favorites', () => {
+      component.favoriteArtist = false;
+      component.ngOnInit();
+      component.addToFavorites(artist._id);
 
-    expect(artistServiceMock.getAllArtists).toBeCalled()
-    expect(component.relatedArtists).toEqual([relatedArtist]);
-    expect(component.relatedArtists[0]._id).toEqual(relatedArtist._id);
-    expect(component.relatedArtists[0].name).toEqual(relatedArtist.name);
-    expect(component.relatedArtists[0].genre).toEqual(relatedArtist.genre);
-    expect(component.relatedArtists[0].birthDate).toEqual(relatedArtist.birthDate);
-    expect(component.relatedArtists[0].description).toEqual(relatedArtist.description);
-    expect(component.relatedArtists[0].artistImage).toEqual(relatedArtist.artistImage);
-    expect(component.relatedArtists[0].artistHeader).toEqual(relatedArtist.artistHeader);
-    expect(component.relatedArtists[0].creatorId).toEqual(relatedArtist.creatorId);
+      expect(userServiceMock.getUserById).toHaveBeenCalledWith(exampleUser._id);
+      expect(artistServiceMock.getArtistById).toHaveBeenCalledWith(artist._id);
+      expect(userServiceMock.addToFavoriteArtist).toHaveBeenCalledWith(
+        artist._id,
+        exampleUser
+      );
+
+      expect(authServiceMock.saveUserToLocalStorage).toHaveBeenCalledWith(
+        exampleUserUpdated
+      );
+
+      expect(routerMock.navigate).toHaveBeenCalledWith(['/profile']);
+    });
   });
 
-  it('should add artist to favorites',() => {
-    component.favoriteArtist = false;
-    component.ngOnInit();
-    component.addToFavorites(artist._id);
+  describe('Remove from favorites', () => {
+    it('should remove artist from favorites', () => {
+      component.addToFavorites(artist._id);
+      component.favoriteArtist = true;
+      component.removeFromFavorites(artist._id);
 
+      expect(userServiceMock.getUserById).toHaveBeenCalledWith(
+        exampleUserUpdated._id
+      );
+      expect(artistServiceMock.getArtistById).toHaveBeenCalledWith(artist._id);
 
-    expect(userServiceMock.getUserById).toHaveBeenCalledWith(
-      exampleUser._id
-    );
-    expect(artistServiceMock.getArtistById).toHaveBeenCalledWith(
-      artist._id
-    );
-    expect(userServiceMock.addToFavoriteArtist).toHaveBeenCalledWith(
-      artist._id,
-      exampleUser
-    );
-    
-    expect(authServiceMock.saveUserToLocalStorage).toHaveBeenCalledWith(
-      exampleUserUpdated
-    );
+      expect(userServiceMock.removeFromFavoriteArtist).toHaveBeenCalledWith(
+        artist._id,
+        exampleUser
+      );
 
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/profile']);
-  });
+      expect(authServiceMock.saveUserToLocalStorage).toHaveBeenCalledWith(
+        exampleUserUpdated
+      );
 
-  it('should remove artist from favorites', () => {
-    component.addToFavorites(artist._id);
-    component.favoriteArtist = true;
-    component.removeFromFavorites(artist._id);
-
-    expect(userServiceMock.getUserById).toHaveBeenCalledWith(
-      exampleUserUpdated._id
-    );
-    expect(artistServiceMock.getArtistById).toHaveBeenCalledWith(
-      artist._id
-    );
-
-    expect(userServiceMock.removeFromFavoriteArtist).toHaveBeenCalledWith(
-      artist._id,
-      exampleUser
-    );
-    
-    expect(authServiceMock.saveUserToLocalStorage).toHaveBeenCalledWith(
-      exampleUserUpdated
-    );
-
-    expect(routerMock.navigate).toHaveBeenCalledWith(['/profile']);
-
+      expect(routerMock.navigate).toHaveBeenCalledWith(['/profile']);
+    });
   });
 });

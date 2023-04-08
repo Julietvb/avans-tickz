@@ -86,84 +86,88 @@ describe('ArtistComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call getAllArtists on init', () => {
-    component.ngOnInit();
-    const result = component.artists;
-    expect(result.length).toBe(2);
-    expect(result[0]._id).toEqual(exampleArtists[0]._id);
-    expect(result[0].name).toEqual(exampleArtists[0].name);
-    expect(result[0].genre).toEqual(exampleArtists[0].genre);
-    expect(result[0].birthDate).toEqual(exampleArtists[0].birthDate);
-    expect(result[0].description).toEqual(exampleArtists[0].description);
-    expect(result[0].artistImage).toEqual(exampleArtists[0].artistImage);
-    expect(result[0].artistHeader).toEqual(exampleArtists[0].artistHeader);
-    expect(result[0].creatorId).toEqual(exampleArtists[0].creatorId);
+  describe('Get all aritsts', () => {
+    it('should call getAllArtists on init', () => {
+      component.ngOnInit();
+      const result = component.artists;
+      expect(result.length).toBe(2);
+      expect(result[0]._id).toEqual(exampleArtists[0]._id);
+      expect(result[0].name).toEqual(exampleArtists[0].name);
+      expect(result[0].genre).toEqual(exampleArtists[0].genre);
+      expect(result[0].birthDate).toEqual(exampleArtists[0].birthDate);
+      expect(result[0].description).toEqual(exampleArtists[0].description);
+      expect(result[0].artistImage).toEqual(exampleArtists[0].artistImage);
+      expect(result[0].artistHeader).toEqual(exampleArtists[0].artistHeader);
+      expect(result[0].creatorId).toEqual(exampleArtists[0].creatorId);
 
-    expect(result[1]._id).toEqual(exampleArtists[1]._id);
-    expect(result[1].name).toEqual(exampleArtists[1].name);
-    expect(result[1].genre).toEqual(exampleArtists[1].genre);
-    expect(result[1].birthDate).toEqual(exampleArtists[1].birthDate);
-    expect(result[1].description).toEqual(exampleArtists[1].description);
-    expect(result[1].artistImage).toEqual(exampleArtists[1].artistImage);
-    expect(result[1].artistHeader).toEqual(exampleArtists[1].artistHeader);
-    expect(result[1].creatorId).toEqual(exampleArtists[1].creatorId);
+      expect(result[1]._id).toEqual(exampleArtists[1]._id);
+      expect(result[1].name).toEqual(exampleArtists[1].name);
+      expect(result[1].genre).toEqual(exampleArtists[1].genre);
+      expect(result[1].birthDate).toEqual(exampleArtists[1].birthDate);
+      expect(result[1].description).toEqual(exampleArtists[1].description);
+      expect(result[1].artistImage).toEqual(exampleArtists[1].artistImage);
+      expect(result[1].artistHeader).toEqual(exampleArtists[1].artistHeader);
+      expect(result[1].creatorId).toEqual(exampleArtists[1].creatorId);
 
-    expect(artistServiceMock.getAllArtists).toHaveBeenCalled();
+      expect(artistServiceMock.getAllArtists).toHaveBeenCalled();
+    });
   });
 
-  it('should call getUserFromLocalStorage on init', () => {
-    component.ngOnInit();
-    expect(authServiceMock.getUserFromLocalStorage).toHaveBeenCalled();
-  });
+  describe('User authentication', () => {
+    it('should call getUserFromLocalStorage on init', () => {
+      component.ngOnInit();
+      expect(authServiceMock.getUserFromLocalStorage).toHaveBeenCalled();
+    });
 
-  it('should set currentUser to null if user is not authenticated', () => {
-    authServiceMock.getUserFromLocalStorage.mockReturnValue(of(exampleUser));
-    authServiceMock.logout.mockReturnValue(undefined);
-    component.ngOnInit();
+    it('should set currentUser to null if user is not authenticated', () => {
+      authServiceMock.getUserFromLocalStorage.mockReturnValue(of(exampleUser));
+      authServiceMock.logout.mockReturnValue(undefined);
+      component.ngOnInit();
 
-    expect(authServiceMock.currentUser$.value).toBeUndefined();
-  });
+      expect(authServiceMock.currentUser$.value).toBeUndefined();
+    });
 
-  it('should set currentUser if user is authenticated', () => {
-    authServiceMock.getUserFromLocalStorage.mockReturnValue(of(exampleUser));
-    userServiceMock.getUserById.mockReturnValue(of(exampleUser));
-    component.ngOnInit();
-    expect(component.currentUser).toEqual(exampleUser);
-    expect(component.currentUser._id).toEqual(exampleUser._id);
-    expect(component.currentUser.firstName).toEqual(exampleUser.firstName);
-    expect(component.currentUser.lastName).toEqual(exampleUser.lastName);
-    expect(component.currentUser.birthDate).toEqual(exampleUser.birthDate);
-    expect(component.currentUser.emailAdres).toEqual(exampleUser.emailAdres);
-    expect(component.currentUser.password).toEqual(exampleUser.password);
-    expect(component.currentUser.favoriteArtists).toEqual(
-      exampleUser.favoriteArtists
-    );
-    expect(component.currentUser.following).toEqual(exampleUser.following);
-    expect(component.currentUser.myTickets).toEqual(exampleUser.myTickets);
-    expect(component.currentUser.access_token).toEqual(
-      exampleUser.access_token
-    );
-  });
+    it('should set currentUser if user is authenticated', () => {
+      authServiceMock.getUserFromLocalStorage.mockReturnValue(of(exampleUser));
+      userServiceMock.getUserById.mockReturnValue(of(exampleUser));
+      component.ngOnInit();
+      expect(component.currentUser).toEqual(exampleUser);
+      expect(component.currentUser._id).toEqual(exampleUser._id);
+      expect(component.currentUser.firstName).toEqual(exampleUser.firstName);
+      expect(component.currentUser.lastName).toEqual(exampleUser.lastName);
+      expect(component.currentUser.birthDate).toEqual(exampleUser.birthDate);
+      expect(component.currentUser.emailAdres).toEqual(exampleUser.emailAdres);
+      expect(component.currentUser.password).toEqual(exampleUser.password);
+      expect(component.currentUser.favoriteArtists).toEqual(
+        exampleUser.favoriteArtists
+      );
+      expect(component.currentUser.following).toEqual(exampleUser.following);
+      expect(component.currentUser.myTickets).toEqual(exampleUser.myTickets);
+      expect(component.currentUser.access_token).toEqual(
+        exampleUser.access_token
+      );
+    });
 
-  it('should set userAuthenticated to true if user is authenticated', () => {
-    authServiceMock.getUserFromLocalStorage.mockReturnValue(of(exampleUser));
-    userServiceMock.getUserById.mockReturnValue(of(exampleUser));
-    component.ngOnInit();
-    expect(component.userAuthenticated).toBe(true);
-    expect(component.currentUser).toEqual(exampleUser);
-    expect(component.currentUser._id).toEqual(exampleUser._id);
-    expect(component.currentUser.firstName).toEqual(exampleUser.firstName);
-    expect(component.currentUser.lastName).toEqual(exampleUser.lastName);
-    expect(component.currentUser.birthDate).toEqual(exampleUser.birthDate);
-    expect(component.currentUser.emailAdres).toEqual(exampleUser.emailAdres);
-    expect(component.currentUser.password).toEqual(exampleUser.password);
-    expect(component.currentUser.favoriteArtists).toEqual(
-      exampleUser.favoriteArtists
-    );
-    expect(component.currentUser.following).toEqual(exampleUser.following);
-    expect(component.currentUser.myTickets).toEqual(exampleUser.myTickets);
-    expect(component.currentUser.access_token).toEqual(
-      exampleUser.access_token
-    );
+    it('should set userAuthenticated to true if user is authenticated', () => {
+      authServiceMock.getUserFromLocalStorage.mockReturnValue(of(exampleUser));
+      userServiceMock.getUserById.mockReturnValue(of(exampleUser));
+      component.ngOnInit();
+      expect(component.userAuthenticated).toBe(true);
+      expect(component.currentUser).toEqual(exampleUser);
+      expect(component.currentUser._id).toEqual(exampleUser._id);
+      expect(component.currentUser.firstName).toEqual(exampleUser.firstName);
+      expect(component.currentUser.lastName).toEqual(exampleUser.lastName);
+      expect(component.currentUser.birthDate).toEqual(exampleUser.birthDate);
+      expect(component.currentUser.emailAdres).toEqual(exampleUser.emailAdres);
+      expect(component.currentUser.password).toEqual(exampleUser.password);
+      expect(component.currentUser.favoriteArtists).toEqual(
+        exampleUser.favoriteArtists
+      );
+      expect(component.currentUser.following).toEqual(exampleUser.following);
+      expect(component.currentUser.myTickets).toEqual(exampleUser.myTickets);
+      expect(component.currentUser.access_token).toEqual(
+        exampleUser.access_token
+      );
+    });
   });
 });
