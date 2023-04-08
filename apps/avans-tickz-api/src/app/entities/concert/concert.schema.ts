@@ -16,7 +16,7 @@ export class Concert {
   @Prop()
   time: string;
   @Prop()
-  amountOfTickets: Number;
+  amountOfTickets: number;
   @Prop({ type: Types.ObjectId, ref: 'Artist' })
   artist!: Artist;
   @Prop([Ticket])
