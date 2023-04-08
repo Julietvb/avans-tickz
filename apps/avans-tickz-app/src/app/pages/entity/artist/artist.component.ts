@@ -38,7 +38,5 @@ export class ArtistComponent implements OnInit {
         this.userAuthenticated = true;
       }
     });
-
-    console.log(this.currentUser.favoriteArtists);
   }
 }

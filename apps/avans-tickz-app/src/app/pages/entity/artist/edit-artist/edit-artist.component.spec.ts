@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import 'fast-text-encoding';
 
 import { EditArtistComponent } from './edit-artist.component';
 
