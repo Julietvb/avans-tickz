@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
   currentUser!: User;
   tickets!: Ticket[];
   favoriteArtists!: Artist[];
+  followingUsers!: User[];
+  tabSelected!: string;
 
   constructor(
     private authService: AuthService,
@@ -36,6 +38,10 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.favoriteArtists = new Array<Artist>();
+    this.followingUsers = new Array<User>();
+    this.tickets = new Array<Ticket>();
+
+    this.tabSelected = "favoriteArtists"
 
     this.userService.getUserById(this.currentUser._id).subscribe((user) => {
       this.currentUser = user;
@@ -44,7 +50,9 @@ export class ProfileComponent implements OnInit {
         this.concertService
           .getConcertByName(ticket.concertName)
           .subscribe((concert) => {
-            ticket.concert = concert;
+            if (concert != undefined) {
+              ticket.concert = concert;
+            }
           });
         this.tickets = this.currentUser.myTickets;
       });
@@ -57,6 +65,12 @@ export class ProfileComponent implements OnInit {
             this.favoriteArtists.push(favoriteArtist);
           });
       });
+
+      this.currentUser.following.forEach((userId) => {
+        this.userService.getUserById(userId).subscribe((user) => {
+          this.followingUsers.push(user);
+        })
+      })
     });
   }
 
@@ -74,8 +88,8 @@ export class ProfileComponent implements OnInit {
           if (updatedUser != user) {
             this.authService.saveUserToLocalStorage(updatedUser);
             this.toastr.success(
-              'Removed',
-              'Artist has been removed from your favorites'
+              'Artist has been removed from your favorites',
+              'Removed!'
             );      
             this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
             this.router.navigate(['/profile/']));    
@@ -87,5 +101,9 @@ export class ProfileComponent implements OnInit {
           }
         });
     });
+  }
+
+  tabChange(tab: string){
+    this.tabSelected = tab;
   }
 }

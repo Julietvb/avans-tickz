@@ -1,5 +1,4 @@
-
-<div class="container">
+<!-- <div class="container">
   <table class="table mt-2">
     <thead>
       <tr align="center">
@@ -39,10 +38,7 @@
         <th></th>
       </tr>
     </thead>
-    <tbody
-      *ngFor="let favoriteArtist of favoriteArtists"
-      align="center"
-    >
+    <tbody *ngFor="let favoriteArtist of favoriteArtists" align="center">
       <tr>
         <td>{{ favoriteArtist.name }}</td>
         <td>Genre: {{ favoriteArtist.genre }}</td>
@@ -93,60 +89,288 @@
   </table>
 
   <table
-  *ngIf="
-    currentUser.following == undefined ||
-    currentUser.following.length == 0
-  "
-  class="table mt-5"
->
-  <thead>
-    <tr>
-      <th>Following</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>
-        You aren't following anyone yet! Click the follow button on an
-        users detail page to follow them!
-      </td>
-    </tr>
-  </tbody>
-</table>
+    *ngIf="
+      currentUser.following == undefined || currentUser.following.length == 0
+    "
+    class="table mt-5"
+  >
+    <thead>
+      <tr>
+        <th>Following</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          You aren't following anyone yet! Click the follow button on an users
+          detail page to follow them!
+        </td>
+      </tr>
+    </tbody>
+  </table>
 
+  <table
+    *ngIf="
+      currentUser.following != undefined && currentUser.following.length != 0
+    "
+    class="table mt-5"
+  >
+    <thead>
+      <tr>
+        <th>Following</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody *ngFor="let user of followingUsers">
+      <tr>
+        <td>{{ user.firstName }}</td>
+        <td>{{ user.lastName }}</td>
+        <td>{{ user.emailAdres }}</td>
+        <td>
+          {{ user.birthDate | date: 'dd-MM-yyyy' }}
+        </td>
+      </tr>
+    </tbody>
+  </table> -->
+<div class="container">
+  <div class="profile">
+    <div class="profile-header">
+      <div class="profile-header-content">
+        <ul class="profile-header-tab nav nav-tabs nav-tabs-v2">
+          <li class="nav-item">
+            <a
+              [ngClass]="
+                tabSelected == 'favoriteArtists'
+                  ? 'nav-link-active'
+                  : 'nav-link'
+              "
+              (click)="tabChange('favoriteArtists')"
+            >
+              <div class="nav-field">Favorite Artists</div>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a
+              [ngClass]="
+                tabSelected == 'following' ? 'nav-link-active' : 'nav-link'
+              "
+              (click)="tabChange('following')"
+            >
+              <div class="nav-field">Following</div>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
 
-<div class="row mb-3">
-  <h3>My tickets</h3>
-</div>
-<div class="row">
-    <div class="col-lg-4 col-md-6 col-sm-12 text-right" *ngFor="let ticket of tickets">
-      <div class="ticket">
-        <div class="ticket-head text-center" style="background-image: url({{ticket.concert.venue.venueImage}})">
-          <div class="layer"></div>
-          <div class="from-to">{{ticket.concert.title}}</div>
-        </div>
-        <div class="ticket-body">
-          <div class="passenger">
-            <p>Artist</p>
-            <h4>{{ticket.concert.artist.name}}</h4>
+    <div class="profile-container row">
+      <div class="profile-sidebar col-sm-12 col-md-4 col-lg-4">
+        <div class="desktop-sticky-top">
+          <h4>{{ currentUser.firstName }} {{ currentUser.lastName }}</h4>
+          <div class="font-weight-600 mb-3 text-muted mt-n2">
+            {{ currentUser.emailAdres }}
           </div>
-          <div class="ticket-info row">
-            <div class="col-6">
-              <p>date</p>
-              <h5>{{ticket.concert.date | date: 'dd-MM-yyyy'}}</h5>
-            </div>
-            <div class="col-6">
-              <p>venue</p>
-              <h5>{{ticket.concert.venue.venueName}}</h5>
+          <p>{{ currentUser.birthDate | date: 'dd-MM-yyyy' }}</p>
+          <button class="btn" routerLink="/users/{{ currentUser._id }}/edit">
+            <i class="fa fa-pencil"></i>
+           Edit user
+          </button>
+          <hr class="mt-4 mb-4" />
+        </div>
+      </div>
+
+      <div
+        class="profile-content col-sm-12 col-md-8 col-lg-8"
+        *ngIf="tabSelected === 'favoriteArtists'"
+      >
+        <div class="row">
+          <div class="col-xl-12">
+            <div class="tab-content p-0">
+              <div class="tab-pane fade active show" id="favoriteArtists">
+                <div class="list-group" *ngFor="let artist of favoriteArtists">
+                  <div
+                    class="list-group-item d-flex align-items-center"
+                    [routerLink]="['../artists/', artist._id]"
+                  >
+                    <img
+                      src="{{ artist.artistImage }}"
+                      alt=""
+                      width="50px"
+                      class="rounded-sm ml-n2 me-3"
+                    />
+                    <div class="flex-fill pl-3 pr-3">
+                      <div>
+                        <a class="text-dark font-weight-600">{{
+                          artist.name
+                        }}</a>
+                      </div>
+                      <div class="text-muted fs-13px">{{ artist.genre }}</div>
+                    </div>
+                    <a class="btn" (click)="removeFromFavorites(artist._id)">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-heart"
+                        viewBox="0 0 16 16"
+                      >
+                        <path
+                          d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                        />
+                      </svg>
+                      Remove from favorites
+                    </a>
+                  </div>
+                </div>
+                <div class="row" *ngIf="favoriteArtists.length == 0">
+                  <p>
+                    You do not have any favorite artists! Explore artists and
+                    add them to your favorites!
+                  </p>
+                </div>
+
+                <div class="text-center p-3">
+                  <a
+                    [routerLink]="['../artists']"
+                    class="text-dark text-decoration-underline"
+                    >Show all artists
+                    <i class="fa fa-arrow-right text-decoration-underline"></i
+                  ></a>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="ticket-date">€{{ticket.price}} - {{ticket.type}}</div>
         </div>
-        <div class="footer">
-          <div class="disclaimer">Disclaimer: Gekochte tickets mogen niet doorverkocht worden, indien er vermoede is van fraude wordt het ticket geannuleerd.</div>
+      </div>
+      <div
+        class="profile-content col-sm-12 col-md-8 col-lg-8"
+        *ngIf="tabSelected === 'following'"
+      >
+        <div class="row" *ngIf="followingUsers.length != 0">
+          <div class="col-xl-12">
+            <div class="tab-content p-0">
+              <div class="tab-pane fade active show" id="following">
+                <div
+                  class="list-group"
+                  *ngFor="let followUser of followingUsers"
+                >
+                  <div
+                    class="list-group-item d-flex align-items-center"
+                    *ngIf="followUser != undefined"
+                  >
+                    <i class="fa fa-user me-3"></i>
+                    <div class="flex-fill pl-3 pr-3">
+                      <div>
+                        <a class="text-dark font-weight-600"
+                          >{{ followUser.firstName }}
+                          {{ followUser.lastName }}</a
+                        >
+                      </div>
+                      <!-- <div class="text-muted fs-13px">{{artist.genre}}</div> -->
+                    </div>
+                    <a
+                      [routerLink]="['../users', followUser._id]"
+                      class="btn btn-outline-primary"
+                      >View profile</a
+                    >
+                  </div>
+                </div>
+                <div class="row" *ngIf="followingUsers.length == 0">
+                  <p>
+                    You do not follow anyone! Follow other users with similar
+                    interests to get specific reccommendations!
+                  </p>
+                </div>
+                <div class="text-center p-3">
+                  <a
+                    [routerLink]="['../users']"
+                    class="text-dark text-decoration-underline"
+                    >Show all users
+                    <i class="fa fa-arrow-right text-decoration-underline"></i
+                  ></a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
+
+    <div class="row ticket-row mb-3">
+      <h3>My tickets</h3>
+    </div>
+    <div class="row ticket-row" *ngIf="tickets.length != 0">
+      <div
+        class="col-lg-4 col-md-6 col-sm-12 text-right"
+        *ngFor="let ticket of tickets"
+      >
+        <div class="ticket" *ngIf="ticket.concert != undefined">
+          <div
+            class="ticket-head text-center"
+            style="background-image: url({{ticket.concert.venue.venueImage}})"
+          >
+            <div class="layer"></div>
+            <div class="title">{{ ticket.concert.title }}</div>
+          </div>
+          <div class="ticket-body">
+            <div class="artist">
+              <p>Artist</p>
+              <h4>{{ ticket.concert.artist.name }}</h4>
+            </div>
+            <div class="ticket-info row">
+              <div class="col-6">
+                <p>date</p>
+                <h5>{{ ticket.concert.date | date: 'dd-MM-yyyy' }}</h5>
+              </div>
+              <div class="col-6">
+                <p>venue</p>
+                <h5>{{ ticket.concert.venue.venueName }}</h5>
+              </div>
+            </div>
+            <div class="ticket-date">
+              €{{ ticket.price }} - {{ ticket.type }}
+            </div>
+          </div>
+          <div class="footer">
+            <div class="disclaimer">
+              Disclaimer: Gekochte tickets mogen niet doorverkocht worden,
+              indien er vermoede is van fraude wordt het ticket geannuleerd.
+            </div>
+          </div>
+        </div>
+        <div class="ticket" *ngIf="ticket.concert == undefined">
+          <div
+            class="ticket-head text-center"
+            style="background-color: red;"
+          >
+            <div class="layer"></div>
+            <div class="title">{{ ticket.concertName }}</div>
+          </div>
+          <div class="ticket-body">
+            <div class="artist">
+              <h4 style="color: red">Dit concert is geannuleerd.</h4> 
+              Informeer bij de organisator voor meer informatie.
+            </div>
+          </div>
+          <div class="footer">
+            <div class="disclaimer">
+              Disclaimer: Gekochte tickets mogen niet doorverkocht worden,
+              indien er vermoede is van fraude wordt het ticket geannuleerd.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ticket-row row" *ngIf="tickets.length == 0">
+      <p>
+        You do not have any tickets to upcoming concerts! Explore the current <a routerLink="../concerts">concerts</a> and buy your tickets!
+      </p>
+    </div>
   </div>
-    
 </div>

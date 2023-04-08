@@ -2,7 +2,7 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
-/***/ "./apps/avans-tickz-api/src/app/app.controller.ts":
+/***/ "./src/app/app.controller.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -11,12 +11,12 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppController = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const app_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app.service.ts");
-const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.service.ts");
-const jwt_auth_guard_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/jwt-auth.guard.ts");
-const local_auth_guard_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/local-auth.guard.ts");
+const app_service_1 = __webpack_require__("./src/app/app.service.ts");
+const auth_service_1 = __webpack_require__("./src/app/auth/auth.service.ts");
+const jwt_auth_guard_1 = __webpack_require__("./src/app/auth/jwt-auth.guard.ts");
+const local_auth_guard_1 = __webpack_require__("./src/app/auth/local-auth.guard.ts");
 const mongoose_1 = __webpack_require__("mongoose");
-const artist_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.service.ts");
+const artist_service_1 = __webpack_require__("./src/app/entities/artist/artist.service.ts");
 let AppController = class AppController {
     constructor(appService, authService, artistService) {
         this.appService = appService;
@@ -88,7 +88,7 @@ exports.AppController = AppController;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/app.module.ts":
+/***/ "./src/app/app.module.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -96,15 +96,15 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const app_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app.controller.ts");
-const app_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app.service.ts");
+const app_controller_1 = __webpack_require__("./src/app/app.controller.ts");
+const app_service_1 = __webpack_require__("./src/app/app.service.ts");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const user_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.module.ts");
-const concert_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.module.ts");
-const venue_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.module.ts");
-const auth_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.module.ts");
-const artist_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.module.ts");
-const neo4j_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.module.ts");
+const user_module_1 = __webpack_require__("./src/app/entities/user/user.module.ts");
+const concert_module_1 = __webpack_require__("./src/app/entities/concert/concert.module.ts");
+const venue_module_1 = __webpack_require__("./src/app/entities/venue/venue.module.ts");
+const auth_module_1 = __webpack_require__("./src/app/auth/auth.module.ts");
+const artist_module_1 = __webpack_require__("./src/app/entities/artist/artist.module.ts");
+const neo4j_module_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.module.ts");
 let AppModule = class AppModule {
 };
 AppModule = tslib_1.__decorate([
@@ -127,7 +127,7 @@ exports.AppModule = AppModule;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/app.service.ts":
+/***/ "./src/app/app.service.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -136,7 +136,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AppService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const neo4j_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts");
+const neo4j_service_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.service.ts");
 let AppService = class AppService {
     /**
      *
@@ -170,7 +170,7 @@ exports.AppService = AppService;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/auth/auth.module.ts":
+/***/ "./src/app/auth/auth.module.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -178,13 +178,13 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.service.ts");
-const user_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.module.ts");
+const auth_service_1 = __webpack_require__("./src/app/auth/auth.service.ts");
+const user_module_1 = __webpack_require__("./src/app/entities/user/user.module.ts");
 const passport_1 = __webpack_require__("@nestjs/passport");
-const local_strategy_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/local.strategy.ts");
+const local_strategy_1 = __webpack_require__("./src/app/auth/local.strategy.ts");
 const jwt_1 = __webpack_require__("@nestjs/jwt");
-const constants_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/constants.ts");
-const jwt_strategy_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/jwt.strategy.ts");
+const constants_1 = __webpack_require__("./src/app/auth/constants.ts");
+const jwt_strategy_1 = __webpack_require__("./src/app/auth/jwt.strategy.ts");
 let AuthModule = class AuthModule {
 };
 AuthModule = tslib_1.__decorate([
@@ -206,7 +206,7 @@ exports.AuthModule = AuthModule;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/auth/auth.service.ts":
+/***/ "./src/app/auth/auth.service.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -215,7 +215,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.AuthService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const user_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.service.ts");
+const user_service_1 = __webpack_require__("./src/app/entities/user/user.service.ts");
 const jwt_1 = __webpack_require__("@nestjs/jwt");
 let AuthService = class AuthService {
     constructor(userService, jwtService) {
@@ -251,7 +251,7 @@ exports.AuthService = AuthService;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/auth/constants.ts":
+/***/ "./src/app/auth/constants.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -264,7 +264,7 @@ exports.jwtConstants = {
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/auth/jwt-auth.guard.ts":
+/***/ "./src/app/auth/jwt-auth.guard.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -283,7 +283,7 @@ exports.JwtAuthGuard = JwtAuthGuard;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/auth/jwt.strategy.ts":
+/***/ "./src/app/auth/jwt.strategy.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -293,7 +293,7 @@ const tslib_1 = __webpack_require__("tslib");
 const passport_jwt_1 = __webpack_require__("passport-jwt");
 const passport_1 = __webpack_require__("@nestjs/passport");
 const common_1 = __webpack_require__("@nestjs/common");
-const constants_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/constants.ts");
+const constants_1 = __webpack_require__("./src/app/auth/constants.ts");
 let JwtStrategy = class JwtStrategy extends (0, passport_1.PassportStrategy)(passport_jwt_1.Strategy) {
     constructor() {
         super({
@@ -319,7 +319,7 @@ exports.JwtStrategy = JwtStrategy;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/auth/local-auth.guard.ts":
+/***/ "./src/app/auth/local-auth.guard.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -338,7 +338,7 @@ exports.LocalAuthGuard = LocalAuthGuard;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/auth/local.strategy.ts":
+/***/ "./src/app/auth/local.strategy.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -349,7 +349,7 @@ const tslib_1 = __webpack_require__("tslib");
 const passport_local_1 = __webpack_require__("passport-local");
 const passport_1 = __webpack_require__("@nestjs/passport");
 const common_1 = __webpack_require__("@nestjs/common");
-const auth_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/auth/auth.service.ts");
+const auth_service_1 = __webpack_require__("./src/app/auth/auth.service.ts");
 let LocalStrategy = class LocalStrategy extends (0, passport_1.PassportStrategy)(passport_local_1.Strategy) {
     constructor(authService) {
         super();
@@ -375,7 +375,7 @@ exports.LocalStrategy = LocalStrategy;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/artist/artist.controller.ts":
+/***/ "./src/app/entities/artist/artist.controller.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -384,9 +384,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ArtistController = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const create_artist_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/dto/create-artist.dto.ts");
-const update_artist_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/dto/update-artist.dto.ts");
-const artist_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.service.ts");
+const create_artist_dto_1 = __webpack_require__("./src/app/entities/artist/dto/create-artist.dto.ts");
+const update_artist_dto_1 = __webpack_require__("./src/app/entities/artist/dto/update-artist.dto.ts");
+const artist_service_1 = __webpack_require__("./src/app/entities/artist/artist.service.ts");
 const mongoose_1 = __webpack_require__("mongoose");
 let ArtistController = class ArtistController {
     constructor(artistService) {
@@ -463,7 +463,7 @@ exports.ArtistController = ArtistController;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/artist/artist.module.ts":
+/***/ "./src/app/entities/artist/artist.module.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -472,11 +472,11 @@ exports.ArtistModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const neo4j_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.module.ts");
-const artist_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.controller.ts");
-const artist_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.repository.ts");
-const artist_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts");
-const artist_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.service.ts");
+const neo4j_module_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.module.ts");
+const artist_controller_1 = __webpack_require__("./src/app/entities/artist/artist.controller.ts");
+const artist_repository_1 = __webpack_require__("./src/app/entities/artist/artist.repository.ts");
+const artist_schema_1 = __webpack_require__("./src/app/entities/artist/artist.schema.ts");
+const artist_service_1 = __webpack_require__("./src/app/entities/artist/artist.service.ts");
 let ArtistModule = class ArtistModule {
 };
 ArtistModule = tslib_1.__decorate([
@@ -499,7 +499,7 @@ exports.ArtistModule = ArtistModule;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/artist/artist.repository.ts":
+/***/ "./src/app/entities/artist/artist.repository.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -510,9 +510,9 @@ const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
-const artist_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts");
+const artist_schema_1 = __webpack_require__("./src/app/entities/artist/artist.schema.ts");
 const mongoose_3 = __webpack_require__("mongoose");
-const neo4j_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts");
+const neo4j_service_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.service.ts");
 let ArtistRepository = class ArtistRepository {
     constructor(artistModel, neo4jService) {
         this.artistModel = artistModel;
@@ -556,7 +556,7 @@ exports.ArtistRepository = ArtistRepository;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts":
+/***/ "./src/app/entities/artist/artist.schema.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -605,7 +605,7 @@ exports.ArtistSchema = mongoose_1.SchemaFactory.createForClass(Artist);
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/artist/artist.service.ts":
+/***/ "./src/app/entities/artist/artist.service.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -614,7 +614,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ArtistService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const artist_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.repository.ts");
+const artist_repository_1 = __webpack_require__("./src/app/entities/artist/artist.repository.ts");
 let ArtistService = class ArtistService {
     constructor(artistRepository) {
         this.artistRepository = artistRepository;
@@ -652,7 +652,7 @@ exports.ArtistService = ArtistService;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/artist/dto/create-artist.dto.ts":
+/***/ "./src/app/entities/artist/dto/create-artist.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -665,7 +665,7 @@ exports.CreateArtistDto = CreateArtistDto;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/artist/dto/update-artist.dto.ts":
+/***/ "./src/app/entities/artist/dto/update-artist.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -678,7 +678,7 @@ exports.UpdateArtistDto = UpdateArtistDto;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.controller.ts":
+/***/ "./src/app/entities/concert/concert.controller.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -687,9 +687,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConcertController = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const create_concert_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/dto/create-concert.dto.ts");
-const update_concert_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/dto/update-concert.dto.ts");
-const concert_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.service.ts");
+const create_concert_dto_1 = __webpack_require__("./src/app/entities/concert/dto/create-concert.dto.ts");
+const update_concert_dto_1 = __webpack_require__("./src/app/entities/concert/dto/update-concert.dto.ts");
+const concert_service_1 = __webpack_require__("./src/app/entities/concert/concert.service.ts");
 const mongoose_1 = __webpack_require__("mongoose");
 let ConcertController = class ConcertController {
     constructor(concertService) {
@@ -779,7 +779,7 @@ exports.ConcertController = ConcertController;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.module.ts":
+/***/ "./src/app/entities/concert/concert.module.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -788,10 +788,10 @@ exports.ConcertModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const concert_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.controller.ts");
-const concert_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.repository.ts");
-const concert_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.schema.ts");
-const concert_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.service.ts");
+const concert_controller_1 = __webpack_require__("./src/app/entities/concert/concert.controller.ts");
+const concert_repository_1 = __webpack_require__("./src/app/entities/concert/concert.repository.ts");
+const concert_schema_1 = __webpack_require__("./src/app/entities/concert/concert.schema.ts");
+const concert_service_1 = __webpack_require__("./src/app/entities/concert/concert.service.ts");
 let ConcertModule = class ConcertModule {
 };
 ConcertModule = tslib_1.__decorate([
@@ -806,7 +806,7 @@ exports.ConcertModule = ConcertModule;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.repository.ts":
+/***/ "./src/app/entities/concert/concert.repository.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -817,7 +817,7 @@ const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
-const concert_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.schema.ts");
+const concert_schema_1 = __webpack_require__("./src/app/entities/concert/concert.schema.ts");
 const mongoose_3 = __webpack_require__("mongoose");
 let ConcertRepository = class ConcertRepository {
     constructor(concertModel) {
@@ -866,7 +866,7 @@ exports.ConcertRepository = ConcertRepository;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.schema.ts":
+/***/ "./src/app/entities/concert/concert.schema.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -874,11 +874,11 @@ var _a, _b, _c, _d, _e;
 Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConcertSchema = exports.Concert = void 0;
 const tslib_1 = __webpack_require__("tslib");
-const venue_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts");
+const venue_schema_1 = __webpack_require__("./src/app/entities/venue/venue.schema.ts");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
-const artist_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/artist/artist.schema.ts");
-const ticket_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts");
+const artist_schema_1 = __webpack_require__("./src/app/entities/artist/artist.schema.ts");
+const ticket_schema_1 = __webpack_require__("./src/app/entities/ticket/ticket.schema.ts");
 let Concert = class Concert {
 };
 tslib_1.__decorate([
@@ -922,7 +922,7 @@ exports.ConcertSchema = mongoose_1.SchemaFactory.createForClass(Concert);
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/concert/concert.service.ts":
+/***/ "./src/app/entities/concert/concert.service.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -931,7 +931,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.ConcertService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const concert_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/concert/concert.repository.ts");
+const concert_repository_1 = __webpack_require__("./src/app/entities/concert/concert.repository.ts");
 const mongoose_1 = __webpack_require__("mongoose");
 let ConcertService = class ConcertService {
     constructor(concertRepository) {
@@ -1002,7 +1002,7 @@ exports.ConcertService = ConcertService;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/concert/dto/create-concert.dto.ts":
+/***/ "./src/app/entities/concert/dto/create-concert.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1015,7 +1015,7 @@ exports.CreateConcertDto = CreateConcertDto;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/concert/dto/update-concert.dto.ts":
+/***/ "./src/app/entities/concert/dto/update-concert.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1028,7 +1028,7 @@ exports.UpdateConcertDto = UpdateConcertDto;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j-config.interface.ts":
+/***/ "./src/app/entities/neo4j/neo4j-config.interface.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1037,7 +1037,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.constants.ts":
+/***/ "./src/app/entities/neo4j/neo4j.constants.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1049,7 +1049,7 @@ exports.NEO4J_DRIVER = 'NEO4J_DRIVER';
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.module.ts":
+/***/ "./src/app/entities/neo4j/neo4j.module.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1058,9 +1058,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.Neo4jModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const neo4j_constants_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.constants.ts");
-const neo4j_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts");
-const neo4j_util_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.util.ts");
+const neo4j_constants_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.constants.ts");
+const neo4j_service_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.service.ts");
+const neo4j_util_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.util.ts");
 let Neo4jModule = Neo4jModule_1 = class Neo4jModule {
     static forRoot(config) {
         return {
@@ -1091,7 +1091,7 @@ exports.Neo4jModule = Neo4jModule;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts":
+/***/ "./src/app/entities/neo4j/neo4j.service.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1101,8 +1101,8 @@ exports.Neo4jService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const neo4j_driver_1 = __webpack_require__("neo4j-driver");
-const neo4j_config_interface_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j-config.interface.ts");
-const neo4j_constants_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.constants.ts");
+const neo4j_config_interface_1 = __webpack_require__("./src/app/entities/neo4j/neo4j-config.interface.ts");
+const neo4j_constants_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.constants.ts");
 let Neo4jService = class Neo4jService {
     constructor(config, driver) {
         this.config = config;
@@ -1146,7 +1146,7 @@ exports.Neo4jService = Neo4jService;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.util.ts":
+/***/ "./src/app/entities/neo4j/neo4j.util.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1164,7 +1164,7 @@ exports.createDriver = createDriver;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts":
+/***/ "./src/app/entities/ticket/ticket.schema.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1200,7 +1200,7 @@ exports.Ticket = Ticket;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/user/dto/create-user.dto.ts":
+/***/ "./src/app/entities/user/dto/create-user.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1213,7 +1213,7 @@ exports.CreateUserDto = CreateUserDto;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/user/dto/update-user.dto.ts":
+/***/ "./src/app/entities/user/dto/update-user.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1226,7 +1226,7 @@ exports.UpdateUserDto = UpdateUserDto;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/user/user.controller.ts":
+/***/ "./src/app/entities/user/user.controller.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1235,9 +1235,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserController = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const create_user_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/dto/create-user.dto.ts");
-const update_user_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/dto/update-user.dto.ts");
-const user_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.service.ts");
+const create_user_dto_1 = __webpack_require__("./src/app/entities/user/dto/create-user.dto.ts");
+const update_user_dto_1 = __webpack_require__("./src/app/entities/user/dto/update-user.dto.ts");
+const user_service_1 = __webpack_require__("./src/app/entities/user/user.service.ts");
 const mongoose_1 = __webpack_require__("mongoose");
 let UserController = class UserController {
     constructor(userService) {
@@ -1384,7 +1384,7 @@ exports.UserController = UserController;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/user/user.module.ts":
+/***/ "./src/app/entities/user/user.module.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1393,11 +1393,11 @@ exports.UserModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const neo4j_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.module.ts");
-const user_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.controller.ts");
-const user_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.repository.ts");
-const user_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.schema.ts");
-const user_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.service.ts");
+const neo4j_module_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.module.ts");
+const user_controller_1 = __webpack_require__("./src/app/entities/user/user.controller.ts");
+const user_repository_1 = __webpack_require__("./src/app/entities/user/user.repository.ts");
+const user_schema_1 = __webpack_require__("./src/app/entities/user/user.schema.ts");
+const user_service_1 = __webpack_require__("./src/app/entities/user/user.service.ts");
 let UserModule = class UserModule {
 };
 UserModule = tslib_1.__decorate([
@@ -1420,7 +1420,7 @@ exports.UserModule = UserModule;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/user/user.repository.ts":
+/***/ "./src/app/entities/user/user.repository.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1431,9 +1431,9 @@ const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
-const user_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.schema.ts");
+const user_schema_1 = __webpack_require__("./src/app/entities/user/user.schema.ts");
 const mongoose_3 = __webpack_require__("mongoose");
-const neo4j_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/neo4j/neo4j.service.ts");
+const neo4j_service_1 = __webpack_require__("./src/app/entities/neo4j/neo4j.service.ts");
 let UserRepository = class UserRepository {
     constructor(userModel, neo4jService) {
         this.userModel = userModel;
@@ -1525,7 +1525,7 @@ exports.UserRepository = UserRepository;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/user/user.schema.ts":
+/***/ "./src/app/entities/user/user.schema.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1534,7 +1534,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserSchema = exports.User = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const ticket_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/ticket/ticket.schema.ts");
+const ticket_schema_1 = __webpack_require__("./src/app/entities/ticket/ticket.schema.ts");
 let User = class User {
 };
 tslib_1.__decorate([
@@ -1581,7 +1581,7 @@ exports.UserSchema = mongoose_1.SchemaFactory.createForClass(User);
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/user/user.service.ts":
+/***/ "./src/app/entities/user/user.service.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1590,7 +1590,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.UserService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const user_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/user/user.repository.ts");
+const user_repository_1 = __webpack_require__("./src/app/entities/user/user.repository.ts");
 const mongoose_1 = __webpack_require__("mongoose");
 let UserService = class UserService {
     constructor(userRepository) {
@@ -1668,7 +1668,7 @@ exports.UserService = UserService;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/venue/dto/create-venue.dto.ts":
+/***/ "./src/app/entities/venue/dto/create-venue.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1681,7 +1681,7 @@ exports.CreateVenueDto = CreateVenueDto;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/venue/dto/update-venue.dto.ts":
+/***/ "./src/app/entities/venue/dto/update-venue.dto.ts":
 /***/ ((__unused_webpack_module, exports) => {
 
 
@@ -1694,7 +1694,7 @@ exports.UpdateVenueDto = UpdateVenueDto;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.controller.ts":
+/***/ "./src/app/entities/venue/venue.controller.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1703,9 +1703,9 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.VenueController = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const create_venue_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/dto/create-venue.dto.ts");
-const update_venue_dto_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/dto/update-venue.dto.ts");
-const venue_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.service.ts");
+const create_venue_dto_1 = __webpack_require__("./src/app/entities/venue/dto/create-venue.dto.ts");
+const update_venue_dto_1 = __webpack_require__("./src/app/entities/venue/dto/update-venue.dto.ts");
+const venue_service_1 = __webpack_require__("./src/app/entities/venue/venue.service.ts");
 const mongoose_1 = __webpack_require__("mongoose");
 let VenueController = class VenueController {
     constructor(venueService) {
@@ -1771,7 +1771,7 @@ exports.VenueController = VenueController;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.module.ts":
+/***/ "./src/app/entities/venue/venue.module.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1780,10 +1780,10 @@ exports.VenueModule = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
-const venue_controller_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.controller.ts");
-const venue_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.repository.ts");
-const venue_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts");
-const venue_service_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.service.ts");
+const venue_controller_1 = __webpack_require__("./src/app/entities/venue/venue.controller.ts");
+const venue_repository_1 = __webpack_require__("./src/app/entities/venue/venue.repository.ts");
+const venue_schema_1 = __webpack_require__("./src/app/entities/venue/venue.schema.ts");
+const venue_service_1 = __webpack_require__("./src/app/entities/venue/venue.service.ts");
 let VenueModule = class VenueModule {
 };
 VenueModule = tslib_1.__decorate([
@@ -1798,7 +1798,7 @@ exports.VenueModule = VenueModule;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.repository.ts":
+/***/ "./src/app/entities/venue/venue.repository.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1809,7 +1809,7 @@ const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const mongoose_1 = __webpack_require__("@nestjs/mongoose");
 const mongoose_2 = __webpack_require__("mongoose");
-const venue_schema_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts");
+const venue_schema_1 = __webpack_require__("./src/app/entities/venue/venue.schema.ts");
 const mongoose_3 = __webpack_require__("mongoose");
 let VenueRepository = class VenueRepository {
     constructor(venueModel) {
@@ -1848,7 +1848,7 @@ exports.VenueRepository = VenueRepository;
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.schema.ts":
+/***/ "./src/app/entities/venue/venue.schema.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1888,7 +1888,7 @@ exports.VenueSchema = mongoose_1.SchemaFactory.createForClass(Venue);
 
 /***/ }),
 
-/***/ "./apps/avans-tickz-api/src/app/entities/venue/venue.service.ts":
+/***/ "./src/app/entities/venue/venue.service.ts":
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
 
@@ -1897,7 +1897,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.VenueService = void 0;
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
-const venue_repository_1 = __webpack_require__("./apps/avans-tickz-api/src/app/entities/venue/venue.repository.ts");
+const venue_repository_1 = __webpack_require__("./src/app/entities/venue/venue.repository.ts");
 let VenueService = class VenueService {
     constructor(venueRepository) {
         this.venueRepository = venueRepository;
@@ -2041,7 +2041,7 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 const tslib_1 = __webpack_require__("tslib");
 const common_1 = __webpack_require__("@nestjs/common");
 const core_1 = __webpack_require__("@nestjs/core");
-const app_module_1 = __webpack_require__("./apps/avans-tickz-api/src/app/app.module.ts");
+const app_module_1 = __webpack_require__("./src/app/app.module.ts");
 function bootstrap() {
     return tslib_1.__awaiter(this, void 0, void 0, function* () {
         const app = yield core_1.NestFactory.create(app_module_1.AppModule);
