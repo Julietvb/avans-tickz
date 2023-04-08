@@ -39,6 +39,7 @@ export class EditComponent implements OnInit {
       this.user = updatedUser;
       this.authService.saveUserToLocalStorage(updatedUser);
     });
-    this.router.navigate([`../profile`]);
+    this.router.navigateByUrl('/', {skipLocationChange: true}).then(()=>
+    this.router.navigate(['/profile']));
   }
 }
