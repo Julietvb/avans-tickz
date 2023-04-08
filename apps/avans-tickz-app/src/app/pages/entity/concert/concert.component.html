@@ -1,10 +1,21 @@
+
 <div class="container">
   <div class="row mt-2">
     <h1 class="col-md-10">All concerts</h1>
-    <button class="btn col-md-2 pull-right" routerLink="/concerts/create"> Add concert <i class="fa fa-plus"></i> </button>
+    <button
+      class="btn col-md-2 pull-right"
+      routerLink="/concerts/create"
+      *ngIf="userAuthenticated"
+    >
+      Add concert <i class="fa fa-plus"></i>
+    </button>
   </div>
   <div class="row mb-5">
-    <div class="card col-6 concert-card" *ngFor="let concert of concerts" routerLink="{{ concert._id }}">
+    <div
+      class="card col-6 concert-card"
+      *ngFor="let concert of concerts"
+      routerLink="{{ concert._id }}"
+    >
       <div class="card card-custom bg-white border-white border-0">
         <div
           class="card-custom-img"
@@ -15,27 +26,50 @@
         <div class="card-custom-avatar">
           <img
             class="img-fluid"
-            src="https://t4.ftcdn.net/jpg/02/29/75/83/360_F_229758328_7x8jwCwjtBMmC6rgFzLFhZoEpLobB6L8.jpg"
+            src="{{concert.artist.artistImage}}"
             alt="Avatar"
           />
         </div>
-        <div class="card-body card-concert" style="overflow-y: auto">
+        <div class="card-body card-concert pb-1" style="overflow-y: auto">
           <h4 class="card-title">{{ concert.title }}</h4>
           <ul class="card-text">
-            <li>{{ concert.date | date:('dd-MM-yyyy') }}</li>
+            <li>{{ concert.date | date: 'dd-MM-yyyy' }}</li>
             <li>{{ concert.time }}</li>
-            <li><a routerLink="">{{concert.venue.venueName}}</a></li>
+            <li>
+              <a routerLink="">{{ concert.venue.venueName }}</a>
+            </li>
             <li *ngIf="concert.amountOfTickets > 0">
               {{ concert.amountOfTickets }} ticket(s) left
             </li>
-            <li *ngIf="concert.amountOfTickets <= 0" class="soldOut-text">Uitverkocht</li>
+            <li *ngIf="concert.amountOfTickets <= 0" class="soldOut-text">
+              Uitverkocht
+            </li>
           </ul>
         </div>
         <div
-          class="card-footer"
+          class="card-footer pt-1 pb-3"
           style="background: inherit; border-color: inherit"
+          *ngIf="userAuthenticated"
         >
-          <a class="btn" routerLink="{{concert._id}}/edit">Edit concert</a>
+          <a
+            class="btn pull-right"
+            *ngIf="concert.creatorId == currentUser._id"
+            routerLink="{{ concert._id }}/edit"
+            >Edit concert</a
+          >
+          <a
+          class="btn pull-right"
+          *ngIf="concert.creatorId != currentUser._id"
+          routerLink=""
+          >Buy Tickets</a
+        >
+        </div>
+        <div
+          class="card-footer pt-1 pb-3"
+          style="background: inherit; border-color: inherit"
+          *ngIf="!userAuthenticated"
+        >
+          <a class="btn pull-right" routerLink="{{ concert._id }}">Read more</a>
         </div>
       </div>
     </div>

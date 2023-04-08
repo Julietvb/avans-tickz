@@ -1,0 +1,126 @@
+
+<section>
+  <div class="container py-5 h-100">
+    <div class="row justify-content-center align-items-center h-100">
+      <div class="col-12 col-lg-9 col-xl-7">
+        <div
+          class="card shadow-2-strong card-registration"
+          style="border-radius: 15px"
+        >
+          <div class="card-body p-4 p-md-5">
+            <h3 class="mb-4 pb-2 pb-md-0 mb-md-5">Registration Form</h3>
+            <form
+              #userRegister="ngForm"
+              (ngSubmit)="registerUser(userRegister.value)"
+            >
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="firstName">First Name</label>
+                    <input
+                      id="firstName"
+                      type="text"
+                      name="firstName"
+                      ngModel
+                      #firstName="ngModel"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <div class="form-outline">
+                    <label class="form-label" for="lastName">Last Name</label>
+                    <input
+                      id="user lastName"
+                      type="text"
+                      name="lastName"
+                      ngModel
+                      #lastName="ngModel"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 d-flex align-items-center">
+                  <div class="form-outline datepicker w-100">
+                    <label for="birthDate" class="form-label">Birthday</label>
+                    <input
+                      id="birthDate"
+                      type="date"
+                      name="birthDate"
+                      ngModel
+                      #birthDate="ngModel"
+                      class="form-control"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <label class="form-label" for="emailAdres">*Email</label>
+                    <input
+                      id="emailAdres"
+                      type="text"
+                      name="emailAdres"
+                      ngModel
+                      #emailAdres="ngModel"
+                      pattern="[\w-\.]+@([\w-]+\.)+[\w-]{2,4}"
+                      [ngClass]="{
+                        'is-invalid': emailAdres.invalid && emailAdres.touched
+                      }"
+                      class="form-control"
+                      required
+                    />
+                    <div
+                    *ngIf="emailAdres.invalid"
+                    class="invalid-feedback"
+                  >
+                    <div *ngIf="emailAdres.errors?.['required']">
+                      Please enter an email.
+                    </div>
+                    <div *ngIf="emailAdres.errors?.['pattern']">
+                      Please enter a valid email.
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                <div class="col-md-6 mb-4 pb-2">
+                  <div class="form-outline">
+                    <label class="form-label" for="password">*Password</label>
+                    <input
+                      id="password"
+                      type="text"
+                      name="password"
+                      ngModel
+                      #password="ngModel"
+                      [ngClass]="{
+                        'is-invalid': password.invalid && password.touched
+                      }"
+                      class="form-control"
+                      required
+                    />
+                    <div
+                      *ngIf="password.invalid"
+                      class="invalid-feedback"
+                    >
+                      <div *ngIf="password.errors?.['required']">
+                        Please enter a password.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button *ngIf="!userRegister.valid"class="btn disabled">Register</button>
+              <button *ngIf="userRegister.valid" type="submit" class="btn">Register</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

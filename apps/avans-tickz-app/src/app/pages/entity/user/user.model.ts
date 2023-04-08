@@ -1,9 +1,16 @@
+import { Types } from "mongoose";
+import { Artist } from "../artist/artist.model";
+import { Ticket } from "../ticket/ticket.model";
+
 export interface User {
-    userId: Number;
+    _id: Types.ObjectId;
     firstName: string;
     lastName: string;
     birthDate: Date;
     emailAdres: string;
     password: string; 
-    favoriteArtists: string[];
+    favoriteArtists: Types.ObjectId[];
+    myTickets: Ticket[];
+    following: Types.ObjectId[];
+    access_token: '';
 }

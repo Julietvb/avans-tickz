@@ -8,7 +8,6 @@ export class ArtistService {
   constructor(private readonly artistRepository: ArtistRepository) {}
 
   getArtistById(artistId: string): Promise<Artist> {
-    console.log('service getById aangeroepen');
     return this.artistRepository.findById(artistId);
   }
 
@@ -22,7 +21,8 @@ export class ArtistService {
     genre: string,
     description: string,
     artistImage: string,
-    artistHeader: string
+    artistHeader: string,
+    creatorId: Types.ObjectId
   ): Promise<Artist> {
     return this.artistRepository.create({
       name,
@@ -31,6 +31,7 @@ export class ArtistService {
       description,
       artistImage,
       artistHeader,
+      creatorId
     });
   }
 

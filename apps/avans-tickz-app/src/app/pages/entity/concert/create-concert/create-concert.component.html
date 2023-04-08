@@ -1,3 +1,4 @@
+
 <section>
   <div class="container py-5 h-100">
     <div class="row justify-content-center align-items-center h-100">
@@ -236,7 +237,8 @@
                   </div>
                 </div>
               </div>
-              <button type="submit" class="btn mt-3">Create concert</button>
+              <button *ngIf="!createConcertForm.valid" class="btn mt-3 disabled">Create concert</button>
+              <button *ngIf="createConcertForm.valid" type="submit" class="btn mt-3">Create concert</button>
             </form>
           </div>
         </div>

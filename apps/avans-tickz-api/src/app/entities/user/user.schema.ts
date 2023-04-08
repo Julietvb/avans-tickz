@@ -23,11 +23,17 @@ export class User {
   @Prop()
   password: string;
 
-  @Prop([String])
+  @Prop()
   favoriteArtists: Artist[];
 
   @Prop([Ticket])
   myTickets: Ticket[];
+
+  @Prop({
+    default: [],
+    ref: 'User',
+  })
+  following : Types.ObjectId[]
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)

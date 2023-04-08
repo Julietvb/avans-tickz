@@ -35,7 +35,6 @@ export class EditConcertComponent implements OnInit {
     this.concertService
       .updateConcert(this.concertId, concert)
       .subscribe((editedConcert) => (this.concert = editedConcert));
-    this.router.navigate(['/rerouteconcert']);
     this.router.navigate([`/concerts/${this.concertId}`]);
   }
 

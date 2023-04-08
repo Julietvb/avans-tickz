@@ -30,12 +30,13 @@ export class ArtistService {
       artistImage: artist.artistImage,
       artistHeader: artist.artistHeader,
       genre: artist.genre,
-      description: artist.description
+      description: artist.description,
+      creatorId: artist.creatorId
     }) as Observable<Artist>;
   }
 
-  updateArtist(_id: Types.ObjectId, artist: Partial<Artist>){
-    return this.httpClient.patch<Artist>(`http://localhost:3333/api/artists/${_id}`, artist)
+  updateArtist(_id: Types.ObjectId, artist: Partial<Artist>) : Observable<Artist>{
+    return this.httpClient.patch<Artist>(`http://localhost:3333/api/artists/${_id}`, artist) as Observable<Artist>
   }
 
   deleteArtist(_id: Types.ObjectId) {

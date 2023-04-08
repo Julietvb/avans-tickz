@@ -1,28 +1,82 @@
 <div class="container">
   <h3 align="center">All users</h3>
 
-  <p *ngIf="(users$ | async)?.length === 0">
-    Er zijn nog geen gebruikers.
-  </p>
+  <p *ngIf="usersLength === 0">Er zijn nog geen gebruikers.</p>
 
-  <table class="table">
-    <thead>
-      <th>First name</th>
-      <th>Last name</th>
-      <th>Email</th>
-      <th>Manage</th>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users$ | async" routerLink="{{ user._id }}">
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.emailAdres }}</td>
-        <td>
-          <button type="submit" class="btn" routerLink="{{ user._id }}/edit">
-            Edit user
-          </button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="row">
+    <div class="col-md-6" *ngFor="let user of users">
+      <div class="card-deck">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ user.firstName }} {{ user.lastName }}</h5>
+            <h6 class="card-subtitle">{{ user.emailAdres }}</h6>
+            <div class="row">
+              <div *ngIf="user.favoriteArtists.length != 0" class="col-6">
+                <ul class="list-group" [routerLink]="['../artists/']">
+                  <li class="list-group-item list-group-item">
+                    Favorite artists
+                  </li>
+                </ul>
+              </div>
+              <div *ngIf="user.favoriteArtists.length != 0" class="col-6">
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item">
+                    <i class="fa fa-star"></i>
+                    {{ user.favoriteArtists.length }}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div class="row">
+              <div *ngIf="user.following.length != 0" class="col-6">
+                <ul class="list-group" [routerLink]="['../artists/']">
+                  <li class="list-group-item list-group-item">
+                    Following
+                  </li>
+                </ul>
+              </div>
+              <div *ngIf="user.following.length != 0" class="col-6">
+                <ul class="list-group">
+                  <li class="list-group-item list-group-item">
+                    <i class="fa fa-user"></i>
+                    {{ user.following.length - 1}} 
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="card-footer">
+            <button type="button" class="btn" routerLink="{{ user._id }}">
+              View profile
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <table class="table">
+      <thead>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th></th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of users" routerLink="{{ user._id }}">
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.emailAdres }}</td>
+          <td *ngIf="currentUser.following != undefined">
+            <div *ngFor="let followedUserId of currentUser.following"> -->
+    <!-- <button *ngIf='followedUserId != user._id && followedUserId.toString().valueOf() != ""' type="submit" class="btn" (click)="follow(user)">
+              Follow user
+            </button> -->
+    <!-- <button *ngIf="followedUserId == user._id" class="btn">
+                Unfollow
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table> -->
+  </div>
 </div>

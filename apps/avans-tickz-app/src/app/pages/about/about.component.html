@@ -1,3 +1,4 @@
+
 <div class="container mt-2">
   <div class="row">
     <div class="col-sm-6 col-md-8 col-lg-9">
@@ -39,7 +40,7 @@
 
   <h3>Entiteiten</h3>
 
-  <img src="assets/images/erd.png" class="px-5 py-5" alt="..." />
+  <img src="assets/images/erd.png" class="px-5 py-5" width="1300px" alt="..." />
 
   <div class="row g-4 about-entity-card-group">
     <div class="col-sm-12 col-md-6">
@@ -48,12 +49,14 @@
           <h4 class="card-title">User</h4>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Id: number</li>
+          <li class="list-group-item">Id: Types.ObjectId</li>
           <li class="list-group-item">FirstName: string</li>
-          <li class="list-group-item">LastNames: string</li>
+          <li class="list-group-item">LastName: string</li>
           <li class="list-group-item">BirthDate: date</li>
           <li class="list-group-item">Email: string</li>
           <li class="list-group-item">Password: string</li>
+          <li class="list-group-item">FavoriteArtists: Artist[]</li>
+          <li class="list-group-item">MyTickets: Ticket[]</li>
         </ul>
       </div>
     </div>
@@ -63,12 +66,14 @@
           <h4 class="card-title">Concert</h4>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Id: number</li>
+          <li class="list-group-item">Id: Types.ObjectId</li>
+          <li class="list-group-item">Title: string</li>
           <li class="list-group-item">Date: Date</li>
           <li class="list-group-item">Time: string</li>
-          <li class="list-group-item">Adres: string</li>
-          <li class="list-group-item">City: string</li>
-          <li class="list-group-item">Capacity: number</li>
+          <li class="list-group-item">Artist: Artist</li>
+          <li class="list-group-item">Venue: Venue</li>
+          <li class="list-group-item">CreatorId: Types.ObjectId</li>
+          <li class="list-group-item">AmountOfTickets: int</li>
         </ul>
       </div>
     </div>
@@ -78,10 +83,29 @@
           <h4 class="card-title">Artist</h4>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Id: number</li>
+          <li class="list-group-item">Id: Types.ObjectId</li>
           <li class="list-group-item">Name: string</li>
+          <li class="list-group-item">BirthDate: date</li>
           <li class="list-group-item">Genre: string</li>
           <li class="list-group-item">Description: string</li>
+          <li class="list-group-item">ArtistImage: string</li>
+          <li class="list-group-item">ArtistHeader: string</li>
+          <li class="list-group-item">CreatorId: Types.ObjectId</li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Venue</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Id: Types.ObjectId</li>
+          <li class="list-group-item">VenueName: string</li>
+          <li class="list-group-item">VenueImage: string</li>
+          <li class="list-group-item">Adres: string</li>
+          <li class="list-group-item">City: string</li>
+          <li class="list-group-item">Capacity: int</li>
         </ul>
       </div>
     </div>
@@ -91,10 +115,10 @@
           <h4 class="card-title">Ticket</h4>
         </div>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item">Id: number</li>
-          <li class="list-group-item">Price: number</li>
+          <li class="list-group-item">Id: Types.ObjectId</li>
+          <li class="list-group-item">Price: int</li>
           <li class="list-group-item">Type: string</li>
-          <li class="list-group-item">Concert: Concert</li>
+          <li class="list-group-item">ConcertName: Concert</li>
         </ul>
       </div>
     </div>
@@ -147,33 +171,26 @@
           <tr>
             <td>6</td>
             <td>
-              Als gebruiker wil ik andere gebruikers kunnen volgen zodat ik hun
-              favoriete artiesten kan bekijken.
-            </td>
-          </tr>
-          <tr>
-            <td>7</td>
-            <td>
               Als gebruiker wil ik aanbevelingen zien van artiesten die ik
               misschien leuk vind.
             </td>
           </tr>
           <tr>
-            <td>8</td>
+            <td>7</td>
             <td>
               Als gebruiker wil ik mijn account willen verwijderen zodat er geen
               informatie meer over mij opgeslagen is.
             </td>
           </tr>
           <tr>
-            <td>9</td>
+            <td>8</td>
             <td>
               Als gebruiker wil ik andere gebruikers kunnen volgen zodat ik hun
-              gelikete artiesten kan bekijken
+              favoriete artiesten kan bekijken
             </td>
           </tr>
           <tr>
-            <td>10</td>
+            <td>9</td>
             <td>
               Als gebruiker wil ik andere gebruikers op kunnen zoeken zodat ik
               deze gebruiker kan volgen.
@@ -181,18 +198,18 @@
           </tr>
 
           <tr>
-            <td>11</td>
+            <td>10</td>
             <td>Als gebruiker wil ik artiesten een like kunnen geven.</td>
           </tr>
           <tr>
-            <td>12</td>
+            <td>11</td>
             <td>
               Als gebruiker wil ik een artiest op kunnen zoeken zodat ik
               informatie over deze artiest kan bekijken.
             </td>
           </tr>
           <tr>
-            <td>13</td>
+            <td>12</td>
             <td>
               Als gebruiker wil ik vergelijkbare artiesten kunnen zien op een
               detail pagina van een artiest zodat ik mijn interesses kan
@@ -200,56 +217,56 @@
             </td>
           </tr>
           <tr>
-            <td>14</td>
+            <td>13</td>
             <td>
               Als gebruiker wil ik een overzicht zien van alle artiesten zodat
               ik artiesten kan verkennen.
             </td>
           </tr>
           <tr>
-            <td>15</td>
+            <td>14</td>
             <td>
               Als gebruiker wil ik concerten kunnen bekijken en alle
               bijbehorende details.
             </td>
           </tr>
           <tr>
-            <td>16</td>
+            <td>15</td>
             <td>
               Als gebruiker wil ik op een artiest kunnen klikken zodat ik de
               details kan bekijken.
             </td>
           </tr>
           <tr>
-            <td>17</td>
+            <td>16</td>
             <td>
               Als gebruiker wil ik een concert aan kunnen maken zodat mensen
               daar tickets voor kunnen kopen.
             </td>
           </tr>
           <tr>
-            <td>18</td>
+            <td>17</td>
             <td>
               Als gebruiker wil ik een concert bewerken zodat de informatie
               geüpdatet word wanneer er dingen veranderen.
             </td>
           </tr>
           <tr>
-            <td>19</td>
+            <td>18</td>
             <td>
               Als gebruiker wil ik een concert kunnen verwijderen zodat het
               geannuleerd word en verwijderd wordt uit de database
             </td>
           </tr>
           <tr>
-            <td>20</td>
+            <td>19</td>
             <td>
               Als gebruiker wil ik een overzicht zien van alle aankomende
               concerten zodat ik kan kijken naar welke concerten ik heen wil.
             </td>
           </tr>
           <tr>
-            <td>21</td>
+            <td>20</td>
             <td>
               Als gebruiker wil ik kunnen zien hoeveel tickets er nog
               beschikbaar zijn voor het concert zodat ik kan zien of ik nog
@@ -257,25 +274,18 @@
             </td>
           </tr>
           <tr>
-            <td>22</td>
+            <td>21</td>
             <td>
               Als gebruiker wil ik een ticket voor een bepaald concert kunnen
               kopen zodat ik toegang kan krijgen tot het concert
             </td>
           </tr>
           <tr>
-            <td>23</td>
+            <td>22</td>
             <td>
               Als gebruiker wil ik een overzicht kunnen zien van mijn gekochte
               tickets zodat ik een duidelijk overzicht heb van al mijn gekochte
               tickets.
-            </td>
-          </tr>
-          <tr>
-            <td>24</td>
-            <td>
-              Als gebruiker wil ik statistieken kunnen inzien over mijn gekochte
-              tickets zodat ik mijn tickets makkelijk kan beheren.
             </td>
           </tr>
         </tbody>

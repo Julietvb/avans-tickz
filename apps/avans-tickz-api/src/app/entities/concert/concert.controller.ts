@@ -22,6 +22,11 @@ export class ConcertController {
     return await this.concertService.getConcertById(concertId);
   }
 
+  @Get('/name/:name')
+  async getConcertByName(@Param('name') name: string): Promise<Concert> {
+    return await this.concertService.getConcertByName(name);
+  }
+
   @Get()
   async getConcerts(): Promise<Concert[]> {
     return this.concertService.getAllConcerts();
@@ -41,7 +46,8 @@ export class ConcertController {
       createConcertDto.tickets,
       createConcertDto.ticketPrice,
       createConcertDto.ticketType,
-      createConcertDto.venue
+      createConcertDto.venue,
+      createConcertDto.creatorId
     );
   }
 

@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { AuthService } from '../../auth/auth.service';
 import { User } from './user.model';
 import { UserService } from './user.service';
+import { Types } from 'mongoose'
 
 @Component({
   selector: 'avans-tickz-user',
@@ -10,15 +12,33 @@ import { UserService } from './user.service';
   styleUrls: ['./user.component.css'],
 })
 export class UserComponent implements OnInit {
-  users$: Observable<any> | undefined;
+  users!: User[];
+  usersLength!: Number;
+  currentUser!: User;
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router,
+    private authService: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
-    this.users$ = this.userService.getAllUsers();
+    this.userService.getAllUsers().subscribe((users) => {
+      this.users = users;
+      this.usersLength = users.length;
+    });
+
+    this.authService.getUserFromLocalStorage().subscribe((user) => {
+      this.currentUser = user;
+      this.userService.getAllUsers().subscribe((users) => {
+        for (let i = 0; i < users.length; i++) {
+          if (users.at(i)?._id == user._id) {
+            users.splice(i, 1);
+          }
+        }
+        this.users = users;
+        this.usersLength = users.length;
+      });
+    });
   }
 }

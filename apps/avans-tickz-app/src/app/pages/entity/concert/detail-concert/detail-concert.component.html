@@ -43,7 +43,7 @@
                 d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"
               />
             </svg>
-            {{currentConcert.time}}
+            {{ currentConcert.time }}
           </p>
         </div>
 
@@ -102,22 +102,38 @@
       </div>
     </div>
     <div class="col-6">
-      <button class="btn pull-right">Buy tickets</button>
-      <p *ngIf="currentConcert.amountOfTickets > 0" class="pull-right">
-        Hurry up! There are only
-        <i>{{ currentConcert.amountOfTickets }}</i> tickets left! Buy tickets by
-        clicking the button above.
-      </p>
-
-      <p
-        *ngIf="currentConcert.amountOfTickets <= 0"
-        class="soldOut-text pull-right"
-      >
-        Sadly this concert is sold out. Check
-        <a routerLink="/concerts">here</a> to see all the other concerts you can
-        visit!
-      </p>
-
+      <div *ngIf="currentConcert.amountOfTickets > 0 && userAuthenticated">
+        <div class="d-flex flex-column align-items-end">
+          <div>
+            <button class="btn" (click)="buyTickets()">Buy tickets</button>
+          </div>
+          <div align="end" class="mb-2">
+            Hurry up! There are only
+            <i>{{ currentConcert.amountOfTickets }}</i> tickets left! Buy tickets
+            by clicking the button above.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="currentConcert.amountOfTickets > 0 && !userAuthenticated">
+        <div class="d-flex flex-column align-items-end">
+          <div>
+            <button class="btn" routerLink="/login">Log in</button>
+          </div>
+          <div align="end" class="mb-2">
+              Hurry up! There are only
+              {{ currentConcert.amountOfTickets }} tickets left! Log in to buy
+              tickets and attend your favorite concerts.
+          </div>
+        </div>
+      </div>
+      <div *ngIf="currentConcert.amountOfTickets <= 0">
+        <button class="btn btn-disabled pull-right">Sold Out</button>
+        <p class="soldOut-text pull-right">
+          Sadly this concert is sold out. Check
+          <a routerLink="/concerts">here</a> to see all the other concerts you
+          can visit!
+        </p>
+      </div>
       <div class="pull-right">
         <h2>Line-up</h2>
         <div class="card-custom-avatar">
@@ -127,7 +143,11 @@
             alt="Avatar"
           />
         </div>
-        <a routerLink="" align="center">{{ currentConcert.artist.name }}</a>
+        <a
+          routerLink="/artists/{{ currentConcert.artist._id }}"
+          align="center"
+          >{{ currentConcert.artist.name }}</a
+        >
       </div>
     </div>
   </div>

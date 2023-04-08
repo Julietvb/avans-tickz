@@ -1,0 +1,80 @@
+/* .artistRow{
+    text-align: center;
+    margin-left: 35%;
+    margin-right: 35%;
+} */
+
+body{
+    background-color: #ebeef4;
+    margin-top:20px;
+}
+
+.profile .profile-header {
+    position: relative;
+}
+
+.profile .profile-header .profile-header-content {
+    position: relative;
+    padding: 0 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-align: flex-end;
+    align-items: flex-end;
+}
+
+.profile .profile-header .profile-header-content .profile-header-tab {
+    position: relative;
+    margin-left: 50px;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.profile .profile-header .profile-header-content .profile-header-tab .nav-item .nav-link {
+    padding: 0.8125rem 0.625rem 0.5625rem;
+    text-align: center;
+}
+
+.profile .profile-header .profile-header-content .profile-header-tab .nav-item .nav-link .nav-field {
+    font-weight: 600;
+    font-size: 0.8125rem;
+}
+
+.profile .profile-header .profile-header-content .profile-header-tab .nav-item .nav-link .nav-value {
+    font-size: 1.25rem;
+    font-weight: 400;
+    letter-spacing: -0.5px;
+}
+
+.profile .profile-header .profile-header-content .profile-header-tab .nav-item .nav-link.active {
+    color: #212837;
+    border-color: #212837;
+}
+
+.profile .profile-header .profile-header-content .profile-header-tab .nav-item + .nav-item {
+    margin-left: 0.9375rem;
+}
+.profile .profile-container {
+    padding: 30px 50px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+}
+
+.profile .profile-container .profile-sidebar {
+    width: 13.75rem;
+}
+
+.profile .profile-container .profile-content {
+    padding-left: 30px;
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+}
+
+.profile .profile-img-list .profile-img-list-item {
+    float: left;
+    width: 25%;
+    padding: 0.0625rem;
+}

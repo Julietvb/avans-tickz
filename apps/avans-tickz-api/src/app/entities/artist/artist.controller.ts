@@ -22,7 +22,7 @@ export class ArtistController{
 
     @Post()
     async createArtist(@Body() createArtistDto: CreateArtistDto): Promise<Artist> {
-        return this.artistService.createArtist(createArtistDto.name, createArtistDto.birthDate, createArtistDto.genre, createArtistDto.description, createArtistDto.artistImage, createArtistDto.artistHeader);
+        return this.artistService.createArtist(createArtistDto.name, createArtistDto.birthDate, createArtistDto.genre, createArtistDto.description, createArtistDto.artistImage, createArtistDto.artistHeader, createArtistDto.creatorId);
     }
 
     @Patch(':artistId')

@@ -1,4 +1,5 @@
 import {Types} from "mongoose";
+import { User } from "../user.schema";
 
 export class CreateUserDto {
     firstName: string;
@@ -6,4 +7,5 @@ export class CreateUserDto {
     birthDate: Date;
     emailAdres: string;
     password: string;
+    following: User[];
 }

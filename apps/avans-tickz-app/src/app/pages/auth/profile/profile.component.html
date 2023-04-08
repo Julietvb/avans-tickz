@@ -1,0 +1,152 @@
+
+<div class="container">
+  <table class="table mt-2">
+    <thead>
+      <tr align="center">
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Date of birth</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr align="center">
+        <td>{{ currentUser.firstName }}</td>
+        <td>{{ currentUser.lastName }}</td>
+        <td>{{ currentUser.emailAdres }}</td>
+        <td>
+          {{ currentUser.birthDate | date: 'dd-MM-yyyy' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div align="center">
+    <button
+      type="submit"
+      class="btn"
+      routerLink="/users/{{ currentUser._id }}/edit"
+    >
+      Edit user
+    </button>
+  </div>
+
+  <table *ngIf="currentUser.favoriteArtists.length >= 1" class="table mt-5">
+    <thead>
+      <tr align="center">
+        <th>My favorite artists</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody
+      *ngFor="let favoriteArtist of favoriteArtists"
+      align="center"
+    >
+      <tr>
+        <td>{{ favoriteArtist.name }}</td>
+        <td>Genre: {{ favoriteArtist.genre }}</td>
+        <td>
+          Date of birth: {{ favoriteArtist.birthDate | date: 'dd-MM-yyyy' }}
+        </td>
+        <td>
+          <a class="btn" (click)="removeFromFavorites(favoriteArtist._id)">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-heart"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+              />
+            </svg>
+            Remove from favorites
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table
+    *ngIf="
+      currentUser.favoriteArtists == undefined ||
+      currentUser.favoriteArtists.length == 0
+    "
+    class="table mt-5"
+  >
+    <thead>
+      <tr>
+        <th>My favorite artists</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>
+          You don't have any favorite artists yet! Click the heart button on an
+          artists detail page to add them to your favorites!
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <table
+  *ngIf="
+    currentUser.following == undefined ||
+    currentUser.following.length == 0
+  "
+  class="table mt-5"
+>
+  <thead>
+    <tr>
+      <th>Following</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        You aren't following anyone yet! Click the follow button on an
+        users detail page to follow them!
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="row mb-3">
+  <h3>My tickets</h3>
+</div>
+<div class="row">
+    <div class="col-lg-4 col-md-6 col-sm-12 text-right" *ngFor="let ticket of tickets">
+      <div class="ticket">
+        <div class="ticket-head text-center" style="background-image: url({{ticket.concert.venue.venueImage}})">
+          <div class="layer"></div>
+          <div class="from-to">{{ticket.concert.title}}</div>
+        </div>
+        <div class="ticket-body">
+          <div class="passenger">
+            <p>Artist</p>
+            <h4>{{ticket.concert.artist.name}}</h4>
+          </div>
+          <div class="ticket-info row">
+            <div class="col-6">
+              <p>date</p>
+              <h5>{{ticket.concert.date | date: 'dd-MM-yyyy'}}</h5>
+            </div>
+            <div class="col-6">
+              <p>venue</p>
+              <h5>{{ticket.concert.venue.venueName}}</h5>
+            </div>
+          </div>
+          <div class="ticket-date">€{{ticket.price}} - {{ticket.type}}</div>
+        </div>
+        <div class="footer">
+          <div class="disclaimer">Disclaimer: Gekochte tickets mogen niet doorverkocht worden, indien er vermoede is van fraude wordt het ticket geannuleerd.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+    
+</div>

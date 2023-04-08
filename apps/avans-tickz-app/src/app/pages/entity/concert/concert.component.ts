@@ -5,7 +5,9 @@ import { Venue } from '../venue/venue.model';
 import { VenueService } from '../venue/venue.service';
 import { Concert } from './concert.model';
 import { ConcertService } from './concert.service';
-import { Types } from 'mongoose'
+import { Types } from 'mongoose';
+import { AuthService } from '../../auth/auth.service';
+import { User } from '../user/user.model';
 @Component({
   selector: 'avans-tickz-concert',
   templateUrl: './concert.component.html',
@@ -13,18 +15,26 @@ import { Types } from 'mongoose'
 })
 export class ConcertComponent implements OnInit {
   concerts: Concert[] | undefined;
-  venueId!: Types.ObjectId;
-  venue: Venue | undefined;
+  currentUser!: User;
+  userAuthenticated!: boolean;
 
   constructor(
     private concertService: ConcertService,
-    private venueService: VenueService,
-    private route: ActivatedRoute,
-    private router: Router
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
-    this.concertService.getAllConcerts().subscribe((concerts) => { this.concerts = concerts;
-    })
+    this.concertService.getAllConcerts().subscribe((concerts) => {
+      this.concerts = concerts;
+    });
+
+    this.authService.getUserFromLocalStorage().subscribe((user) => {
+      this.currentUser = user;
+      if (user == undefined) {
+        this.userAuthenticated = false;
+      } else {
+        this.userAuthenticated = true;
+      }
+    });
   }
 }

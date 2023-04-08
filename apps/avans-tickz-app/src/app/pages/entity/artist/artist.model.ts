@@ -8,4 +8,5 @@ export interface Artist{
     description: string;
     artistImage: string;
     artistHeader: string;
+    creatorId: Types.ObjectId;
 }
