@@ -9,7 +9,7 @@ export class UpdateConcertDto{
     title: string;
     date: Date;
     time: string;
-    amountOfTickets: Number;
+    amountOfTickets: number;
     artist: Artist;
     tickets: Ticket[];
     ticketPrice: Number;
