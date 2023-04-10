@@ -102,7 +102,7 @@
       </div>
     </div>
     <div class="col-6">
-      <div *ngIf="currentConcert.amountOfTickets > 0 && userAuthenticated">
+      <div *ngIf="currentConcert.amountOfTickets > 0 && userAuthenticated && currentUser._id != currentConcert.creatorId">
         <div class="d-flex flex-column align-items-end">
           <div>
             <button class="btn" (click)="buyTickets()">Buy tickets</button>
@@ -133,6 +133,13 @@
           <a routerLink="/concerts">here</a> to see all the other concerts you
           can visit!
         </p>
+      </div>
+      <div *ngIf="currentUser._id == currentConcert.creatorId">
+        <div class="d-flex flex-column align-items-end mb-2">
+          <div>
+            <button class="btn" routerLink="../{{ currentConcert._id }}/edit">Edit concert</button>
+          </div>
+        </div>
       </div>
       <div class="pull-right">
         <h2>Line-up</h2>

@@ -40,7 +40,7 @@
             {{ currentUser.emailAdres }}
           </div>
           <p>{{ currentUser.birthDate | date : 'dd-MM-yyyy' }}</p>
-          <div *ngIf="loggedInUser != null && loggedInUser != undefined">
+          <div *ngIf="loggedInUser != null || loggedInUser != undefined">
             <button
               class="btn"
               (click)="follow(currentUser)"

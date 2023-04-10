@@ -49,7 +49,7 @@ export class DetailArtistComponent implements OnInit {
               let genres = singleArtist.genre.split(', ');
               for (let genre of genres) {
                 for (let artistGenre of artistGenres) {
-                  if (genre == artistGenre && artist._id != singleArtist._id) {
+                  if (genre.toLowerCase() == artistGenre.toLowerCase() && artist._id != singleArtist._id) {
                     this.relatedArtists.push(singleArtist);
                     break;
                   }

@@ -69,7 +69,7 @@
             {{ artist.genre }}
           </p>
         </div>
-        <div *ngIf="currentUser != null && currentUser != undefined">
+        <div *ngIf="currentUser != null || currentUser != undefined">
           <div *ngIf="artist.creatorId != currentUser._id && !favoriteArtist">
             <a class="btn" (click)="addToFavorites(artist._id)">
               <svg
@@ -108,7 +108,7 @@
             <a class="btn" routerLink="../{{ artist._id }}/edit">Edit artist</a>
           </div>
 
-          <div *ngIf="currentUser.favoriteArtists.length == 0">
+          <!-- <div *ngIf="currentUser.favoriteArtists.length == 0">
             <a
               class="btn"
               *ngIf="artist.creatorId != currentUser._id"
@@ -134,7 +134,7 @@
               routerLink="/edit"
               >Edit artist</a
             >
-          </div>
+          </div> -->
         </div>
         <div class="mt-4" align="center" *ngIf="relatedArtists.length != 0">
           <h4

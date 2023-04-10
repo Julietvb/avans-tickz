@@ -25,6 +25,12 @@ export class CreateArtistComponent implements OnInit {
   ngOnInit(): void {}
 
   createArtist(artist: Artist) {
+    if (artist.artistImage == undefined || artist.artistImage == null || artist.artistImage.valueOf() == "") {
+      artist.artistImage = "https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg"
+    }
+    if (artist.artistHeader == undefined || artist.artistHeader == null || artist.artistHeader.valueOf() == "") {
+      artist.artistHeader = "https://icon-library.com/images/default-profile-icon/default-profile-icon-24.jpg"
+    }
     this.authService
       .getUserFromLocalStorage()
       .subscribe((user) => (this.creatorId = user._id));
