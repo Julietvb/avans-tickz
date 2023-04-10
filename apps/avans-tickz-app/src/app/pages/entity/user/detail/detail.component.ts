@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 import { ArtistService } from '../../artist/artist.service';
 import { AuthService } from '../../../auth/auth.service';
 import { Artist } from '../../artist/artist.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'avans-tickz-detail',
@@ -30,7 +31,8 @@ export class DetailComponent implements OnInit {
     private router: Router,
     private userService: UserService,
     private artistService: ArtistService,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -78,6 +80,17 @@ export class DetailComponent implements OnInit {
     // console.log(user._id.toString())
     this.userService.follow(user._id, this.loggedInUser).subscribe((user) => {
       if (user) {
+        if (user != undefined && this.currentUser.following != user.following) {
+          this.toastr.success(
+            'You can find all users you follow on your profile.',
+            'Followed user!'
+          );
+        } else {
+          this.toastr.error(
+            'This user was not followed',
+            'Something went wrong'
+          );
+        }
         this.authService.saveUserToLocalStorage(user);
         this.isFollowing = true;
       }
@@ -87,6 +100,17 @@ export class DetailComponent implements OnInit {
   unfollow(user: User) {
     this.userService.unfollow(user._id, this.loggedInUser).subscribe((user) => {
       if (user) {
+        if (user != undefined && this.currentUser.following != user.following) {
+          this.toastr.success(
+            'You no longer follow this user',
+            'Unfollowed user!'
+          );
+        } else {
+          this.toastr.error(
+            'This user was not unfollowed',
+            'Something went wrong'
+          );
+        }
         this.authService.saveUserToLocalStorage(user);
         this.isFollowing = false;
       }

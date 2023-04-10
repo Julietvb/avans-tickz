@@ -4,6 +4,7 @@ import { User } from '../user.model';
 import { UserService } from '../user.service';
 import { Types } from 'mongoose';
 import { AuthService } from '../../../auth/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'avans-tickz-edit',
@@ -18,7 +19,8 @@ export class EditComponent implements OnInit {
     private userService: UserService,
     private router: Router,
     private route: ActivatedRoute,
-    private authService: AuthService
+    private authService: AuthService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +38,17 @@ export class EditComponent implements OnInit {
 
   editUser(user: User): void {
     this.userService.updateUser(this.userId, user).subscribe((updatedUser) => {
+      if (updatedUser != undefined && this.user != updatedUser) {
+        this.toastr.success(
+          'You can now find your updated information on your profile.',
+          'User succesfully edited'
+        );
+      } else {
+        this.toastr.error(
+          'User was not succesfully edited',
+          'Something went wrong'
+        );
+      }
       this.user = updatedUser;
       this.authService.saveUserToLocalStorage(updatedUser);
     });

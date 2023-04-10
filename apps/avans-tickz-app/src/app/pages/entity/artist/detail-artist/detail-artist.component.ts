@@ -87,7 +87,7 @@ export class DetailArtistComponent implements OnInit {
                 this.authService.saveUserToLocalStorage(updatedUser);
                 this.toastr.success(
                   'Artist has been added to your favorites',
-                  'Favvorited!'
+                  'Favorited!'
                 );
               } else {
                 this.toastr.error(

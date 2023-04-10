@@ -10,6 +10,7 @@ import { AuthService } from '../../../auth/auth.service';
 import { User } from '../../user/user.model';
 import { Observable, switchMap } from 'rxjs';
 import { UserService } from '../../user/user.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'avans-tickz-detail-concert',
@@ -29,7 +30,8 @@ export class DetailConcertComponent implements OnInit {
     private authService: AuthService,
     private userService: UserService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +76,19 @@ export class DetailConcertComponent implements OnInit {
       // console.log("Update tickets: " + updatedUser.myTickets)
     }
 
-    this.userService.updateUser(updatedUser._id, updatedUser).subscribe((returnedUser) => {this.returnedUser = returnedUser;
+    this.userService.updateUser(updatedUser._id, updatedUser).subscribe((returnedUser) => {
+      this.returnedUser = returnedUser;
+      if (returnedUser != undefined && returnedUser.myTickets != this.currentUser.myTickets) {
+        this.toastr.success(
+          'You can now find your ticket on your profile',
+          'Ticket bought!'
+        );
+      } else {
+        this.toastr.error(
+          'Your ticket was not bought',
+          'Something went wrong'
+        );
+      }
       this.authService.saveUserToLocalStorage(this.returnedUser);
     // console.log(this.returnedUser)
   })

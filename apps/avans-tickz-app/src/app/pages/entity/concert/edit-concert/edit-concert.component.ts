@@ -5,6 +5,7 @@ import { ConcertService } from '../concert.service';
 import { Types } from 'mongoose';
 import { Venue } from '../../venue/venue.model';
 import { VenueService } from '../../venue/venue.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'avans-tickz-edit-concert',
@@ -21,7 +22,8 @@ export class EditConcertComponent implements OnInit {
   constructor(
     private concertService: ConcertService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -34,7 +36,20 @@ export class EditConcertComponent implements OnInit {
   editConcert(concert: Partial<Concert>) {
     this.concertService
       .updateConcert(this.concertId, concert)
-      .subscribe((editedConcert) => (this.concert = editedConcert));
+      .subscribe((editedConcert) => {
+        if (editedConcert != undefined && this.concert != editedConcert) {
+          this.toastr.success(
+            'You can now find your updated concert in the overview.',
+            'Concert succesfully edited'
+          );
+        } else {
+          this.toastr.error(
+            'Concert was not succesfully edited',
+            'Something went wrong'
+          );
+        }
+        this.concert = editedConcert
+      });
     this.router.navigate([`/concerts/${this.concertId}`]);
   }
 
