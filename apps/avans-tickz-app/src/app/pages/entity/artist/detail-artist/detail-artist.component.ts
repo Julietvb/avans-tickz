@@ -62,10 +62,12 @@ export class DetailArtistComponent implements OnInit {
 
           this.authService.getUserFromLocalStorage().subscribe((user) => {
             this.currentUser = user;
-            for (let favoriteArtist of user.favoriteArtists) {
-              if (favoriteArtist == artist._id) {
-                this.favoriteArtist = true;
-                break;
+            if (this.currentUser != null) {
+              for (let favoriteArtist of user.favoriteArtists) {
+                if (favoriteArtist == artist._id) {
+                  this.favoriteArtist = true;
+                  break;
+                }
               }
             }
           });

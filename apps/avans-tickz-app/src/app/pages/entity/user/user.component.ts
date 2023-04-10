@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../../auth/auth.service';
 import { User } from './user.model';
 import { UserService } from './user.service';
-import { Types } from 'mongoose'
+import { Types } from 'mongoose';
 
 @Component({
   selector: 'avans-tickz-user',
@@ -31,9 +31,11 @@ export class UserComponent implements OnInit {
     this.authService.getUserFromLocalStorage().subscribe((user) => {
       this.currentUser = user;
       this.userService.getAllUsers().subscribe((users) => {
-        for (let i = 0; i < users.length; i++) {
-          if (users.at(i)?._id == user._id) {
-            users.splice(i, 1);
+        if (user != null) {
+          for (let i = 0; i < users.length; i++) {
+            if (users.at(i)?._id == user._id) {
+              users.splice(i, 1);
+            }
           }
         }
         this.users = users;

@@ -32,22 +32,21 @@ export class HomeComponent implements OnInit {
       });
 
       this.artistService.getAllArtists().subscribe((artists) => {
-        artists.forEach(artist => {
-          user.favoriteArtists.forEach(favoriteArtist => {
-            if (artist._id == favoriteArtist) {
-              artists.splice(0,1)
-            }
-          })
+        artists.forEach((artist) => {
+          if (user != null && user != undefined && user.favoriteArtists != null && user.favoriteArtists != undefined) {
+            user.favoriteArtists.forEach((favoriteArtist) => {
+              if (artist._id == favoriteArtist) {
+                artists.splice(0, 1);
+              }
+            });
+          }
         });
-      
+
         if (artists.length > 3) {
-          artists.splice(3)
+          artists.splice(3);
         }
-        this.randomArtists = artists
-      })  
+        this.randomArtists = artists;
+      });
     });
-
-
-
   }
 }

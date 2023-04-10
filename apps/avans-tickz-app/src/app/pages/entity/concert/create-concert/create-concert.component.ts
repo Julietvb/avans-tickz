@@ -53,7 +53,7 @@ export class CreateConcertComponent implements OnInit {
         .getUserFromLocalStorage()
         .subscribe((user) => (this.creatorId = user._id));
 
-      console.log(concert);
+      // console.log(concert);
       concert.venue = this.venue;
       concert.artist = this.artist;
       concert.creatorId = this.creatorId;
@@ -78,7 +78,7 @@ export class CreateConcertComponent implements OnInit {
   setVenue(_id: Types.ObjectId) {
     this.venueService.getVenueById(_id).subscribe((venue) => {
       this.venue = venue;
-      console.log(venue);
+      // console.log(venue);
     });
     this.venueSelected = true;
   }
@@ -86,7 +86,7 @@ export class CreateConcertComponent implements OnInit {
   setArtist(_id: Types.ObjectId) {
     this.artistService.getArtistById(_id).subscribe((artist) => {
       this.artist = artist;
-      console.log(artist);
+      // console.log(artist);
     });
     this.artistSelected = true;
   }

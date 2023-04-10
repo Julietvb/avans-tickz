@@ -46,7 +46,7 @@
                 d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"
               />
             </svg>
-            {{ artist.birthDate | date: 'fullDate' }}
+            {{ artist.birthDate | date : 'fullDate' }}
           </p>
         </div>
         <div>
@@ -69,90 +69,120 @@
             {{ artist.genre }}
           </p>
         </div>
+        <div *ngIf="currentUser != null && currentUser != undefined">
+          <div *ngIf="artist.creatorId != currentUser._id && !favoriteArtist">
+            <a class="btn" (click)="addToFavorites(artist._id)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-heart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                />
+              </svg>
+              Add to favorites
+            </a>
+          </div>
+          <div *ngIf="favoriteArtist && artist.creatorId != currentUser._id">
+            <a class="btn" (click)="removeFromFavorites(artist._id)">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-heart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                />
+              </svg>
+              Remove from favorites
+            </a>
+          </div>
+          <div *ngIf="artist.creatorId == currentUser._id">
+            <a class="btn" routerLink="../{{ artist._id }}/edit">Edit artist</a>
+          </div>
 
-        <div *ngIf="artist.creatorId != currentUser._id && !favoriteArtist">
-          <a class="btn" (click)="addToFavorites(artist._id)">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-heart"
-              viewBox="0 0 16 16"
+          <div *ngIf="currentUser.favoriteArtists.length == 0">
+            <a
+              class="btn"
+              *ngIf="artist.creatorId != currentUser._id"
+              (click)="addToFavorites(artist._id)"
             >
-              <path
-                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
-              />
-            </svg>
-            Add to favorites
-          </a>
-        </div>
-        <div *ngIf="favoriteArtist && artist.creatorId != currentUser._id">
-          <a class="btn" (click)="removeFromFavorites(artist._id)">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="16"
-              height="16"
-              fill="currentColor"
-              class="bi bi-heart"
-              viewBox="0 0 16 16"
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                class="bi bi-heart"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+                />
+              </svg>
+              Add to favorites
+            </a>
+            <a
+              class="btn"
+              *ngIf="artist.creatorId == currentUser._id"
+              routerLink="/edit"
+              >Edit artist</a
             >
-              <path
-                d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
-              />
-            </svg>
-            Remove from favorites
-          </a>
+          </div>
         </div>
-        <div *ngIf="artist.creatorId == currentUser._id">
-          <a class="btn" routerLink="../{{ artist._id }}/edit">Edit artist</a>
-        </div>
-      </div>
-      <div *ngIf="currentUser.favoriteArtists.length == 0">
-        <a
-          class="btn"
-          *ngIf="artist.creatorId != currentUser._id"
-          (click)="addToFavorites(artist._id)"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            fill="currentColor"
-            class="bi bi-heart"
-            viewBox="0 0 16 16"
+        <div class="mt-4" align="center" *ngIf="relatedArtists.length != 0">
+          <h4
+            style="
+              background-color: rgba(245, 87, 108, 1);
+              color: white;
+              border-radius: 5px;
+            "
           >
-            <path
-              d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
-            />
-          </svg>
-          Add to favorites
-        </a>
-        <a
-          class="btn"
-          *ngIf="artist.creatorId == currentUser._id"
-          routerLink="/edit"
-          >Edit artist</a
-        >
-      </div>
-
-      <div class="mt-4" align="center" *ngIf="relatedArtists.length != 0">
-        <h4 style="background-color: rgba(245, 87, 108, 1); color: white; border-radius: 5px;">Related artists: </h4>
-        <div class="row">
-          <div class="mt-3 col-md-4" *ngFor="let relatedArtist of relatedArtists">
-            <div class="card-custom-avatar" >
-              <img class="img-fluid" src="{{ relatedArtist.artistImage }}" alt="Avatar" />
-            </div>
-            <div>
-              <a [routerLink]="['../', relatedArtist._id]">{{relatedArtist.name}}</a>
+            Related artists:
+          </h4>
+          <div class="row">
+            <div
+              class="mt-3 col-md-4"
+              *ngFor="let relatedArtist of relatedArtists"
+            >
+              <div class="card-custom-avatar">
+                <img
+                  class="img-fluid"
+                  src="{{ relatedArtist.artistImage }}"
+                  alt="Avatar"
+                />
+              </div>
+              <div>
+                <a [routerLink]="['../', relatedArtist._id]">{{
+                  relatedArtist.name
+                }}</a>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="mt-4" align="center" *ngIf="relatedArtists.length == 0">
-        <h4 style="background-color: rgba(245, 87, 108, 1); color: white; border-radius: 5px;">Related artists: </h4>
-        <div class="row">
-          <h6>This artist has no artists with the same genre! Add your own artist <a routerLink="../create">here!</a></h6>
+        <div class="mt-4" align="center" *ngIf="relatedArtists.length == 0">
+          <h4
+            style="
+              background-color: rgba(245, 87, 108, 1);
+              color: white;
+              border-radius: 5px;
+            "
+          >
+            Related artists:
+          </h4>
+          <div class="row">
+            <h6>
+              This artist has no artists with the same genre! Add your own
+              artist
+              <a routerLink="../create">here!</a>
+            </h6>
+          </div>
         </div>
       </div>
     </div>

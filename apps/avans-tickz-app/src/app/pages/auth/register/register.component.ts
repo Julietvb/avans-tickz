@@ -17,13 +17,13 @@ export class RegisterComponent implements OnInit {
   registerUser(user: User): void {
     this.authService.register(user).subscribe((user) => {
       if (user) {
-        console.log('user = ', user);
+        // console.log('user = ', user);
         this.router.navigate(['./users']);
       }
     });
     this.authService.login(user.emailAdres, user.password).subscribe((user) => {
       if (user) {
-        console.log('Logged in');
+        // console.log('Logged in');
         this.router.navigate(['/']);
       }
     });

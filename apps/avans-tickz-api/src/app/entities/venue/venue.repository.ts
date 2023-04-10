@@ -9,7 +9,7 @@ export class VenueRepository{
     constructor(@InjectModel(Venue.name) private venueModel: Model<VenueDocument>) {}
 
     async findById(venueId: string): Promise<Venue> {
-        console.log('repository findById aangeroepen')
+        // console.log('repository findById aangeroepen')
         return await this.venueModel.findOne({_id: new Types.ObjectId(venueId)})
     }
 

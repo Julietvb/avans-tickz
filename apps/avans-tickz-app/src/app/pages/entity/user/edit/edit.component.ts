@@ -22,7 +22,7 @@ export class EditComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('Edit user aangeroepen');
+    // console.log('Edit user aangeroepen');
 
     this.userService.getUserById(this.userId).subscribe((user) => {
       this.user = user;

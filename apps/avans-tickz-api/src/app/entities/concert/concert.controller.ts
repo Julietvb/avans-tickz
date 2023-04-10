@@ -36,7 +36,7 @@ export class ConcertController {
   async createConcert(
     @Body() createConcertDto: CreateConcertDto
   ): Promise<Concert> {
-    console.log("controller aangeroepen")
+    // console.log("controller aangeroepen")
     return this.concertService.createConcert(
       createConcertDto.title,
       createConcertDto.date,
@@ -61,7 +61,7 @@ export class ConcertController {
 
   @Delete(':concertId')
   async deleteConcert(@Param('concertId') concertId: string){
-      console.log('deleteConcert aangeroepen')
+      // console.log('deleteConcert aangeroepen')
       return await this.concertService.deleteConcertById(concertId);
   }
 }

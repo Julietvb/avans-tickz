@@ -11,7 +11,7 @@ export class VenueService {
   constructor(private readonly venueRepository: VenueRepository) {}
 
   getVenueById(venueId: string): Promise<Venue> {
-    console.log('service getById aangeroepen');
+    // console.log('service getById aangeroepen');
     return this.venueRepository.findById(venueId);
   }
 

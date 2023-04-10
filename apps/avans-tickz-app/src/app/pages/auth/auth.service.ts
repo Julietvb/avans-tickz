@@ -39,18 +39,18 @@ export class AuthService {
     this.getUserFromLocalStorage();
     switchMap((user: User) => {
       if (user) {
-        console.log('User found in local storage');
+        // console.log('User found in local storage');
         this.currentUser$.next(user);
         return of(user);
       } else {
-        console.log(`No current user found`);
+        // console.log(`No current user found`);
         return of(undefined);
       }
     });
   }
 
   login(username: string, password: string) {
-    console.log(username, password);
+    // console.log(username, password);
     return this.httpClient
       .post<User>(
         `http://localhost:3333/api/auth/login`,
@@ -82,7 +82,7 @@ export class AuthService {
   }
 
   register(userData: User) {
-    console.log(userData);
+    // console.log(userData);
     return this.httpClient
       .post<User>(`http://localhost:3333/api/users`, userData)
       .pipe(
@@ -112,7 +112,7 @@ export class AuthService {
   }
 
   saveTokenToLocalStorage(user: User): void {
-    console.log(JSON.stringify(user));
+    // console.log(JSON.stringify(user));
     localStorage.setItem(this.token, JSON.stringify(user));
   }
 

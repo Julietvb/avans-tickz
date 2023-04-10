@@ -35,7 +35,7 @@ export class UserService {
   }
 
   updateUser(_id: Types.ObjectId, user: Partial<User>): Observable<User>{
-    console.log(_id)
+    // console.log(_id)
     return this.httpClient.patch(`http://localhost:3333/api/users/${_id}`, user) as Observable<User>;
   }
 

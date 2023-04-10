@@ -27,7 +27,7 @@ export class EditConcertComponent implements OnInit {
   ngOnInit(): void {
     this.concertService.getConcertById(this.concertId).subscribe((concert) => {
       this.concert = concert;
-      console.log(this.concert.tickets);
+      // console.log(this.concert.tickets);
     });
   }
 

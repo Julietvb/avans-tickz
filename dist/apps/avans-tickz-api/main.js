@@ -414,7 +414,7 @@ let ArtistController = class ArtistController {
     }
     deleteArtist(artistId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('deleteArtist aangeroepen');
+            // console.log('deleteArtist aangeroepen')
             return yield this.artistService.deleteArtistById(artistId);
         });
     }
@@ -712,7 +712,7 @@ let ConcertController = class ConcertController {
     }
     createConcert(createConcertDto) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log("controller aangeroepen");
+            // console.log("controller aangeroepen")
             return this.concertService.createConcert(createConcertDto.title, createConcertDto.date, createConcertDto.time, createConcertDto.amountOfTickets, createConcertDto.artist, createConcertDto.tickets, createConcertDto.ticketPrice, createConcertDto.ticketType, createConcertDto.venue, createConcertDto.creatorId);
         });
     }
@@ -723,7 +723,7 @@ let ConcertController = class ConcertController {
     }
     deleteConcert(concertId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('deleteConcert aangeroepen');
+            // console.log('deleteConcert aangeroepen')
             return yield this.concertService.deleteConcertById(concertId);
         });
     }
@@ -1713,8 +1713,8 @@ let VenueController = class VenueController {
     }
     getVenue(venueId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('getVenue aangeroepen');
-            console.log(venueId);
+            // console.log('getVenue aangeroepen');
+            // console.log(venueId);
             return yield this.venueService.getVenueById(venueId);
         });
     }
@@ -1817,7 +1817,7 @@ let VenueRepository = class VenueRepository {
     }
     findById(venueId) {
         return tslib_1.__awaiter(this, void 0, void 0, function* () {
-            console.log('repository findById aangeroepen');
+            // console.log('repository findById aangeroepen')
             return yield this.venueModel.findOne({ _id: new mongoose_3.Types.ObjectId(venueId) });
         });
     }
@@ -1903,7 +1903,7 @@ let VenueService = class VenueService {
         this.venueRepository = venueRepository;
     }
     getVenueById(venueId) {
-        console.log('service getById aangeroepen');
+        // console.log('service getById aangeroepen');
         return this.venueRepository.findById(venueId);
     }
     getAllVenues() {

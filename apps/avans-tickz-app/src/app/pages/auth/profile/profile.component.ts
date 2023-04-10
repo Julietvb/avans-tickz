@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
         this.tickets = this.currentUser.myTickets;
       });
 
-      console.log(this.currentUser.favoriteArtists);
+      // console.log(this.currentUser.favoriteArtists);
       this.currentUser.favoriteArtists.forEach((artistId) => {
         this.artistService
           .getArtistById(artistId)

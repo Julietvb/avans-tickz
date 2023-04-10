@@ -33,7 +33,7 @@ export class DetailConcertComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log('Detail page aangeroepen');
+    // console.log('Detail page aangeroepen');
 
     this.route.paramMap.pipe(
       switchMap((params: ParamMap) => this.concertService.getConcertById(new Types.ObjectId(params.get('concertId')!))
@@ -52,11 +52,11 @@ export class DetailConcertComponent implements OnInit {
   }
 
   buyTickets(){
-    console.log(this.currentConcert._id)
-    console.log(ticket);
+    // console.log(this.currentConcert._id)
+    // console.log(ticket);
 
-    console.log('Original length: ' + this.currentConcert.tickets.length)
-    console.log('Original amount: ' + this.currentConcert.amountOfTickets)
+    // console.log('Original length: ' + this.currentConcert.tickets.length)
+    // console.log('Original amount: ' + this.currentConcert.amountOfTickets)
 
     var updatedConcert = this.currentConcert;
     var updatedUser = this.currentUser;
@@ -64,24 +64,26 @@ export class DetailConcertComponent implements OnInit {
     var ticket = updatedConcert.tickets.pop();
     updatedConcert.amountOfTickets =  updatedConcert.amountOfTickets.valueOf() - 1;
 
-    console.log('Updated length: ' + updatedConcert.tickets.length)
-    console.log('Updated amount: ' + updatedConcert.amountOfTickets)
-    console.log(ticket)
+    // console.log('Updated length: ' + updatedConcert.tickets.length)
+    // console.log('Updated amount: ' + updatedConcert.amountOfTickets)
+    // console.log(ticket)
 
     if(ticket != undefined){
-      console.log("Originele tickets: " + updatedUser.myTickets)
+      // console.log("Originele tickets: " + updatedUser.myTickets)
       updatedUser.myTickets.push(ticket);
-      console.log("Update tickets: " + updatedUser.myTickets)
+      // console.log("Update tickets: " + updatedUser.myTickets)
     }
 
     this.userService.updateUser(updatedUser._id, updatedUser).subscribe((returnedUser) => {this.returnedUser = returnedUser;
       this.authService.saveUserToLocalStorage(this.returnedUser);
-    console.log(this.returnedUser)})
+    // console.log(this.returnedUser)
+  })
 
     this.concertService
     .updateConcert(updatedConcert._id, updatedConcert)
     .subscribe((editedConcert) => {this.returnedConcert = editedConcert;
-    console.log(this.returnedConcert)});
+    // console.log(this.returnedConcert)
+  });
 
 
   }

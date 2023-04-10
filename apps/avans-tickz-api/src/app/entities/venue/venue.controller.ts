@@ -18,8 +18,8 @@ import {
   
     @Get(':venueId')
     async getVenue(@Param('venueId') venueId: string): Promise<Venue> {
-      console.log('getVenue aangeroepen');
-      console.log(venueId);
+      // console.log('getVenue aangeroepen');
+      // console.log(venueId);
       return await this.venueService.getVenueById(venueId);
     }
   

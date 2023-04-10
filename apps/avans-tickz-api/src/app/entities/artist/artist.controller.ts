@@ -32,7 +32,7 @@ export class ArtistController{
 
     @Delete(':artistId')
     async deleteArtist(@Param('artistId') artistId: string){
-        console.log('deleteArtist aangeroepen')
+        // console.log('deleteArtist aangeroepen')
         return await this.artistService.deleteArtistById(artistId);
     }
 }

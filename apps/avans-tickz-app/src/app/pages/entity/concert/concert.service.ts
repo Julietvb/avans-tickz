@@ -35,8 +35,8 @@ export class ConcertService {
   }
 
   createConcert(concert: Concert): Observable<Concert>{
-    console.log("createConcert aangeroepen")
-    console.log("createConcert" + concert)
+    // console.log("createConcert aangeroepen")
+    // console.log("createConcert" + concert)
 
     return this.httpClient.post<Concert>('http://localhost:3333/api/concerts',{
       title: concert.title,

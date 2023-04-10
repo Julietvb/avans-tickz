@@ -37,7 +37,7 @@ export class DetailComponent implements OnInit {
     this.followingList = new Array<User>()
     this.favoriteArtists = new Array<Artist>()
 
-    console.log('Detail page aangeroepen');
+    // console.log('Detail page aangeroepen');
     this.route.params.subscribe(params => {
     this.userId = new Types.ObjectId(params['userId']);
     this.followingList.length = 0;
@@ -72,7 +72,7 @@ export class DetailComponent implements OnInit {
   }
 
   follow(user: User){
-    console.log(user._id.toString())
+    // console.log(user._id.toString())
     this.userService.follow(user._id, this.loggedInUser).subscribe((user) => {
       if (user) {
         this.authService.saveUserToLocalStorage(user)
