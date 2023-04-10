@@ -272,7 +272,6 @@
                           {{ followUser.lastName }}</a
                         >
                       </div>
-                      <!-- <div class="text-muted fs-13px">{{artist.genre}}</div> -->
                     </div>
                     <a
                       [routerLink]="['../users', followUser._id]"
@@ -281,23 +280,24 @@
                     >
                   </div>
                 </div>
-                <div class="row" *ngIf="followingUsers.length == 0">
-                  <p>
-                    You do not follow anyone! Follow other users with similar
-                    interests to get specific reccommendations!
-                  </p>
-                </div>
-                <div class="text-center p-3">
-                  <a
-                    [routerLink]="['../users']"
-                    class="text-dark text-decoration-underline"
-                    >Show all users
-                    <i class="fa fa-arrow-right text-decoration-underline"></i
-                  ></a>
-                </div>
+
               </div>
             </div>
           </div>
+        </div>
+        <div class="row" *ngIf="followingUsers.length == 0">
+          <p>
+            You do not follow anyone! Follow other users with similar
+            interests to get specific reccommendations!
+          </p>
+        </div>
+        <div class="text-center p-3">
+          <a
+            [routerLink]="['../users']"
+            class="text-dark text-decoration-underline"
+            >Show all users
+            <i class="fa fa-arrow-right text-decoration-underline"></i
+          ></a>
         </div>
       </div>
     </div>
@@ -311,6 +311,7 @@
         *ngFor="let ticket of tickets"
       >
         <div class="ticket" *ngIf="ticket.concert != undefined">
+          <div [routerLink]="['../concerts/', ticket.concert._id]">
           <div
             class="ticket-head text-center"
             style="background-image: url({{ticket.concert.venue.venueImage}})"
@@ -343,6 +344,7 @@
               indien er vermoede is van fraude wordt het ticket geannuleerd.
             </div>
           </div>
+        </div>
         </div>
         <div class="ticket" *ngIf="ticket.concert == undefined">
           <div

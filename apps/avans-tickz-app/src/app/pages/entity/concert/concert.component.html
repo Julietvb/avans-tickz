@@ -1,4 +1,3 @@
-
 <div class="container">
   <div class="row mt-2">
     <h1 class="col-md-10">All concerts</h1>
@@ -20,23 +19,23 @@
         <div
           class="card-custom-img"
           style="
-            background-image: url({{concert.venue.venueImage}})
+            background-image: url({{ concert.venue.venueImage }})
           "
         ></div>
         <div class="card-custom-avatar">
           <img
             class="img-fluid"
-            src="{{concert.artist.artistImage}}"
+            src="{{ concert.artist.artistImage }}"
             alt="Avatar"
           />
         </div>
         <div class="card-body card-concert pb-1" style="overflow-y: auto">
           <h4 class="card-title">{{ concert.title }}</h4>
           <ul class="card-text">
-            <li>{{ concert.date | date: 'dd-MM-yyyy' }}</li>
+            <li>{{ concert.date | date : 'dd-MM-yyyy' }}</li>
             <li>{{ concert.time }}</li>
             <li>
-              <a routerLink="">{{ concert.venue.venueName }}</a>
+              {{ concert.venue.venueName }}
             </li>
             <li *ngIf="concert.amountOfTickets > 0">
               {{ concert.amountOfTickets }} ticket(s) left
@@ -58,11 +57,11 @@
             >Edit concert</a
           >
           <a
-          class="btn pull-right"
-          *ngIf="concert.creatorId != currentUser._id"
-          routerLink="{{concert._id}}"
-          >Read more</a
-        >
+            class="btn pull-right"
+            *ngIf="concert.creatorId != currentUser._id"
+            routerLink="{{ concert._id }}"
+            >Read more</a
+          >
         </div>
         <div
           class="card-footer pt-1 pb-3"

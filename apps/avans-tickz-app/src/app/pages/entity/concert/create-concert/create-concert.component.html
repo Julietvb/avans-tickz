@@ -106,7 +106,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="artistSelected" class="col-md-6">
+                <div *ngIf="artistSelected && artist != undefined" class="col-md-6">
                   <p> <strong> Chosen artist: {{artist.name}}</strong></p>
                   <ul>
                     <li>Genre: {{artist.genre}}</li>
@@ -129,7 +129,7 @@
                     </div>
                   </div>
                 </div>
-                <div *ngIf="venueSelected" class="col-md-6">
+                <div *ngIf="venueSelected && venue != undefined" class="col-md-6">
                   <p> <strong> Chosen venue: {{venue.venueName}}</strong></p>
                   <ul>
                     <li>Adres: {{venue.adres}} - {{venue.city}}</li>
@@ -167,7 +167,7 @@
                       class="invalid-feedback"
                     >
                       <div *ngIf="amountOfTickets.errors?.['required']">
-                        Please give a amount of tickets.
+                        Please give a valid amount of tickets.
                       </div>
                       <div *ngIf="amountOfTickets.errors?.['min']">
                         Amount of tickets must be at least 1
@@ -199,10 +199,10 @@
                       class="invalid-feedback"
                     >
                       <div *ngIf="ticketPrice.errors?.['required']">
-                        Please give a amount of tickets.
+                        Please give a valid price per ticket.
                       </div>
                       <div *ngIf="ticketPrice.errors?.['min']">
-                        Amount of tickets must be at least 1
+                        Price of tickets must be at least 0
                       </div>
                     </div>
                   </div>
