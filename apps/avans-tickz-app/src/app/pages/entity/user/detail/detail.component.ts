@@ -23,8 +23,8 @@ export class DetailComponent implements OnInit {
   loggedInUser!: User;
   followingList!: User[];
   isFollowing!: boolean;
-  favoriteArtists!: Artist[]
-  
+  favoriteArtists!: Artist[];
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -34,59 +34,62 @@ export class DetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.followingList = new Array<User>()
-    this.favoriteArtists = new Array<Artist>()
+    this.followingList = new Array<User>();
+    this.favoriteArtists = new Array<Artist>();
 
     // console.log('Detail page aangeroepen');
-    this.route.params.subscribe(params => {
-    this.userId = new Types.ObjectId(params['userId']);
-    this.followingList.length = 0;
-    this.favoriteArtists.length = 0;
-    
-    this.userService.getUserById(this.userId).subscribe((user) => {
-      this.currentUser = user;
-      this.currentUser.following.forEach(id => {
-        if (id.toString().valueOf() != "") {
-          this.userService.getUserById(id).subscribe((user) =>{
-            this.followingList.push(user);
-          })
-        }
-      });
-      this.authService.getUserFromLocalStorage().subscribe((localUser) => {
-        this.loggedInUser = localUser;
-        this.isFollowing = localUser.following.includes(user._id);
-      });
-      this.currentUser.favoriteArtists.forEach(artistId => {
-        this.artistService.getArtistById(artistId).subscribe((favoriteArtist) => {
-          this.favoriteArtists.push(favoriteArtist)
-        })
-      });
+    this.route.params.subscribe((params) => {
+      this.userId = new Types.ObjectId(params['userId']);
+      this.followingList.length = 0;
+      this.favoriteArtists.length = 0;
 
+      this.userService.getUserById(this.userId).subscribe((user) => {
+        this.currentUser = user;
+        this.currentUser.following.forEach((id) => {
+          if (id.toString().valueOf() != '') {
+            this.userService.getUserById(id).subscribe((user) => {
+              this.followingList.push(user);
+            });
+          }
+        });
+        this.authService.getUserFromLocalStorage().subscribe((localUser) => {
+          this.loggedInUser = localUser;
+          if (localUser != null && localUser != undefined) {
+            this.isFollowing = localUser.following.includes(user._id);
+          }
+        });
+        this.currentUser.favoriteArtists.forEach((artistId) => {
+          this.artistService
+            .getArtistById(artistId)
+            .subscribe((favoriteArtist) => {
+              this.favoriteArtists.push(favoriteArtist);
+            });
+        });
+      });
+      this.tabSelected = 'favoriteArtists';
     });
-    this.tabSelected = 'favoriteArtists'
-  })
   }
 
-  tabChange(tab: string){
+  tabChange(tab: string) {
     this.tabSelected = tab;
   }
 
-  follow(user: User){
+  follow(user: User) {
     // console.log(user._id.toString())
     this.userService.follow(user._id, this.loggedInUser).subscribe((user) => {
       if (user) {
-        this.authService.saveUserToLocalStorage(user)
+        this.authService.saveUserToLocalStorage(user);
         this.isFollowing = true;
       }
-    })
+    });
   }
 
-  unfollow(user: User){
+  unfollow(user: User) {
     this.userService.unfollow(user._id, this.loggedInUser).subscribe((user) => {
       if (user) {
-        this.authService.saveUserToLocalStorage(user)
+        this.authService.saveUserToLocalStorage(user);
         this.isFollowing = false;
       }
-    })
+    });
   }
 }
